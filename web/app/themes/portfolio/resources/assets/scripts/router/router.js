@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from '../views/Home.vue';
-import Project from '../views/Project.vue';
+import Projects from '../views/Projects.vue';
 import About from '../views/About.vue';
 
 Vue.use(Router);
@@ -13,7 +12,7 @@ const router = new Router({
     {
       path: '',
       name: 'home',
-      component: Home,
+      component: Projects,
       beforeEnter: (to, from, next) => {
         next();
       },
@@ -21,7 +20,7 @@ const router = new Router({
     {
       path: '/projects',
       name: 'projects',
-      component: Home,
+      component: Projects,
       beforeEnter: (to, from, next) => {
         next();
       },
@@ -29,7 +28,7 @@ const router = new Router({
     {
       path: '/project/:slug',
       name: 'project',
-      component: Project,
+      component: Projects,
       beforeEnter: (to, from, next) => {
         next();
       },

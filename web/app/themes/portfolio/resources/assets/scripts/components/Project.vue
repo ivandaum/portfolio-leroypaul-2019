@@ -1,5 +1,5 @@
 <template>
-  <div class="Project">
+  <div class="Project container">
 
   </div>
 </template>
@@ -9,6 +9,9 @@ export default {
   name: 'Project',
   data() {
       return {}
+  },
+  props: {
+    data: Object
   },
   mounted() {
     

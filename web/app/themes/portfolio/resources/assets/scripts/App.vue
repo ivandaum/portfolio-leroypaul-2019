@@ -18,6 +18,7 @@ export default {
   },
   mounted () {
     store.$save({projects: window.PROJECTS});
+    store.$emit('projectsLoaded');
   },
   components: { 
     Nav, 
@@ -27,6 +28,5 @@ export default {
 <style lang='scss'>
   .App {
     height: 100vh;
-    padding-top: 150px;
   }
 </style>
