@@ -1,12 +1,12 @@
 <template>
-  <div class="Header">
-    test
+  <div class="Home">
+    About
   </div>
 </template>
 
 <script>
 export default {
-  name:'Header',
+  name: 'About',
   data() {
       return {}
   },
@@ -16,7 +16,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .Header {
-    
+  .Home {
+    height: 100vh;
+    width: 100vw;
   }
 </style>

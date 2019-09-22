@@ -3,16 +3,24 @@ import Router from 'vue-router';
 
 import Home from '../views/Home.vue';
 import Project from '../views/Project.vue';
+import About from '../views/About.vue';
 
 Vue.use(Router);
-
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '',
       name: 'home',
+      component: Home,
+      beforeEnter: (to, from, next) => {
+        next();
+      },
+    },
+    {
+      path: '/projects',
+      name: 'projects',
       component: Home,
       beforeEnter: (to, from, next) => {
         next();
@@ -26,5 +34,16 @@ export default new Router({
         next();
       },
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: About,
+      beforeEnter: (to, from, next) => {
+        next();
+      },
+    },
   ],
-})
+});
+
+
+export default router;

@@ -1,10 +1,11 @@
 <template>
   <div id="app" class="App">
-    <Home />
+    <Nav />
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import Home from './views/Home.vue';
+import Nav from './components/Nav.vue';
 
 export default {
   name: 'App',
@@ -15,7 +16,7 @@ export default {
   mounted () {
   },
   components: { 
-    Home, 
+    Nav, 
   },
 }
 </script>
