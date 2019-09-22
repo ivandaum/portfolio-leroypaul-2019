@@ -9,8 +9,11 @@ use Sober\Controller\Controller;
 class App extends Controller
 {
     public function projects() {
-      $projects = \App\Model\Project::getLast();
-      return $projects;
+      return\App\Model\Project::getAll();
+    }
+
+    public function about() {
+      return \App\Model\About::getInformations();
     }
 
     public function title() {

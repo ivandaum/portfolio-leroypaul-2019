@@ -3,10 +3,9 @@ $font-dir: "../../fonts/";
 $ft-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 /** Colors **/
-$c-black: #000;
-$c-white: #fff;
-$c-grey: #1f1f1f;
-$c-pink: #ffc8a9;
+$black: #000;
+$white: #fff;
+
 /** Size **/
 $desktop-size: 1440px;
 $desktop-m-size: 1375px;
@@ -16,7 +15,5 @@ $phone-size: 720px;
 $phone-s-size: 320px;
 $desktop-padding: 70px;
 
-/** Typography **/
-$base-font-size: 16px;
-
-$filter:  sepia(100%) hue-rotate(-30deg)  brightness(90%);
+$greige: #dad3cb;
+$brown: #c5b8ac;

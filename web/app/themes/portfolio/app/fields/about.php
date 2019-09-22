@@ -28,16 +28,19 @@ $about = new FieldsBuilder('about');
 $about
     ->setLocation('options_page', '==', 'a-propos')
     ->addText('about_title', ['label' => 'Titre'])
-    ->addTextArea('about_description', ['label' => 'À propos de moi'])
-    ->addRepeater('about_experiences', [
-      'label' => 'Expériences',
-      'button_label' => 'Ajouter une expérience',
+    ->addEmail('about_email', ['label' => 'Email de contact'])
+    ->addWysiwyg('about_description', ['label' => 'À propos de moi'])
+    ->addRepeater('about_social_networks', [
+      'label' => 'Réseaux sociaux',
+      'button_label' => 'Ajouter un lien',
       'layout' => 'columns',
     ])
+      ->addText('social_networks-name', ['placeholder' => 'Nom du réseau'])
+      ->addUrl('social_networks-link', ['placeholder' => 'Lien vers le réseau'])
       // ->addSelect('experience_years')
       // ->addChoices($years)
       // ->setDefaultValue($years[0])
-      ->addText('about_experience-time', ['placeholder' => 'Période (exemple : '. $currentYear . '-' . ($currentYear-1) . ')'])
-      ->addText('about_experience-title', ['placeholder' => 'Intitulé'])
+      // ->addText('about_experience-time', ['placeholder' => 'Période (exemple : '. $currentYear . '-' . ($currentYear-1) . ')'])
+      // ->addText('about_experience-title', ['placeholder' => 'Intitulé'])
     ->endRepeater();
 return $about;

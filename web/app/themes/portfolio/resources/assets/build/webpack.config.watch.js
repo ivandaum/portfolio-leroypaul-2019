@@ -23,15 +23,15 @@ module.exports = {
   devtool: '#cheap-module-source-map',
   stats: false,
   plugins: [
-    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new BrowserSyncPlugin({
       target,
-      open: config.open,
+      // open: config.open,
       proxyUrl: config.proxyUrl,
       watch: config.watch,
-      delay: 500,
+      delay: 1000,
     }),
   ],
 };

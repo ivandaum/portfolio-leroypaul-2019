@@ -15,7 +15,7 @@ class Project
     return self::$instance;
   }
 
-  public static function getLast() {
+  public static function getAll() {
     $args = [
       'posts_per_page' => -1,
       'post_type' => array(POST_TYPE__PROJECT)
@@ -31,33 +31,33 @@ class Project
     foreach($array as $k => $p) {
       $f = [];
       $f['id'] = $p->ID;
-
       $f['url'] = \get_permalink($p->ID);
       $f['type'] = $p->post_type;
       $f['slug'] = $p->slug;
       $f['title'] = $p->post_title;
-      $f['description'] = get_field('description',$p->ID);
-      
-      $f['preview'] = [
-        'image' => get_field('preview_image',$p->ID)['sizes']['large'] ?: null
+
+      $f['preview_image'] = get_field('project_preview-image', $p->ID);
+      $f['date'] = get_field('project_date', $p->ID);
+      $f['subtitle'] = get_field('project_subtitle', $p->ID);
+      $f['description'] = get_field('project_description',$p->ID);
+      $f['client'] = get_field('project_client',$p->ID);
+      $f['project_url'] = [
+        'behance' => get_field('project_url-behance',$p->ID),
+        'live' => get_field('project_url-live',$p->ID),
       ];
 
-      $f['content'] = [];
       $content = get_field('project_content', $p->ID) ?: [];
-
+      $f['content'] = [];
       foreach($content as $c) {
         $entry = [];
-
         $type = !isset($c['type']) ?: $c['type'];
         if(!$type) continue;
-
         if($type == 'image') {
           $entry = [
             'type' => 'image',
             'url' => $c['image']['sizes']['large']
           ];
         }
-
         $f['content'][] = $entry;
       }
 

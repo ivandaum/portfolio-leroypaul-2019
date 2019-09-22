@@ -21,6 +21,6 @@ export default {
 </script>
 <style lang='scss'>
   .App {
-    color: pink;
+    height: 100vh;
   }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <div class="Home">
-    Homepage
+  <div class="Project">
+
   </div>
 </template>
 
 <script>
 export default {
-  name:'Home',
+  name: 'Project',
   data() {
       return {}
   },
@@ -16,8 +16,4 @@ export default {
 }
 </script>
 <style lang="scss">
-  .Home {
-    height: 100vh;
-    width: 100vw;
-  }
 </style>
