@@ -1,62 +1,7 @@
 /** Responsive **/
-
-@mixin desktop-down {
-  @media all and (max-width: $desktop-size) {
-    @content;
-  }
-}
-
-@mixin desktop-m-down {
-  @media all and (max-width: $desktop-m-size) {
-    @content;
-  }
-}
-
-@mixin desktop-s-down {
-  @media all and (max-width: $desktop-s-size) {
-    @content;
-  }
-}
-
-
-@mixin desktop-s-up {
-  @media all and (min-width: $desktop-s-size) {
-    @content;
-  }
-}
-
-@mixin desktop-xs-down {
-  @media all and (max-width: $desktop-xs-size) {
-    @content;
-  }
-}
-
-@mixin desktop-xs-up {
-  @media all and (min-width: $desktop-xs-size) {
-    @content;
-  }
-}
-
-
-@mixin desktop {
-  @media all and (min-width: $desktop-s-size) {
-    @content;
-  }
-}
-@mixin tablet {
-  @media all and (max-width: $desktop-s-size) and (min-width: $phone-size) {
-    @content;
-  }
-}
-
-@mixin phone {
-  @media all and (max-width: $phone-size) {
-    @content;
-  }
-}
-
-@mixin tablet-phone {
-  @media all and (max-width: $desktop-s-size) {
-    @content;
-  }
+@mixin text-border($color, $size: 1px) {
+  // text-shadow: 1px 0 0 $color, -1px 0 0 $color, 0 1px 0 $color, 0 -1px 0 $color, 0.5px 0.5px $color, -0.5px -0.5px 0 $color, 0.5px -0.5px 0 $color, -0.5px 0.5px 0 $color;
+  -webkit-text-stroke-width: $size;
+  -webkit-text-stroke-color: $color;
+  color: transparent;
 }

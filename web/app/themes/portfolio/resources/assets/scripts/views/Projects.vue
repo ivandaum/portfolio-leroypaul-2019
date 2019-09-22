@@ -1,7 +1,13 @@
 <template>
   <div class="Projects container-fluid">
-    <div class="project container-fluid" v-for="(project, i) in projects" :key="i" v-show="i == current">
-      <SlidingTitle :title="project.title"/>
+    <div class="Projects__project" v-for="(project, i) in projects" :key="i" :class="{isActive: i == current}">
+      <div class="Projects__project--header">
+        <div class="Projects__project--title">
+          <transition name="slide-in">
+            <SlidingTitle :title="project.title" :isActive="i == current" v-show="i == current" />
+          </transition>
+        </div>
+      </div>
       <Project :data="project" v-show="i == current && project.active"/>
     </div>
   </div>
@@ -17,7 +23,7 @@ export default {
   data() {
       return {
         projects: [],
-        current: 0,
+        current: 1,
       }
   },
   mounted() {
@@ -27,6 +33,14 @@ export default {
         this.$set(this.projects, i, projects[i]);
       }
     })
+
+    setInterval( () => {
+      if(this.current + 1 > this.projects.length - 1) {
+        this.current = 0;
+      } else {
+        this.current++;
+      }
+    }, 3000);
   },
   components: {
     SlidingTitle,
@@ -37,17 +51,33 @@ export default {
 <style lang="scss">
   @import "../../styles/conf/variables";
 
-  .Projects {
-    color: $white;
-    display:flex;
-    flex-wrap: wrap;
-    align-items: center;
-    height: 100vh;
+  .Projects__project {
+    position: absolute;
+    top: 0;
     width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 
-    .project {
-      position: absolute;
-      top: 0;
+    &.isActive {
+      z-index: 2;
+      pointer-events: auto;
+    }
+
+    &--header {
+      display:flex;
+      flex-wrap: wrap;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+    }
+
+    &--title {
+      width: 100%;
+      height: $title-height;
+      overflow: hidden;
+      position: relative;
+      pointer-events: none;
     }
   }
 </style>

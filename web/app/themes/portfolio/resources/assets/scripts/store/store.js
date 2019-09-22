@@ -3,7 +3,6 @@ export default {
   events: [],
   $save(obj){
     for(let name in obj) {
-      console.log('-- saved : ' + name + ' for : ', obj[name]);
       this.datas[name] = obj[name];
     }
   },
