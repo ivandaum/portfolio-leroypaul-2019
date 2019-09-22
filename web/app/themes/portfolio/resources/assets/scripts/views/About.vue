@@ -1,5 +1,5 @@
 <template>
-  <div class="Home">
+  <div class="About">
     About
   </div>
 </template>
@@ -11,12 +11,12 @@ export default {
       return {}
   },
   mounted() {
-    
+    console.log('About mounted');
   },
 }
 </script>
 <style lang="scss">
-  .Home {
+  .About {
     height: 100vh;
     width: 100vw;
   }

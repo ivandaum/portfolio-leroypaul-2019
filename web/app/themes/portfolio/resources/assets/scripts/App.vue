@@ -1,11 +1,14 @@
 <template>
   <div id="app" class="App">
     <Nav />
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
 import Nav from './components/Nav.vue';
+import store from './store/store';
 
 export default {
   name: 'App',
@@ -14,6 +17,7 @@ export default {
     }
   },
   mounted () {
+    store.$save({projects: window.PROJECTS});
   },
   components: { 
     Nav, 
@@ -23,5 +27,6 @@ export default {
 <style lang='scss'>
   .App {
     height: 100vh;
+    padding-top: 150px;
   }
 </style>

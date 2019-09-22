@@ -1,0 +1,11 @@
+.container {
+  max-width: $desktop-s-size;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container-fluid {
+  margin: 0;
+  position: relative;
+  max-width: 100%;
+}
