@@ -33,7 +33,7 @@ class Project
       $f['id'] = $p->ID;
       $f['url'] = \get_permalink($p->ID);
       $f['type'] = $p->post_type;
-      $f['slug'] = $p->slug;
+      $f['slug'] = $p->post_name;
       $f['title'] = $p->post_title;
 
       $f['preview_image'] = get_field('project_preview-image', $p->ID);
@@ -50,20 +50,16 @@ class Project
       $f['content'] = [];
       foreach($content as $c) {
         $entry = [];
-        $type = !isset($c['type']) ?: $c['type'];
-        if(!$type) continue;
-        if($type == 'image') {
-          $entry = [
-            'type' => 'image',
-            'url' => $c['image']['sizes']['large']
-          ];
-        }
+        $type = !isset($c['disposition']) ?: $c['disposition'];
+        $entry = [
+          'type' => $type,
+          'url' => $c['image']['sizes']['large']
+        ];
         $f['content'][] = $entry;
       }
-
+      
       $output[] = $f;
     }
-
     return $output;
   }
 }

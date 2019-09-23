@@ -19,15 +19,15 @@ $post
     'button_label' => 'Ajouter un média',
     'layout' => 'columns',
   ])
-  ->addSelect('type')
-    ->addChoice('image')
-    ->setDefaultValue('image')
+  ->addSelect('disposition')
+    ->addChoice('center')
+    ->addChoice('full')
+    ->setDefaultValue('center')
   ->addImage('image', [
     'label' => 'Image',
     'instructions' => '',
     'return_format' => 'array',
     'library' => 'all',
   ])
-    ->conditional('type', '==', 'image')
   ->endRepeater();
 return $post;

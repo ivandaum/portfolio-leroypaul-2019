@@ -1,9 +1,9 @@
 <template>
   <nav class="Nav">
-    <router-link to="/">Home</router-link>
+    <router-link :to="{name: 'home'}">Home</router-link>
     <div class="Nav__right">
-      <router-link to="/projects">All projects</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link :to="{name: 'projects'}">All projects</router-link>
+      <router-link :to="{name: 'about'}">About</router-link>
     </div>
   </Nav>
 </template>
@@ -29,6 +29,7 @@ export default {
     padding: 100px 100px 0 100px;
     justify-content: space-between;
     top: 0;
+    z-index: 10;
 
     a {
       color: $white;

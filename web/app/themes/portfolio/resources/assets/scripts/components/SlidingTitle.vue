@@ -1,25 +1,25 @@
 <template>
   <div class="SlidingTitle">
-    <div class="SlidingTitle__text">
-      <div class="js-sliding-text" :style="{transform: 'translateX(' + positions[i-1] + 'px)'}" :class="{white: i == 1}" v-for="i in elementsCount" :key="i">{{title}}</div>
-    </div>
+    <div class="SlidingTitle__text js-sliding-text" :style="{transform: 'translateX(' + positions[i-1] + 'px)'}" :class="{white: i == whiteIndex}" v-for="i in elementsCount" :key="i">{{title}}</div>
   </div>
 </template>
 
 <script>
 import store from '../store/store';
+import { rand } from '../utils/functions';
 
 export default {
   name: 'SlidingTitle',
   data() {
       return {
         positions: [],
-        elementsCount: 1
+        elementsCount: 10,
+        whiteIndex: 1
       }
   },
   props: {
     title: String,
-    isActive: Boolean
+    isActive: Boolean,
   },
   mounted() {
     store.$on('projectsLoaded', () => {
@@ -50,6 +50,9 @@ export default {
         if(x + this.stringsWidths[i] < 0) {
           x += this.stringsTotalWidth
         }
+        if(x > store.windowWidth) {
+          x -= this.stringsTotalWidth
+        }
         this.$set(this.positions, i, x)
       });
     })
@@ -69,6 +72,7 @@ export default {
 
       this.$nextTick( () => {
         const margin = 50;
+        const randomizeStartPosition = rand(0, store.windowWidth * .25);
         const $elements = this.$el.querySelectorAll('.js-sliding-text');
         
         $elements.forEach( ($el,i) => {
@@ -78,6 +82,7 @@ export default {
           this.stringsTotalWidth += width;
         });
 
+        this.whiteIndex = rand(0, this.elementsCount);
         this.positionCalcWhenShown = this.isActive;
       })
     }
@@ -99,7 +104,7 @@ export default {
     height: $title-height;
     overflow: hidden;
 
-    &__text div {
+    &__text {
       display: block;
       margin-right: 3rem;
       position: absolute;
