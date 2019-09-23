@@ -37,7 +37,7 @@
       </div>
       <div class="Project__pictures">
         <div v-for="(img, i) in data.content" :key="i" :class="{container: img.type == 'center', 'container-fluid': img.type == 'full' }">
-          <img :src="img.url" :alt="data.title" />
+          <img :width="img.width" :height="img.height" :src="img.url" :alt="data.title" />
         </div>
       </div>
     </div>
@@ -64,7 +64,6 @@ export default {
 
   },
   mounted() {
-    console.log(this.data.content);
   },
   components: {
     SlidingTitle,
@@ -170,6 +169,7 @@ export default {
       padding: 10rem 0;
       div {
         margin-bottom: 10rem;
+        background: $grey;
       }
 
       img {
