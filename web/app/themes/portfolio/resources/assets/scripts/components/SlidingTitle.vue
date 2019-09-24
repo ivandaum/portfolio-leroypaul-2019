@@ -1,6 +1,11 @@
 <template>
   <div class="SlidingTitle">
-    <div class="SlidingTitle__text js-sliding-text" :style="{transform: 'translateX(' + positions[i-1] + 'px)'}" :class="{white: i == whiteIndex}" v-for="i in elementsCount" :key="i">{{title}}</div>
+    <div class="SlidingTitle__text js-sliding-text" 
+    v-for="i in elementsCount" 
+    :key="i"
+    :style="{transform: 'translateX(' + positions[i-1] + 'px)'}" 
+    :class="{white: i % 3 == 0}" 
+    >{{title}}</div>
   </div>
 </template>
 
@@ -14,33 +19,35 @@ export default {
       return {
         positions: [],
         elementsCount: 10,
-        whiteIndex: 1
       }
   },
   props: {
     title: String,
     isActive: Boolean,
+    index: Number
   },
   mounted() {
     store.$on('projectsLoaded', () => {
       this.setPositions();
-      this.canTranslate = false;
-      this.timeoutAnimation = null;
+      // this.canTranslate = false;
+      // this.timeoutAnimation = null;
     });
     
     store.$on('render', () => {
 
-      if(!this.isActive && this.canTranslate && this.timeoutAnimation === null) {
-        this.timeoutAnimation = setTimeout( () => this.canTranslate = false, 1000);
-      } else if (this.isActive && !this.canTranslate) {
-        this.canTranslate = true;
-        clearTimeout(this.timeoutAnimation);
-        this.timeoutAnimation = null;
-      }
+      // if(!this.isActive && this.canTranslate && this.timeoutAnimation === null) {
+      //   this.timeoutAnimation = setTimeout( () => this.canTranslate = false, 1000);
+      // } else if (this.isActive && !this.canTranslate) {
+      //   this.canTranslate = true;
+      //   clearTimeout(this.timeoutAnimation);
+      //   this.timeoutAnimation = null;
+      // }
 
       // If we can't update elements, break
-      if(!this.canTranslate) return false;
+      // if(!this.canTranslate) return false;
+      if(!this.isActive) return false;
 
+      // If positions where never calculated (because item was hidden for example)
       if(!this.positionCalcWhenShown) {
         this.setPositions();
       }
@@ -72,7 +79,7 @@ export default {
 
       this.$nextTick( () => {
         const margin = 50;
-        const randomizeStartPosition = rand(0, store.windowWidth * .25);
+        const randomizeStartPosition = rand(0, store.$get('windowWidth') * .25);
         const $elements = this.$el.querySelectorAll('.js-sliding-text');
         
         $elements.forEach( ($el,i) => {
@@ -82,7 +89,6 @@ export default {
           this.stringsTotalWidth += width;
         });
 
-        this.whiteIndex = rand(0, this.elementsCount);
         this.positionCalcWhenShown = this.isActive;
       })
     }

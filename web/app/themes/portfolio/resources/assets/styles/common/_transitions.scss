@@ -18,13 +18,21 @@
   transition: transform 1s;
 }
 
+.picture-slide-in-enter-active {
+  z-index: 5;
+}
+
+.picture-slide-in-leave-active {
+  z-index: 1;
+}
 
 .picture-slide-in-enter {
   transform: translateY(100%);
 }
-.picture-slide-in-to, .picture-slide-in-leave {
+.picture-slide-in-to {
   transform: translateY(0);
 }
-.picture-slide-in-leave-to {
+.picture-slide-in-leave-to,
+.picture-slide-in-leave {
   transform: translateY(0);
 }
