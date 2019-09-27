@@ -1,6 +1,6 @@
 <template>
   <div class="SlidingTitle">
-    <div class="SlidingTitle__text js-sliding-text" 
+    <div class="js-sliding-text" 
     v-for="i in elementsCount" 
     :key="i"
     :style="{transform: 'translateX(' + positions[i-1] + 'px)'}" 
@@ -34,7 +34,7 @@ export default {
     });
     
     store.$on('render', () => {
-
+      return false;
       // if(!this.isActive && this.canTranslate && this.timeoutAnimation === null) {
       //   this.timeoutAnimation = setTimeout( () => this.canTranslate = false, 1000);
       // } else if (this.isActive && !this.canTranslate) {
@@ -100,30 +100,23 @@ export default {
   @import "../../styles/conf/mixins";
 
   .SlidingTitle {
-    font-size: 10vw;
-    text-transform: uppercase;
-    font-weight: bold;
     position: absolute;
-    display: block;
     white-space: nowrap;
     width: 100%;
     height: $title-height;
     overflow: hidden;
+    font-family: $font-title;
+    font-weight: bold;
+    background:red;
 
-    &__text {
+    > div {
+      background: green;
       display: block;
       margin-right: 3rem;
       position: absolute;
       left: 0;
       top: 0;
-      &:last-child {
-        margin-right: 0;
-      }
-      @include text-border($white);
-
-      &.white {
-        color: $white;
-      }
+      color: $white;
     }
   }
 </style>

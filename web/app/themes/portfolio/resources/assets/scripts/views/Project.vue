@@ -1,8 +1,20 @@
 <template>
-  <div class="ProjectContent" :class="{isOpen: isOpen}">
-    <div class="ProjectContent__inner">
-      <div class="ProjectContent__info container">
-        <div class="ProjectContent__info--left">
+  <div class="Project" :class="{isActive: isActive, isOpen: isOpen}">
+    <div class="Project__header">
+      <transition name="slide-in">
+        <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
+            <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
+        </router-link>
+      </transition>
+      <div class="Project__picture">
+        <transition name="picture-slide-in">
+          <img :src="data.preview_image.sizes.large" v-show="showHeader()" />
+        </transition>
+      </div>
+    </div>
+    <div class="Project__inner">
+      <div class="Project__info container">
+        <div class="Project__info--left">
           <div v-if="data.client">
             <strong>Client</strong>
             <p>{{data.client}}</p>
@@ -15,12 +27,12 @@
             <a :href="url" v-for="(url, name) in data.project_url" :key="name">Voir sur {{name}}</a>
           </div>
         </div>
-        <div class="ProjectContent__info--right">
+        <div class="Project__info--right">
           <strong v-if="data.subtitle">{{data.subtitle}}</strong>
           <div v-if="data.description">{{data.description}}</div>
         </div>
       </div>
-      <div class="ProjectContent__pictures">
+      <div class="Project__pictures">
         <div v-for="(img, i) in data.content" :key="i" :class="{container: img.type == 'center', 'container-fluid': img.type == 'full' }">
           <img :width="img.width" :height="img.height" :src="img.url" :alt="data.title" />
         </div>
@@ -33,15 +45,25 @@
 import SlidingTitle from '../components/SlidingTitle.vue';
 
 export default {
-  name: 'ProjectContent',
+  name: 'Project',
   data() {
       return {
+
       }
   },
   props: {
     data: Object,
     isOpen: Boolean,
-    index: Number
+    isActive: Boolean,
+    isGrid: Boolean,
+    index: Number,
+  },
+  methods: {
+    showHeader() {
+      if(this.isGrid) return false;
+
+      return this.isActive || this.isOpen;
+    }
   },
   updated() {
 
@@ -55,25 +77,68 @@ export default {
 </script>
 <style lang="scss">
   @import "../../styles/conf/variables";
-  .ProjectContent {
+  .Project {
     position: absolute;
-    top: 100vh;
+    top: 0;
     width: 100%;
     height: 100%;
     z-index: 2;
-    display: none;
 
     &.isOpen &__preview {
       transform: rotate(0deg) scale(1.2);
     }
 
-    &.isOpen {
+    &.isOpen &__inner {
       display: block;
+    }
+
+    &.isActive {
+      z-index: 5;
+    }
+
+    &__header {
+      display:flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100%;
+    }
+
+    &__title {
+      height: $title-height;
+      font-size: 8.5vw;
+      text-transform: uppercase;
+      width: 100%;
+      z-index: 2;
+      pointer-events: auto;
+    }
+
+    &__picture {
+      width: 30vw;
+      height: 45vw;
+      max-height:70vh;
+      max-width: 50vh;
+      position: absolute;
+      overflow: hidden;
+      z-index: 1;
+      transform-origin: center center;
+      transform: rotate(10deg);
+      pointer-events: none;
+      transition: transform .5s ease-in-out;
+      img {
+        position: absolute;
+        object-fit: cover;
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
     }
 
     &__inner {
       min-height: 100vh;
       background: $grey-light;
+      display: none;
     }
 
     &__info {

@@ -1,6 +1,6 @@
 <template>
   <nav class="Nav">
-    <router-link :to="{name: 'home'}">Home</router-link>
+    <router-link :to="{name: 'home'}" class="Nav__logo">Paul.</router-link>
     <div class="Nav__right">
       <router-link :to="{name: 'projects'}">All projects</router-link>
       <router-link :to="{name: 'about'}">About</router-link>
@@ -30,16 +30,23 @@ export default {
     justify-content: space-between;
     top: 0;
     z-index: 10;
+    font-family: $font-title;
 
     a {
+      letter-spacing: .18px;
       color: $white;
-      font-weight: bold;
       text-decoration: none;
     }
 
+    &__logo {
+      font-size: .875rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
     &__right {
+      font-size: .75rem;
       a:last-of-type {
-        margin-left: 1em;
+        margin-left: 1rem;
       }
     }
   }
