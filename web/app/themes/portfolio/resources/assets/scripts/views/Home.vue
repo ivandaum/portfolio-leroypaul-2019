@@ -23,13 +23,13 @@ export default {
   data() {
     return {
       projects: [],
-      current: 2,
+      current: -1,
       slug: '',
       grid: false,
     }
   },
   watch:{
-    $route (to, from){
+    $route (to, from) {
       this.grid = this.$route.params.grid;
       this.slug = this.$route.params.slug;
     }
@@ -43,20 +43,16 @@ export default {
       for(let i = 0; i < projects.length; i++) {
         this.$set(this.projects, i, projects[i]);
       }
-    })
+    });
 
-    // setInterval( () => {
-    //   if(this.current + 1 > this.projects.length - 1) {
-    //     this.current = 0;
-    //   } else {
-    //     this.current++;
-    //   }
-    // }, 3000);
+    store.$on('switchProject', (value) => {
+      this.current = value;
+    });
   },
   methods: {
     isActive(index) {
       if(this.grid) return false;
-      return index == this.current;
+      return index == this.current
     },
     isOpen(slug) {
       if(this.grid) return false;

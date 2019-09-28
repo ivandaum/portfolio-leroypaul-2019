@@ -2,7 +2,7 @@
   <div class="Project" :class="{isActive: isActive, isOpen: isOpen}">
     <div class="Project__header">
       <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
-        <transition name="slide-in">
+        <transition :name="'slide' + transitionDirection()">
               <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
         </transition>
       </router-link>
@@ -43,13 +43,14 @@
 
 <script>
 import SlidingTitle from '../components/SlidingTitle.vue';
+import store from '../store/store';
 
 export default {
   name: 'Project',
   data() {
-      return {
-
-      }
+    return {
+      store: store
+    }
   },
   props: {
     data: Object,
@@ -63,12 +64,16 @@ export default {
       if(this.isGrid) return false;
 
       return this.isActive || this.isOpen;
+    },
+    transitionDirection() {
+      let direction = '-top';
+      return direction;
     }
   },
-  updated() {
-
-  },
   mounted() {
+    store.$on('switchProject', () => {
+
+    });
   },
   components: {
     SlidingTitle,
