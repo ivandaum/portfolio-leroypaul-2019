@@ -33,18 +33,19 @@ export default {
     font-family: $font-title;
 
     a {
-      letter-spacing: .18px;
       color: $white;
       text-decoration: none;
     }
 
     &__logo {
       font-size: .875rem;
+      letter-spacing: 2px;
       font-weight: bold;
       text-transform: uppercase;
     }
     &__right {
       font-size: .75rem;
+      letter-spacing: .18px;
       a:last-of-type {
         margin-left: 1rem;
       }

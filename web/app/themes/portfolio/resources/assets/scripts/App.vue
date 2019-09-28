@@ -23,9 +23,13 @@ export default {
       windowHeight: window.innerHeight,
     });
     store.$emit('projectsLoaded');
-
     this.raf = null;
-    this.render();
+
+    this.$nextTick(() => {
+      setTimeout( () => {
+        this.render();
+      }, 200);
+    })
   },
   methods: {
     render() {

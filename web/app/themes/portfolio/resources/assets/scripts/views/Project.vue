@@ -1,11 +1,11 @@
 <template>
   <div class="Project" :class="{isActive: isActive, isOpen: isOpen}">
     <div class="Project__header">
-      <transition name="slide-in">
-        <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
-            <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
-        </router-link>
-      </transition>
+      <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
+        <transition name="slide-in">
+              <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
+        </transition>
+      </router-link>
       <div class="Project__picture">
         <transition name="picture-slide-in">
           <img :src="data.preview_image.sizes.large" v-show="showHeader()" />
@@ -77,6 +77,8 @@ export default {
 </script>
 <style lang="scss">
   @import "../../styles/conf/variables";
+  @import "../../styles/conf/mixins";
+  
   .Project {
     position: absolute;
     top: 0;
@@ -112,27 +114,13 @@ export default {
       width: 100%;
       z-index: 2;
       pointer-events: auto;
+      display: block;
+      overflow: hidden;
+      position: relative;
     }
 
     &__picture {
-      width: 30vw;
-      height: 45vw;
-      max-height:70vh;
-      max-width: 50vh;
-      position: absolute;
-      overflow: hidden;
-      z-index: 1;
-      transform-origin: center center;
-      transform: rotate(10deg);
-      pointer-events: none;
-      transition: transform .5s ease-in-out;
-      img {
-        position: absolute;
-        object-fit: cover;
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
+      @include image-rotated();
     }
 
     &__inner {

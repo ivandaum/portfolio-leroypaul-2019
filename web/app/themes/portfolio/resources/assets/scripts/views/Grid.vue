@@ -42,6 +42,7 @@ export default {
 }
 </script>
 <style lang="scss">
+  @import "../../styles/conf/mixins";
   .Grid {
     height: 100vh;
     width: 100vw;
@@ -51,28 +52,10 @@ export default {
     justify-content: center;
 
     &__picture {
-      width: 30vw;
-      height: 45vw;
-      max-height:70vh;
-      max-width: 50vh;
-      position: absolute;
-      overflow: hidden;
-      z-index: 1;
-      transform-origin: center center;
-      transform: rotate(10deg);
-      pointer-events: none;
-      transition: transform .5s ease-in-out;
+      @include image-rotated();
 
       &.isActive {
         z-index: 2;
-      }
-
-      img {
-        position: absolute;
-        object-fit: cover;
-        display: block;
-        height: 100%;
-        width: 100%;
       }
     }
   }
