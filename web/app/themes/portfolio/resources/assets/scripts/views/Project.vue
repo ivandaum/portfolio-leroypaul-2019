@@ -7,8 +7,8 @@
         </transition>
       </router-link>
       <div class="Project__picture">
-        <transition name="picture-slide-in">
-          <img :src="data.preview_image.sizes.large" v-show="showHeader()" />
+        <transition :name="'picture-slide' + transitionDirection()">
+          <img :src="data.preview_image.sizes.large" v-show="showHeader()"/>
         </transition>
       </div>
     </div>
@@ -59,6 +59,8 @@ export default {
     isGrid: Boolean,
     index: Number,
   },
+  updated() {
+  },
   methods: {
     showHeader() {
       if(this.isGrid) return false;
@@ -66,14 +68,12 @@ export default {
       return this.isActive || this.isOpen;
     },
     transitionDirection() {
-      let direction = '-top';
-      return direction;
+      if(store.scrollDirection < 0) return '-bottom';
+
+      return '-top';
     }
   },
   mounted() {
-    store.$on('switchProject', () => {
-
-    });
   },
   components: {
     SlidingTitle,

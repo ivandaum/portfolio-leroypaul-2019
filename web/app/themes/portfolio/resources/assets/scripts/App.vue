@@ -35,7 +35,7 @@ export default {
         store.$emit('switchProject', 0);
         this.render();
       }, 200);
-    })
+    });
   },
   methods: {
     render() {
@@ -58,8 +58,8 @@ export default {
         current = projectsCount - 1;
       }
 
-      store.project = current
-      store.scrollDirection = direction
+      store.project = current;
+      store.scrollDirection = direction;
 
       store.$emit('switchProject', current);
       
