@@ -29,7 +29,7 @@ export default {
     padding: 100px 100px 0 100px;
     justify-content: space-between;
     top: 0;
-    z-index: 10;
+    z-index: 50;
     font-family: $font-title;
 
     a {

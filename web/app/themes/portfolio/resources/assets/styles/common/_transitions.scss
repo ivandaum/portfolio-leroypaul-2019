@@ -5,6 +5,10 @@
   transition: transform 1s;
 }
 
+.slide-top-enter-active, .slide-bottom-enter-active {
+  transition-delay: .3s;
+}
+
 // ----------------------
 
 .slide-top-enter {

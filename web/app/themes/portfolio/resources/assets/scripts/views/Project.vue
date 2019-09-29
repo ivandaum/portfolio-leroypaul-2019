@@ -1,15 +1,23 @@
 <template>
   <div class="Project" :class="{isActive: isActive, isOpen: isOpen}">
     <div class="Project__header">
+      <div class="Project__number">
+        <transition :name="'slide' + transitionDirection()">
+          <p v-show="showHeader()">{{ formatedIndex() }}</p>
+        </transition>
+      </div>
+
       <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
         <transition :name="'slide' + transitionDirection()">
               <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
         </transition>
       </router-link>
+
       <div class="Project__picture">
         <transition :name="'picture-slide' + transitionDirection()">
           <img :src="data.preview_image.sizes.large" v-show="showHeader()"/>
         </transition>
+
       </div>
     </div>
     <div class="Project__inner">
@@ -44,6 +52,7 @@
 <script>
 import SlidingTitle from '../components/SlidingTitle.vue';
 import store from '../store/store';
+import { PAGES_NAME } from './../utils/constants';
 
 export default {
   name: 'Project',
@@ -56,14 +65,13 @@ export default {
     data: Object,
     isOpen: Boolean,
     isActive: Boolean,
-    isGrid: Boolean,
     index: Number,
   },
   updated() {
   },
   methods: {
     showHeader() {
-      if(this.isGrid) return false;
+      if(store.page == PAGES_NAME.grid) return false;
 
       return this.isActive || this.isOpen;
     },
@@ -71,6 +79,15 @@ export default {
       if(store.scrollDirection < 0) return '-bottom';
 
       return '-top';
+    },
+    formatedIndex() {
+      let number = '';
+      
+      if(this.index + 1 < 10) {
+        number += '0';
+      }
+      number += this.index + 1;
+      return number;
     }
   },
   mounted() {
@@ -99,8 +116,28 @@ export default {
       display: block;
     }
 
+    &.isOpen &__title {
+      cursor: default;
+    }
+
     &.isActive {
       z-index: 5;
+    }
+
+    &__number {
+      font-size: 1.25rem;
+      font-family: $font-title;
+      height: 5.3125rem;
+      width: 5.3125rem;
+      border-radius: 50%;
+      border: 2px solid $white;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      margin-top: -#{$title-height * 0.75};
+      padding: 3rem;
     }
 
     &__header {

@@ -1,7 +1,7 @@
 <template>
   <div class="Grid">
     <div class="Grid__titles">
-      <p></p>
+      <p v-for="(project, i) in projects" :key="'grid-title-' + i" v-show="store.page == PAGES_NAME.grid">{{project.title}}</p>
     </div>
     <div class="Grid__picture" 
       v-for="(project, i) in projects" 
@@ -16,16 +16,20 @@
 </template>
 
 <script>
+import store from './../store/store';
+import { PAGES_NAME } from './../utils/constants';
+
 export default {
   name: 'Grid',
   data() {
       return {
-        hovered: null
+        hovered: null,
+        store: store,
+        PAGES_NAME:PAGES_NAME
       }
   },
   props: {
     projects: Array,
-    isGrid: Boolean,
     current: Number
   },
   mounted() {
@@ -50,6 +54,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 10;
+
+    &__titles {
+      z-index: 5;
+      position: relative;
+    }
 
     &__picture {
       @include image-rotated();

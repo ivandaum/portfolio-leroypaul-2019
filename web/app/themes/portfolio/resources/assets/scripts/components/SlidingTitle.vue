@@ -44,7 +44,7 @@ export default {
       if(!this.inited) {
         this.init();
       } else {
-        const windowWidth = store.$get('windowWidth');
+        const windowWidth = store.windowWidth;
         const totalWidth = this.totalWidth;
 
         this.virtualPosition.map( (x, i) => {
@@ -90,7 +90,7 @@ export default {
         this.inited = true;
       }
 
-      const minWidth = store.$get('windowWidth') + this.widths[0] + this.widths[this.widths.length - 1];
+      const minWidth = store.windowWidth + this.widths[0] + this.widths[this.widths.length - 1];
       if(this.totalWidth < minWidth) {
         this.multiplyTitle(Math.floor(minWidth / this.totalWidth));
       }

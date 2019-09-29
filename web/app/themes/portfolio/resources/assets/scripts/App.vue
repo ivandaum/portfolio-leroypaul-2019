@@ -9,6 +9,7 @@
 <script>
 import Nav from './components/Nav.vue';
 import store from './store/store';
+import { PAGES_NAME } from './utils/constants';
 import normalize from 'normalize-wheel';
 
 export default {
@@ -19,23 +20,27 @@ export default {
   },
   mounted () {
     this.canScroll = true;
-
-    store.$save({
-      projects: window.PROJECTS,
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      currentProject: 0
-    });
-    store.$emit('projectsLoaded');
     this.raf = null;
 
+    store.projects = window.PROJECTS;
+    store.page = this.$route.params.page;
+    store.slug = this.$route.params.slug ? this.$route.params.slug : null;
+    store.windowWidth = window.innerWidth;
+    store.windowHeight =  window.innerHeight;
+
+    store.$emit('projectsLoaded');
     this.$nextTick(() => {
       setTimeout( () => {
-        store.$save({currentProject: 0});
         store.$emit('switchProject', 0);
         this.render();
       }, 200);
     });
+  },
+  watch:{
+    $route (to, from) {
+      store.page = this.$route.params.page;
+      store.slug = this.$route.params.slug ? this.$route.params.slug : null;
+    }
   },
   methods: {
     render() {
@@ -43,13 +48,18 @@ export default {
       store.$emit('render');
     },
     onScroll(e) {
+      const scroll = normalize(e);
+
+      if(store.page == PAGES_NAME.home) {
+        this.onHomeScroll(scroll);
+      }
+    },
+    onHomeScroll(scroll) {
       if(!this.canScroll) return false;
 
       this.canScroll = false;
-
-      const scroll = normalize(e);
       const direction = scroll.spinY > 0 ? 1 : -1;
-      const projectsCount = store.$get('projects').length;
+      const projectsCount = store.projects.length;
       let current = store.project + direction; 
 
       if(current > projectsCount - 1) {

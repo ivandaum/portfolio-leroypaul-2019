@@ -1,20 +1,20 @@
 <template>
   <div class="Home container-fluid">
-    <Grid :projects="projects" :isGrid="grid" :current="current" />
     <Project 
       v-for="(project, i) in projects" 
       :key="'content-' + i" 
       :data="project" 
-      :isGrid="grid"
       :isActive="isActive(i)" 
       :isOpen="isOpen(project.slug)" 
       :index="i"
     />
+    <Grid :projects="projects" v-show="store.page === 'grid'" :current="current" />
   </div>
 </template>
 
 <script>
 import store from './../store/store';
+import { PAGES_NAME } from './../utils/constants';
 import Project from '../views/Project.vue';
 import Grid from '../views/Grid.vue';
 
@@ -24,22 +24,13 @@ export default {
     return {
       projects: [],
       current: -1,
-      slug: '',
-      grid: false,
-    }
-  },
-  watch:{
-    $route (to, from) {
-      this.grid = this.$route.params.grid;
-      this.slug = this.$route.params.slug;
+      store: store,
     }
   },
   mounted() {
-    this.grid = this.$route.params.grid;
-    this.slug = this.$route.params.slug;
 
     store.$on('projectsLoaded', () => {
-      const projects = store.$get('projects');
+      const projects = store.projects;
       for(let i = 0; i < projects.length; i++) {
         this.$set(this.projects, i, projects[i]);
       }
@@ -51,12 +42,12 @@ export default {
   },
   methods: {
     isActive(index) {
-      if(this.grid) return false;
+      if(store.page === PAGES_NAME.grid) return false;
       return index == this.current
     },
     isOpen(slug) {
-      if(this.grid) return false;
-      return slug == this.slug;
+      if(store.page === PAGES_NAME.grid) return false;
+      return store.page === PAGES_NAME.slug && store.slug == slug;
     }
   },
   components: {

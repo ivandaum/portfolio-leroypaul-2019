@@ -4,6 +4,8 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 
+import { PAGES_NAME } from '../utils/constants';
+
 Vue.use(Router);
 const router = new Router({
   mode: 'history',
@@ -15,6 +17,7 @@ const router = new Router({
       component: Home,
       beforeEnter: (to, from, next) => {
         to.params.grid = false;
+        to.params.page = PAGES_NAME.home;
         next();
       },
     },
@@ -24,6 +27,7 @@ const router = new Router({
       component: Home,
       beforeEnter: (to, from, next) => {
         to.params.grid = true;
+        to.params.page = PAGES_NAME.grid;
         next();
       },
     },
@@ -32,6 +36,7 @@ const router = new Router({
       name: 'project',
       component: Home,
       beforeEnter: (to, from, next) => {
+        to.params.page = PAGES_NAME.slug;
         next();
       },
     },
@@ -40,6 +45,7 @@ const router = new Router({
       name: 'about',
       component: About,
       beforeEnter: (to, from, next) => {
+        to.params.page = PAGES_NAME.about;
         next();
       },
     },
