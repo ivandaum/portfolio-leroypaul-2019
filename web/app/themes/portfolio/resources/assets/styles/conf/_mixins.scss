@@ -3,7 +3,12 @@
   // text-shadow: $s 0 0 $c, -$s 0 0 $c, 0 $s 0 $c, 0 -$s 0 $c, $s/2 $s/2 $c, -$s/2 -$s/2 0 $c, $s/2 -$s/2 0 $c, -$s/2 $s/2 0 $c;
   -webkit-text-stroke-width: $s;
   -webkit-text-stroke-color: $c;
-  color: rgba(0,0,0,0);
+  color: rgba(255,255,255,0);
+}
+
+@mixin no-text-border() {
+  -webkit-text-stroke-width: 0;
+  -webkit-text-stroke-color: $white;
 }
 
 @mixin image-rotated() {
@@ -17,7 +22,7 @@
   transform-origin: center center;
   transform: rotate(10deg);
   pointer-events: none;
-  transition: transform .5s ease-in-out;
+  transition: transform .75s $cbezier1;
   img {
     position: absolute;
     object-fit: cover;

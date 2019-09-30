@@ -129,6 +129,7 @@ export default {
       position: absolute;
       left: 0;
       top: 0;
+      transition: color .3s;
       @include text-border($white, 1px);
     }
 

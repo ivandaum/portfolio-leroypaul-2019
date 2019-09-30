@@ -1,8 +1,11 @@
 // .slide-top-enter-active, .slide-top-leave-active, .picture-slide-enter-active, .picture-slide-leave-active
 
-[class*="slide-"],
-[class*="picture-slide-"] {
+[class*="slide-"] {
   transition: transform 1s;
+}
+
+[class*="picture-slide-"] {
+  transition: transform 1s $cbezier1;
 }
 
 .slide-top-enter-active, .slide-bottom-enter-active {

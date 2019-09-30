@@ -5,6 +5,8 @@ $ft-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue
 $black: #000;
 $white: #fff;
 
+$cbezier1: cubic-bezier(.59,.01,.4,.98);
+
 /** Size **/
 $desktop-size: 1440px;
 $desktop-m-size: 1375px;
@@ -18,6 +20,7 @@ $greige: #dad3cb;
 $brown: #c5b8ac;
 $grey-light: #f4f3f2;
 $grey: #e2e2e2;
+$title-hover: #f4eee9;
 
 
 $title-height: 12.2vw;

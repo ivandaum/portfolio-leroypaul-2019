@@ -2,9 +2,11 @@
   <div class="Project" :class="{isActive: isActive, isOpen: isOpen}">
     <div class="Project__header">
       <div class="Project__number">
-        <transition :name="'slide' + transitionDirection()">
-          <p v-show="showHeader()">{{ formatedIndex() }}</p>
-        </transition>
+        <div class="Project__number--inner">
+          <transition :name="'slide' + transitionDirection()">
+            <span v-show="showHeader()">{{ formatedIndex() }}</span>
+          </transition>
+        </div>
       </div>
 
       <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
@@ -108,7 +110,7 @@ export default {
     height: 100%;
     z-index: 2;
 
-    &.isOpen &__preview {
+    &.isOpen &__picture {
       transform: rotate(0deg) scale(1.2);
     }
 
@@ -124,20 +126,34 @@ export default {
       z-index: 5;
     }
 
+    &.isActive &__number {
+      opacity: 1;
+    }
+
     &__number {
       font-size: 1.25rem;
       font-family: $font-title;
       height: 5.3125rem;
       width: 5.3125rem;
+      border:2px solid rgba($white, .5);
       border-radius: 50%;
-      border: 2px solid $white;
       position: absolute;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 3;
       margin-top: -#{$title-height * 0.75};
-      padding: 3rem;
+      opacity: 0;
+      transition: opacity .5s;
+
+      &--inner {
+        height: 1.5rem;
+        width: 3rem;
+        overflow:hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     &__header {
@@ -159,6 +175,10 @@ export default {
       display: block;
       overflow: hidden;
       position: relative;
+
+      &:hover .SlidingTitle > div {
+        color: $white;
+      }
     }
 
     &__picture {

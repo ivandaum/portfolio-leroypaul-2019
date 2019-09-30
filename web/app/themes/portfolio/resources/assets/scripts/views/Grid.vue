@@ -46,6 +46,7 @@ export default {
 }
 </script>
 <style lang="scss">
+  @import "../../styles/conf/variables";
   @import "../../styles/conf/mixins";
   .Grid {
     height: 100vh;
@@ -55,7 +56,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 
     &__titles {
       z-index: 5;
