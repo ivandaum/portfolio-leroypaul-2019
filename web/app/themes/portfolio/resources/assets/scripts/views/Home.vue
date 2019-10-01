@@ -8,7 +8,7 @@
       :isOpen="isOpen(project.slug)" 
       :index="i"
     />
-    <Grid :projects="projects" v-show="store.page === 'grid'" :current="current" />
+    <Grid v-if="projects.length" :projects="projects" v-show="store.page === PAGES_NAME.grid" :current="current" />
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
     return {
       projects: [],
       current: -1,
+      PAGES_NAME:PAGES_NAME,
       store: store,
     }
   },

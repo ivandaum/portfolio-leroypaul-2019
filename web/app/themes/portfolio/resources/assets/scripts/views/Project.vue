@@ -109,25 +109,32 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 2;
+    pointer-events: none;
 
-    &.isOpen &__picture {
-      transform: rotate(0deg) scale(1.2);
-    }
+    &.isOpen {
+      pointer-events: auto;
 
-    &.isOpen &__inner {
-      display: block;
-    }
-
-    &.isOpen &__title {
-      cursor: default;
+      .Project__picture {
+        transform: rotate(0deg) scale(1.2);
+      }
+      .Project__inner {
+        display: block;
+      }
+      .Project__title {
+        cursor: default;
+      }
+      .Project__header {
+        height: 50vh;
+      }
     }
 
     &.isActive {
       z-index: 5;
-    }
+      pointer-events: auto;
 
-    &.isActive &__number {
-      opacity: 1;
+      .Project__number {
+        opacity: 1;
+      }
     }
 
     &__number {
@@ -163,6 +170,9 @@ export default {
       justify-content: center;
       height: 100vh;
       width: 100%;
+      overflow: hidden;
+      position: relative;
+      transition: height 1s $cbezier1;
     }
 
     &__title {
@@ -171,7 +181,6 @@ export default {
       text-transform: uppercase;
       width: 100%;
       z-index: 2;
-      pointer-events: auto;
       display: block;
       overflow: hidden;
       position: relative;

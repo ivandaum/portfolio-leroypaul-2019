@@ -1,7 +1,9 @@
 <template>
   <div class="Grid">
     <div class="Grid__titles">
-      <p v-for="(project, i) in projects" :key="'grid-title-' + i" v-show="store.page == PAGES_NAME.grid">{{project.title}}</p>
+      <transition :name="'slide-top'" v-for="i in 1" :key="'grid-title-' + i">
+        <SlidingTitle :title="elements" :isActive="store.page == PAGES_NAME.grid" v-show="store.page == PAGES_NAME.grid" :index="i" />
+      </transition>
     </div>
     <div class="Grid__picture" 
       v-for="(project, i) in projects" 
@@ -18,6 +20,7 @@
 <script>
 import store from './../store/store';
 import { PAGES_NAME } from './../utils/constants';
+import SlidingTitle from '../components/SlidingTitle.vue';
 
 export default {
   name: 'Grid',
@@ -25,7 +28,8 @@ export default {
       return {
         hovered: null,
         store: store,
-        PAGES_NAME:PAGES_NAME
+        PAGES_NAME:PAGES_NAME,
+        elements: [],
       }
   },
   props: {
@@ -33,6 +37,11 @@ export default {
     current: Number
   },
   mounted() {
+    for(let i = 0; i < this.projects.length; i++) {
+      this.elements.push(this.projects[i].title);
+    }
+
+    console.log(this.elements);
   },
   methods: {
     isHovered(index) {
@@ -41,7 +50,10 @@ export default {
       }
 
       return this.hovered === index;
-    }
+    },
+  },
+  components: {
+    SlidingTitle
   }
 }
 </script>

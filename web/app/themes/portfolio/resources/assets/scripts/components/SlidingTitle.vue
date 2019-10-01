@@ -29,12 +29,16 @@ export default {
       }
   },
   props: {
-    title: String,
+    title: null,
     isActive: Boolean,
     index: Number
   },
   mounted() {
-    this.elements = this.title.split(' ');
+    if(typeof this.title === 'array') {
+      this.elements = this.title;
+    } else if (typeof this.title === 'string') {
+      this.elements = this.title.split(' ');
+    }
 
     store.$on('render', () => {
       if(!this.isActive) {
