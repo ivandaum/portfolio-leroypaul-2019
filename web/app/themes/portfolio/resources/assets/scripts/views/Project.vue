@@ -16,10 +16,9 @@
       </div>
 
       <div class="Project__picture">
-        <transition :name="'picture-slide' + transitionDirection()">
+        <transition :name="'picture-slide' + transitionImageDirection()">
           <img :src="data.preview_image.sizes.large" v-show="showHeader()"/>
         </transition>
-
       </div>
     </div>
     <div class="Project__inner">
@@ -69,7 +68,12 @@ export default {
     isActive: Boolean,
     index: Number,
   },
-  updated() {
+  watch:{
+    $route (to, from) {
+      if(from.name === PAGES_NAME.grid && to.name === PAGES_NAME.home) {
+        store.scrollDirection = 0;
+      }
+    }
   },
   methods: {
     showHeader() {
@@ -79,6 +83,12 @@ export default {
     },
     transitionDirection() {
       if(store.scrollDirection < 0) return '-bottom';
+
+      return '-top';
+    },
+    transitionImageDirection() {
+      if(store.scrollDirection < 0) return '-bottom';
+      else if(store.scrollDirection == 0) return '-none';
 
       return '-top';
     },

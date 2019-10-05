@@ -10,7 +10,7 @@
       :key="'grid-image-' + i" 
       :class="{isActive: isHovered(i)}"
     >
-      <transition name="picture-slide-in" >
+      <transition name="picture-slide-top" >
         <img :src="project.preview_image.sizes.large" v-show="isHovered(i)" />
       </transition>
     </div>
@@ -44,12 +44,25 @@ export default {
       }
     });
   },
+  watch:{
+    $route (to, from) {
+      if(from.name === PAGES_NAME.grid) {
+        this.hovered = null;
+      }
+    }
+  },
   methods: {
     isGridActive() {
       return store.page == PAGES_NAME.grid
     },
-    onHover(value) {
-      console.log(value);
+    onHover(data) {
+      for(let i = 0; i < this.projects.length; i++) {
+        if(data.slug === this.projects[i].slug) {
+          store.$emit('switchProject', i);
+          this.hovered = i;
+          break;
+        }
+      }
     },
     isHovered(index) {
       if(this.hovered === null) {
@@ -84,13 +97,16 @@ export default {
       font-size: 120px;
       text-transform: uppercase;
       width: 100%;
-      z-index: 5;
       display: block;
       overflow: hidden;
       position: relative;
 
+      a {
+        z-index: 5;
+      }
       a:hover {
         color: $white;
+        z-index: 20;
       }
 
       a:nth-of-type(even):not(:hover) {
