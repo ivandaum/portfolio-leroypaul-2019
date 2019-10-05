@@ -151,6 +151,7 @@ add_action('init', function () {
  */
 include 'post_types.php';
 include 'model/Project.php';
+include 'model/About.php';
 
 /**
  * Remove admin menu tabs
