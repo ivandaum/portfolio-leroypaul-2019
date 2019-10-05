@@ -6,7 +6,8 @@
     :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :key="title + '-' + string + '-' + i"
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
-    >{{string}}</router-link>
+    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})">{{string}}</span>
+    </router-link>
   </div>
 </template>
 

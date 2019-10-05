@@ -8,7 +8,7 @@
       :isOpen="isOpen(project.slug)" 
       :index="i"
     />
-    <Grid v-show="store.page === PAGES_NAME.grid" :current="current" />
+    <Grid :current="current" />
   </div>
 </template>
 

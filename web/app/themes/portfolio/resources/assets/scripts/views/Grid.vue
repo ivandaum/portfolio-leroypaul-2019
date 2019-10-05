@@ -2,7 +2,7 @@
   <div class="Grid" v-if="titles">
     <div class="Grid__titles" v-for="i in 4" :key="'grid-title' + i">
         <transition :name="'slide-top'">
-          <SlidingTitle :scroll="i % 2 == 0 ? 1 : -1" :start="i * 1000" :slug="slugs" :title="titles" :isActive="isGridActive()" v-show="isGridActive()" />
+          <SlidingTitle @hover="onHover" :scroll="i % 2 == 0 ? 1 : -1" :start="i * 1000" :slug="slugs" :title="titles" :isActive="isGridActive()" v-show="isGridActive()" />
         </transition>
     </div>
     <div class="Grid__picture"
@@ -48,6 +48,9 @@ export default {
     isGridActive() {
       return store.page == PAGES_NAME.grid
     },
+    onHover(value) {
+      console.log(value);
+    },
     isHovered(index) {
       if(this.hovered === null) {
         return this.current === index;
@@ -73,11 +76,12 @@ export default {
     justify-content: center;
     align-content: center;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 
     &__titles {
       height: $title-height;
-      font-size: 8.5vw;
+      max-height:15vh;
+      font-size: 120px;
       text-transform: uppercase;
       width: 100%;
       z-index: 5;
@@ -89,16 +93,16 @@ export default {
         color: $white;
       }
 
-      a:nth-of-type(odd):not(:hover) {
+      a:nth-of-type(even):not(:hover) {
         color: rgba($white, .3);
       }
     }
 
     &__picture {
       @include image-rotated();
-
+      z-index: 10;
       &.isActive {
-        z-index: 2;
+        z-index: 15;
       }
     }
   }
