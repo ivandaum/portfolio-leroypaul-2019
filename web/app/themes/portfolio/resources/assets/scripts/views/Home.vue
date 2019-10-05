@@ -8,7 +8,7 @@
       :isOpen="isOpen(project.slug)" 
       :index="i"
     />
-    <Grid v-if="projects.length" :projects="projects" v-show="store.page === PAGES_NAME.grid" :current="current" />
+    <Grid v-show="store.page === PAGES_NAME.grid" :current="current" />
   </div>
 </template>
 

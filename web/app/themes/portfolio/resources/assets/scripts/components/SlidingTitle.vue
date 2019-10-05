@@ -1,11 +1,12 @@
 <template>
   <div class="SlidingTitle">
-    <div class="js-sliding-text" 
+    <router-link 
+    class="js-sliding-text" 
     v-for="(string, i) in elements" 
+    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :key="title + '-' + string + '-' + i"
-    :style="{transform: 'translateX(' + positions[i] + 'px)'}" 
-    :class="{isWhite:whiteTitle[i]}"
-    >{{string}}</div>
+    :style="{transform: 'translateX(' + positions[i] + 'px)'}"
+    >{{string}}</router-link>
   </div>
 </template>
 
@@ -16,31 +17,33 @@ import { rand } from '../utils/functions';
 export default {
   name: 'SlidingTitle',
   data() {
-      return {
-        positions: [],
-        virtualPosition: [],
-        elements: [],
-        widths: [],
-        whiteTitle: [],
-        isWhite: true,
-        totalWidth: 0,
-        inited: false,
-        direction: 1,
-      }
+    return {
+      inited: false,
+      positions: [],
+      virtualPosition: [],
+      elements: [],
+      slugs: [],
+      widths: [],
+      totalWidth: 0,
+    }
   },
   props: {
     title: null,
+    slug: null,
     isActive: Boolean,
-    index: Number
+    start: null,
+    scroll: null
   },
   mounted() {
-    if(typeof this.title === 'array') {
-      this.elements = this.title;
-    } else if (typeof this.title === 'string') {
-      this.elements = this.title.split(' ');
-    }
-
-    store.$on('render', () => {
+    this.$nextTick( () => {
+      this.elements = this.splitTitle(this.title);
+      this.randomizeStart = this.start || 0;
+      this.direction = this.scroll || 1;
+      store.$on('render', this.render.bind(this));
+    });
+  },
+  methods: {
+    render() {
       if(!this.isActive) {
         return false;
       } 
@@ -71,19 +74,17 @@ export default {
           this.$set(this.positions, i, this.positions[i]);
         });
       }
-    })
-  },
-  methods: {
+    },
     init() {
       this.totalWidth = 0;
       this.widths = [];
       this.positions = [];
       const marginRight = 50;
       const $elements = this.$el.querySelectorAll('.js-sliding-text');
+
       $elements.forEach( ($el, i) => {
         const width = $el.offsetWidth + marginRight;
-        this.whiteTitle.push(this.isWhite);
-        this.positions.push(this.totalWidth);
+        this.positions.push(this.totalWidth + this.randomizeStart);
         this.widths.push(width);
         this.totalWidth += width;
       });
@@ -98,19 +99,50 @@ export default {
       if(this.totalWidth < minWidth) {
         this.multiplyTitle(Math.floor(minWidth / this.totalWidth));
       }
+
+      this.resetSlugs(this.slug);
     },
     multiplyTitle(by) {
-      this.isWhite = false;
       for(let i = 0; i < by; i++) {
-        const title = this.title.split(' ');
+        let title = this.splitTitle(this.title);
+        
         for(let a = 0; i < title.length; i++) {
           this.elements.push(title[i]);
         }
       }
-
       this.$nextTick( () => {
         this.init();
-      })
+      });
+    },
+    splitTitle(title) {
+      if(typeof title === 'object') {
+        let a = [];
+        title.map( str => a.push(str));
+        return a;
+      } else if (typeof title === 'string') {
+        return title.split(' ');
+      }
+      
+      return title;
+    },
+    resetSlugs(slug) {
+      this.slugs = [];
+      if(typeof slug == 'object') {
+        let index = 0;
+        this.elements.map(string => {
+          this.slugs.push(slug[index])
+          index++;
+          if(index >= slug.length) index = 0;
+        });
+        this.elements.map(string => {
+          this.slugs.push(slug[0]);
+        });
+      } else {
+        this.elements.map(string => {
+          this.slugs.push(slug);
+        });
+
+      }
     }
   }
 }
@@ -128,18 +160,14 @@ export default {
     font-family: $font-title;
     font-weight: bold;
 
-    > div {
+    > a {
+      text-decoration: none;
       display: block;
       position: absolute;
       left: 0;
       top: 0;
       transition: color .3s;
       @include text-border($white, 1px);
-    }
-
-    > div.isWhite {
-      @include text-border(transparent, 0);
-      color: $white;
     }
   }
 </style>

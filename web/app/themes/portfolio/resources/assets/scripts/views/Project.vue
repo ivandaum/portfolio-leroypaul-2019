@@ -9,11 +9,11 @@
         </div>
       </div>
 
-      <router-link class="Project__title" :to="{name: 'project', params:{slug:data.slug}}">
+      <div class="Project__title" >
         <transition :name="'slide' + transitionDirection()">
-              <SlidingTitle :title="data.title" :isActive="showHeader()" v-show="showHeader()" :index="index" />
+          <SlidingTitle :slug="data.slug" :title="data.title" :isActive="showHeader()" v-show="showHeader()" />
         </transition>
-      </router-link>
+      </div>
 
       <div class="Project__picture">
         <transition :name="'picture-slide' + transitionDirection()">
@@ -185,7 +185,7 @@ export default {
       overflow: hidden;
       position: relative;
 
-      &:hover .SlidingTitle > div {
+      &:hover .SlidingTitle a {
         color: $white;
       }
     }

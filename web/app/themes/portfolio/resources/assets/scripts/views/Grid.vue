@@ -1,11 +1,11 @@
 <template>
-  <div class="Grid">
-    <div class="Grid__titles">
-      <transition :name="'slide-top'" v-for="i in 1" :key="'grid-title-' + i">
-        <SlidingTitle :title="elements" :isActive="store.page == PAGES_NAME.grid" v-show="store.page == PAGES_NAME.grid" :index="i" />
-      </transition>
+  <div class="Grid" v-if="titles">
+    <div class="Grid__titles" v-for="i in 4" :key="'grid-title' + i">
+        <transition :name="'slide-top'">
+          <SlidingTitle :scroll="i % 2 == 0 ? 1 : -1" :start="i * 1000" :slug="slugs" :title="titles" :isActive="isGridActive()" v-show="isGridActive()" />
+        </transition>
     </div>
-    <div class="Grid__picture" 
+    <div class="Grid__picture"
       v-for="(project, i) in projects" 
       :key="'grid-image-' + i" 
       :class="{isActive: isHovered(i)}"
@@ -27,23 +27,27 @@ export default {
   data() {
       return {
         hovered: null,
-        store: store,
-        PAGES_NAME:PAGES_NAME,
-        elements: [],
+        titles: [],
+        slugs: [],
+        projects: []
       }
   },
   props: {
-    projects: Array,
     current: Number
   },
   mounted() {
-    for(let i = 0; i < this.projects.length; i++) {
-      this.elements.push(this.projects[i].title);
-    }
-
-    console.log(this.elements);
+    store.$on('projectsLoaded', () => {
+      this.projects = store.projects;
+      for(let i = 0; i < this.projects.length; i++) {
+        this.titles.push(this.projects[i].title);
+        this.slugs.push(this.projects[i].slug);
+      }
+    });
   },
   methods: {
+    isGridActive() {
+      return store.page == PAGES_NAME.grid
+    },
     isHovered(index) {
       if(this.hovered === null) {
         return this.current === index;
@@ -62,17 +66,32 @@ export default {
   @import "../../styles/conf/mixins";
   .Grid {
     height: 100vh;
-    width: 100vw;
-    overflow-y: scroll;
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    align-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 10;
 
     &__titles {
+      height: $title-height;
+      font-size: 8.5vw;
+      text-transform: uppercase;
+      width: 100%;
       z-index: 5;
+      display: block;
+      overflow: hidden;
       position: relative;
+
+      a:hover {
+        color: $white;
+      }
+
+      a:nth-of-type(odd):not(:hover) {
+        color: rgba($white, .3);
+      }
     }
 
     &__picture {
