@@ -19,6 +19,7 @@ class About
     $about = [];
     $about['title'] = get_field('about_title','options');
     $about['email'] = get_field('about_email','options');
+    $about['picture'] = get_field('about_picture','options');
     $about['description'] = get_field('about_description','options');
     $about['social_networks'] = [];
 

@@ -1,17 +1,21 @@
 <template>
   <div class="Galery is-centered-container">
+    
     <div class="Galery__picture"
       v-for="(project, i) in projects" 
       :key="'galery-image-' + i"
       :style="{zIndex: projects.length - i}"
     >
-      <img :src="project.preview_image.sizes.large" />
+      <transition :name="'fade-galery'">
+        <img :src="project.preview_image.sizes.large" v-show="store.page !== PAGES_NAME.about" />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import store from './../store/store';
+import store from './../../store/store';
+import { PAGES_NAME } from './../../utils/constants';
 import anime from 'animejs';
 
 export default {
@@ -20,7 +24,8 @@ export default {
       return {
         store: store,
         $images: [],
-        zIndex: 1
+        zIndex: 1,
+        PAGES_NAME: PAGES_NAME,
       }
   },
   props: {
@@ -28,9 +33,6 @@ export default {
     projects: Array
   },
   methods: {
-    isActive(index) {
-      return this.current === index;
-    },
     switchPicture(index) {
       if (this.current === index) return false;
 
@@ -48,8 +50,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../../styles/conf/variables";
+  @import "../../../styles/conf/mixins";
   .Galery {
     &__picture {
       @include image();

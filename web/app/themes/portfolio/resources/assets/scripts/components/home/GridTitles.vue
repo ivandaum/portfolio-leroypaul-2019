@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import store from './../store/store';
-import { PAGES_NAME } from './../utils/constants';
-import SlidingTitle from '../components/SlidingTitle.vue';
+import store from './../../store/store';
+import { PAGES_NAME } from './../../utils/constants';
+import SlidingTitle from '../../components/SlidingTitle.vue';
 
 export default {
   name: 'GridTitles',
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     isGridActive() {
-      return store.page == PAGES_NAME.grid
+      return store.page == PAGES_NAME.grid;
     },
     onHover(data) {
       for(let i = 0; i < this.projects.length; i++) {
@@ -50,11 +50,12 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../../styles/conf/variables";
+  @import "../../../styles/conf/mixins";
   .GridTitles {
     a:nth-of-type(even):not(:hover) {
       color: rgba($white, .3);
+      @include no-text-border;
     }
   }
 </style>

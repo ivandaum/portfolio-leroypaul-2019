@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import SlidingTitle from '../components/SlidingTitle.vue';
-import store from '../store/store';
-import { PAGES_NAME } from './../utils/constants';
+import SlidingTitle from '../../components/SlidingTitle.vue';
+import store from '../../store/store';
+import { PAGES_NAME } from './../../utils/constants';
 
 export default {
   name: 'Project',
@@ -88,8 +88,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../../styles/conf/variables";
+  @import "../../../styles/conf/mixins";
   
   .Project {
     height: 100%;

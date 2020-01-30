@@ -8,10 +8,10 @@
 </template>
 <script>
 import RafManager from './utils/RafManager';
-import Nav from './components/Nav.vue';
 import store from './store/store';
 import { PAGES_NAME } from './utils/constants';
 import normalize from 'normalize-wheel';
+import Nav from './components/Nav.vue';
 
 export default {
   name: 'App',
@@ -24,6 +24,7 @@ export default {
     this.raf = null;
 
     store.projects = window.PROJECTS;
+    store.about = window.ABOUT;
     store.page = this.$route.params.page;
     store.slug = this.$route.params.slug ? this.$route.params.slug : null;
     store.windowWidth = window.innerWidth;
@@ -32,6 +33,7 @@ export default {
     this.$nextTick(() => {
       setTimeout( () => {
         store.$emit('projectsLoaded');
+        store.$emit('aboutLoaded');
         store.$emit('switchProject', 0);
       }, 200);
     });

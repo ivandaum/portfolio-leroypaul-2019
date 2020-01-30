@@ -1,17 +1,19 @@
 <template>
-  <div class="Home container-fluid" 
+  <div class="Index container-fluid" 
     :class="{
       'project-open': store.page === PAGES_NAME.slug,
       'grid-open': store.page === PAGES_NAME.grid,
       'home-open': store.page === PAGES_NAME.home,
+      'about-open': store.page === PAGES_NAME.about,
     }" 
     v-if="projects.length"
   >
-    <div class="Home__previews is-relative">
-      <Galery
-        :current="current"
-        :projects="projects"
-      />
+    <About :datas="about" v-if="about" :isActive="store.page === PAGES_NAME.about"/>
+    <div class="Index__previews is-relative">
+        <Galery
+          :current="current"
+          :projects="projects"
+        />
       <ActiveTitle
         :current="current"
         :projects="projects"
@@ -22,7 +24,7 @@
         :projects="projects"
       />
     </div>
-      <div class="Home__projects">
+      <div class="Index__projects">
         <transition-group :name="'fade-project'">
           <Project 
             v-for="(project, i) in projects"
@@ -38,14 +40,16 @@
 
 <script>
 import { PAGES_NAME } from './../utils/constants';
-import Galery from '../components/Galery.vue';
-import ActiveTitle from '../components/ActiveTitle.vue';
-import GridTitles from '../components/GridTitles.vue';
 import store from './../store/store';
-import Project from '../views/Project.vue';
+
+import Galery from '../components/home/Galery.vue';
+import ActiveTitle from '../components/home/ActiveTitle.vue';
+import GridTitles from '../components/home/GridTitles.vue';
+import Project from '../components/pages/Project.vue';
+import About from '../components/pages/About.vue';
 
 export default {
-  name: 'Home',
+  name: 'Index',
   data() {
     return {
       projects: [],
@@ -53,6 +57,7 @@ export default {
       PAGES_NAME:PAGES_NAME,
       hasOpenedProject: false,
       store: store,
+      about: {}
     }
   },
   mounted() {
@@ -62,7 +67,9 @@ export default {
         this.$set(this.projects, i, projects[i]);
       }
     });
-
+    store.$on('aboutLoaded', () => {
+      this.about = store.about;
+    });
     store.$on('switchProject', (value) => {
       this.current = value;
     });
@@ -78,6 +85,7 @@ export default {
     GridTitles,
     Galery,
     ActiveTitle,
+    About
   },
 }
 </script>
@@ -85,7 +93,7 @@ export default {
   @import "../../styles/conf/variables";
   @import "../../styles/conf/mixins";
 
-  .Home {
+  .Index {
     min-height: 100vh;
     max-height: 100vh;
     overflow: hidden;
@@ -100,13 +108,13 @@ export default {
     &__projects,
     .ActiveTitle,
     .Galery {
-      transition: transform $easing $cbezier1 0s;
+      transition: transform $easing $cbezier1, opacity $easing $cbezier1;
     }
 
     &.project-open {
       max-height: fit-content;
 
-      .Home__previews {
+      .Index__previews {
         transform: scaleY(0.5) translateY(-50vh);
         .ActiveTitle,
         .Galery {
@@ -117,7 +125,7 @@ export default {
           }
         }
       }
-      .Home__projects {
+      .Index__projects {
         transform: translateY(-50vh);
       }
     }
@@ -125,6 +133,10 @@ export default {
     &.grid-open .GridTitles,
     &.home-open .ActiveTitle {
       z-index: 60;
+    }
+
+    &.about-open .About {
+      pointer-events: auto;
     }
   }
 </style>

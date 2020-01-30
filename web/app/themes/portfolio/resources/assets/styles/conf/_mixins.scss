@@ -1,5 +1,5 @@
 /** Responsive **/
-@mixin text-border($c, $s: 1px) {
+@mixin text-border($c, $s: 2px) {
   // text-shadow: $s 0 0 $c, -$s 0 0 $c, 0 $s 0 $c, 0 -$s 0 $c, $s/2 $s/2 $c, -$s/2 -$s/2 0 $c, $s/2 -$s/2 0 $c, -$s/2 $s/2 0 $c;
   -webkit-text-stroke-width: $s;
   -webkit-text-stroke-color: $c;

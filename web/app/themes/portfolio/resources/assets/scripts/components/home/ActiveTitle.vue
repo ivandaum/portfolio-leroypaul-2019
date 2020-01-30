@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import store from './../store/store';
-import SlidingTitle from '../components/SlidingTitle.vue';
-import { PAGES_NAME } from './../utils/constants';
+import store from './../../store/store';
+import SlidingTitle from '../../components/SlidingTitle.vue';
+import { PAGES_NAME } from './../../utils/constants';
 
 export default {
   name: 'ActiveTitle',
@@ -47,7 +47,9 @@ export default {
       return store.page === PAGES_NAME.home;
     },
     isActive(index) {
-      return this.current === index && store.page !== PAGES_NAME.grid;
+      if (store.page === PAGES_NAME.about || store.page === PAGES_NAME.grid) return false;
+      
+      return this.current === index;
     },
     transitionDirection() {
       if(store.scrollDirection < 0) return '-bottom';
@@ -68,8 +70,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../../styles/conf/variables";
+  @import "../../../styles/conf/mixins";
 
   .ActiveTitle {
     &__number {
