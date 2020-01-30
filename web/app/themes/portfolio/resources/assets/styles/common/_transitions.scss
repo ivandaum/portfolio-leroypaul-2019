@@ -53,3 +53,10 @@
 .picture-slide-bottom-leave {
   transform: translateY(0);
 }
+
+// -----------------------
+
+.fade-project-leave,
+.fade-project-leave-to {
+  transition-delay: $easing;
+}

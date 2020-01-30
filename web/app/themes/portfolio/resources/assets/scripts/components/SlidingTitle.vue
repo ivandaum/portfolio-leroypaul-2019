@@ -1,7 +1,8 @@
 <template>
   <div class="SlidingTitle">
     <router-link 
-    class="js-sliding-text" 
+    class="js-sliding-text"
+    :class="{isActive: isActive}"
     v-for="(string, i) in elements" 
     :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :key="title + '-' + string + '-' + i"
@@ -160,6 +161,11 @@ export default {
     overflow: hidden;
     font-family: $font-title;
     font-weight: bold;
+    z-index: 50;
+
+    &.isActive {
+      z-index: 60;
+    }
 
     > a {
       text-decoration: none;

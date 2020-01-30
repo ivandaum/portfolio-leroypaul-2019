@@ -1,14 +1,16 @@
 @font-face {
   font-family: $font-title;
-  src: url($font-directory + 'monument/monumentextended-regular-webfont.woff2') format('woff2'), url($font-directory + 'monumentextended-regular-webfont.woff') format('woff');
-  font-weight: normal;
+  src: url($font-directory + 'monument/monumentextended-ultrabold.woff2') format('woff2'),
+  url($font-directory + 'monument/monumentextended-ultrabold.woff') format('woff');
+  font-weight: bold;
   font-style: normal;
 }
+
 @font-face {
   font-family: $font-title;
-  src: url($font-directory + 'monument/monumentextended-ultrabold-webfont.woff2') format('woff2'),
-  url($font-directory + 'monument/monumentextended-ultrabold-webfont.woff') format('woff');
-  font-weight: bold;
+  src: url($font-directory + 'monument/monumentextended-regular.woff2') format('woff2'),
+  url($font-directory + 'monument/monumentextended-regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
 
 }
@@ -21,8 +23,8 @@
 }
 @font-face {
   font-family: $font-regular;
-  src: url($font-directory + 'helvetica/HelveticaNeueLTStd-BdExO.woff2') format('woff2'),
-      url($font-directory + 'helvetica/HelveticaNeueLTStd-BdExO.woff') format('woff');
+  src: url($font-directory + 'helvetica/HelveticaNeueLTStd-BdEx.woff2') format('woff2'),
+      url($font-directory + 'helvetica/HelveticaNeueLTStd-BdEx.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }

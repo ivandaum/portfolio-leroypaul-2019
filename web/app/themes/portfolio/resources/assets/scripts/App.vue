@@ -28,9 +28,9 @@ export default {
     store.windowWidth = window.innerWidth;
     store.windowHeight =  window.innerHeight;
 
-    store.$emit('projectsLoaded');
     this.$nextTick(() => {
       setTimeout( () => {
+        store.$emit('projectsLoaded');
         store.$emit('switchProject', 0);
         this.render();
       }, 200);
@@ -86,5 +86,7 @@ export default {
 <style lang='scss'>
   .App {
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 </style>

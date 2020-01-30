@@ -1,3 +1,5 @@
+import { PAGES_NAME } from './../utils/constants';
+
 export default {
   datas: [],
   events: [],
@@ -25,4 +27,10 @@ export default {
     }
     this.events[evtName].push(func);
   },
+  isProjectOpen(slug) {
+    return this.page === PAGES_NAME.slug && this.slug == slug;
+  },
+  hasOpenedProject() {
+    return this.page === PAGES_NAME.slug && this.slug !== null;
+  }
 }
