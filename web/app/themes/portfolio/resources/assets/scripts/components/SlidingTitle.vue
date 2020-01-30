@@ -162,6 +162,7 @@ export default {
     font-family: $font-title;
     font-weight: bold;
     z-index: 50;
+    font-size: 1em;
 
     &.isActive {
       z-index: 60;
@@ -175,6 +176,10 @@ export default {
       top: 0;
       transition: color .3s;
       @include text-border($white, 1px);
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 </style>

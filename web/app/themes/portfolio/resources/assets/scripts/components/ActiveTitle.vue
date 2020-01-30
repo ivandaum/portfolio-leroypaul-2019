@@ -1,5 +1,5 @@
 <template>
-  <div class="ActiveTitle is-centered-container is-absolute">
+  <div class="ActiveTitle is-centered-container is-absolute" :class="{'above-all': store.page === PAGES_NAME.home}">
       <div class="ActiveTitle__number is-centered">
         <div class="ActiveTitle__number--inner is-centered"
           v-for="(project, i) in projects" 
@@ -12,8 +12,8 @@
         </div>
       </div>
 
-      <div class="ActiveTitle__titles is-centered">
-        <div class="ActiveTitle__title is-absolute"
+      <div class="ActiveTitle__titles container-titles is-centered">
+        <div class="ActiveTitle__title container-titles__title is-absolute"
           v-for="(project, i) in projects" 
           :key="'active-title' + i" 
         >
@@ -28,11 +28,15 @@
 <script>
 import store from './../store/store';
 import SlidingTitle from '../components/SlidingTitle.vue';
+import { PAGES_NAME } from './../utils/constants';
 
 export default {
   name: 'ActiveTitle',
   data() {
-      return {}
+      return {
+        store: store,
+        PAGES_NAME: PAGES_NAME
+      }
   },
   props: {
     current: Number,
@@ -40,7 +44,7 @@ export default {
   },
   methods: {
     isActive(index) {
-      return this.current === index;
+      return this.current === index && store.page !== PAGES_NAME.grid;
     },
     transitionDirection() {
       if(store.scrollDirection < 0) return '-bottom';
@@ -85,22 +89,12 @@ export default {
       }
     }
 
-    &__titles {
-      height: $title-height;
-      width: 100%;
-      position: relative;
-      z-index: 10;
-    }
-
     &__title {
       height: 100%;
       width: 100%;
-      font-size: 8.5vw;
-      text-transform: uppercase;
       display: block;
-      overflow: hidden;
 
-      &:hover .SlidingTitle a {
+      &:hover a {
         color: $white;
       }
     }

@@ -1,11 +1,16 @@
 <template>
-  <div class="Home container-fluid" :class="{'project-open': store.hasOpenedProject()}">
+  <div class="Home container-fluid" :class="{'project-open': store.hasOpenedProject()}" v-if="projects.length">
     <div class="Home__previews is-relative">
       <Galery
         :current="current"
         :projects="projects"
       />
       <ActiveTitle
+        :current="current"
+        :projects="projects"
+      />
+
+      <GridTitles
         :current="current"
         :projects="projects"
       />
@@ -29,9 +34,9 @@
 import { PAGES_NAME } from './../utils/constants';
 import Galery from '../components/Galery.vue';
 import ActiveTitle from '../components/ActiveTitle.vue';
+import GridTitles from '../components/GridTitles.vue';
 import store from './../store/store';
 import Project from '../views/Project.vue';
-// import Grid from '../views/Grid.vue';
 
 export default {
   name: 'Home',
@@ -64,7 +69,7 @@ export default {
   },
   components: {
     Project,
-    // Grid,
+    GridTitles,
     Galery,
     ActiveTitle,
   },
