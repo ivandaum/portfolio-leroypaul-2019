@@ -1,5 +1,5 @@
 <template>
-  <div class="GridTitles is-centered-container is-absolute" :class="{'above-all': isGridActive()}">
+  <div class="GridTitles is-centered-container is-absolute">
     <div class="GridTitles__titles container-titles" v-for="i in 4" :key="'grid-titles' + i">
       <transition :name="'slide-top'">
         <SlidingTitle @hover="onHover" :scroll="i % 2 == 0 ? 1 : -1" :start="i * 1000" :slug="slugs" :title="titles" :isActive="isGridActive()" v-show="isGridActive()" />
@@ -29,13 +29,6 @@ export default {
     for(let i = 0; i < this.projects.length; i++) {
       this.titles.push(this.projects[i].title);
       this.slugs.push(this.projects[i].slug);
-    }
-  },
-  watch:{
-    $route (to, from) {
-      if(from.name === PAGES_NAME.grid) {
-        this.hovered = null;
-      }
     }
   },
   methods: {

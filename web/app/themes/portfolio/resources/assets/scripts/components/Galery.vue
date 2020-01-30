@@ -1,15 +1,11 @@
 <template>
-  <div class="Galery is-centered-container" 
-  :class="{projectIsOpen: store.hasOpenedProject()}"
-  >
+  <div class="Galery is-centered-container">
     <div class="Galery__picture"
       v-for="(project, i) in projects" 
       :key="'galery-image-' + i" 
       :class="{isActive: isActive(i)}"
     >
-      <transition name="picture-slide-top" >
-        <img :src="project.preview_image.sizes.large" v-show="isActive(i)" />
-      </transition>
+      <img :src="project.preview_image.sizes.large" v-show="isActive(i)" />
     </div>
   </div>
 </template>
@@ -51,10 +47,6 @@ export default {
       &.isActive {
         z-index: 15;
       }
-    }
-
-    &.projectIsOpen &__picture {
-      transform: rotate(0deg);
     }
   }
 </style>

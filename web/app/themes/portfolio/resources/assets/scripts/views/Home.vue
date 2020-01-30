@@ -1,5 +1,12 @@
 <template>
-  <div class="Home container-fluid" :class="{'project-open': store.hasOpenedProject()}" v-if="projects.length">
+  <div class="Home container-fluid" 
+    :class="{
+      'project-open': store.page === PAGES_NAME.slug,
+      'grid-open': store.page === PAGES_NAME.grid,
+      'home-open': store.page === PAGES_NAME.home,
+    }" 
+    v-if="projects.length"
+  >
     <div class="Home__previews is-relative">
       <Galery
         :current="current"
@@ -21,9 +28,8 @@
             v-for="(project, i) in projects"
             :key="'content-' + i" 
             :data="project"
-            :isOpen="store.isProjectOpen(project.slug)"
-            v-show="store.isProjectOpen(project.slug)"
             :index="i"
+            v-show="store.isProjectOpen(project.slug)"
           />
         </transition-group>
       </div>
@@ -88,15 +94,37 @@ export default {
       height: 100vh;
       width: 100%;
       display: block;
-      transition: height $easing $cbezier1;
     }
 
-    &.project-open &__previews {
-      height: 50vh;
+    &__previews,
+    &__projects,
+    .ActiveTitle,
+    .Galery {
+      transition: transform $easing $cbezier1 0s;
     }
 
     &.project-open {
       max-height: fit-content;
+
+      .Home__previews {
+        transform: scaleY(0.5) translateY(-50vh);
+        .ActiveTitle,
+        .Galery {
+          transform: scaleY(2);
+
+          .Galery__picture {
+            transform: rotate(0deg);
+          }
+        }
+      }
+      .Home__projects {
+        transform: translateY(-50vh);
+      }
+    }
+
+    &.grid-open .GridTitles,
+    &.home-open .ActiveTitle {
+      z-index: 60;
     }
   }
 </style>

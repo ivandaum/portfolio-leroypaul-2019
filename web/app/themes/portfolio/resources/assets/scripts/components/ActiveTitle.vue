@@ -1,5 +1,5 @@
 <template>
-  <div class="ActiveTitle is-centered-container is-absolute" :class="{'above-all': store.page === PAGES_NAME.home}">
+  <div class="ActiveTitle is-centered-container is-absolute">
       <div class="ActiveTitle__number is-centered">
         <div class="ActiveTitle__number--inner is-centered"
           v-for="(project, i) in projects" 
@@ -43,6 +43,9 @@ export default {
     projects: Array
   },
   methods: {
+    isSectionActive() {
+      return store.page === PAGES_NAME.home;
+    },
     isActive(index) {
       return this.current === index && store.page !== PAGES_NAME.grid;
     },
@@ -80,6 +83,7 @@ export default {
       z-index: 10;
       margin-top: -#{$title-height * 0.75};
       transition: opacity .5s;
+      opacity: 0;
 
       &--inner {
         height: 1.5rem;
@@ -98,5 +102,6 @@ export default {
         color: $white;
       }
     }
+
   }
 </style>

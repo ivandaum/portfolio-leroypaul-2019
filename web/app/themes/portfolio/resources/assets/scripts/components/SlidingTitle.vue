@@ -2,10 +2,9 @@
   <div class="SlidingTitle">
     <router-link 
     class="js-sliding-text"
-    :class="{isActive: isActive}"
     v-for="(string, i) in elements" 
-    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :key="title + '-' + string + '-' + i"
+    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
     ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})">{{string}}</span>
     </router-link>
@@ -163,10 +162,6 @@ export default {
     font-weight: bold;
     z-index: 50;
     font-size: 1em;
-
-    &.isActive {
-      z-index: 60;
-    }
 
     > a {
       text-decoration: none;
