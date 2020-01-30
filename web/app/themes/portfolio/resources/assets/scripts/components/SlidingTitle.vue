@@ -14,6 +14,7 @@
 <script>
 import store from '../store/store';
 import { rand } from '../utils/functions';
+import RafManager from '../utils/RafManager';
 
 export default {
   name: 'SlidingTitle',
@@ -40,7 +41,8 @@ export default {
       this.elements = this.splitTitle(this.title);
       this.randomizeStart = this.start || 0;
       this.direction = this.scroll || 1;
-      store.$on('render', this.render.bind(this));
+
+      RafManager.addQueue(this.render.bind(this))
     });
   },
   methods: {

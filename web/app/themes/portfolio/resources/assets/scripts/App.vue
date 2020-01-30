@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import RafManager from './utils/RafManager';
 import Nav from './components/Nav.vue';
 import store from './store/store';
 import { PAGES_NAME } from './utils/constants';
@@ -32,7 +33,6 @@ export default {
       setTimeout( () => {
         store.$emit('projectsLoaded');
         store.$emit('switchProject', 0);
-        this.render();
       }, 200);
     });
   },
@@ -43,10 +43,6 @@ export default {
     }
   },
   methods: {
-    render() {
-      this.raf = window.requestAnimationFrame(this.render.bind(this))
-      store.$emit('render');
-    },
     onScroll(e) {
       const scroll = normalize(e);
 
