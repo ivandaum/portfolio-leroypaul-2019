@@ -6,6 +6,7 @@ $black: #000;
 $white: #fff;
 
 $cbezier1: cubic-bezier(.59,.01,.4,.98);
+$easing: .75s;
 
 /** Size **/
 $desktop-size: 1440px;
@@ -16,14 +17,19 @@ $phone-size: 720px;
 $phone-s-size: 320px;
 $desktop-padding: 70px;
 
+
+$brown: #c5b8ab;
 $greige: #dad3cb;
-$brown: #c5b8ac;
 $grey-light: #f4f3f2;
 $grey: #e2e2e2;
+
+$about-background: #e8e5e3;
+$about-title: $brown;
+$about-text: #d7cfc7;
+
 $title-hover: #f4eee9;
 
-
-$title-height: 12.2vw;
+$title-height: 8.3vw;
 
 $font-directory: '/app/themes/portfolio/resources/assets/fonts/';
 $font-title: 'monument';

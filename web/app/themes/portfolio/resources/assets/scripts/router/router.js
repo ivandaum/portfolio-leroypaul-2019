@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
+import Index from '../views/Index.vue';
 
 import { PAGES_NAME } from '../utils/constants';
 
@@ -14,7 +13,7 @@ const router = new Router({
     {
       path: '',
       name: 'home',
-      component: Home,
+      component: Index,
       beforeEnter: (to, from, next) => {
         to.params.grid = false;
         to.params.page = PAGES_NAME.home;
@@ -24,7 +23,7 @@ const router = new Router({
     {
       path: '/projects',
       name: 'projects',
-      component: Home,
+      component: Index,
       beforeEnter: (to, from, next) => {
         to.params.grid = true;
         to.params.page = PAGES_NAME.grid;
@@ -34,7 +33,7 @@ const router = new Router({
     {
       path: '/project/:slug',
       name: 'project',
-      component: Home,
+      component: Index,
       beforeEnter: (to, from, next) => {
         to.params.page = PAGES_NAME.slug;
         next();
@@ -43,7 +42,7 @@ const router = new Router({
     {
       path: '/about',
       name: 'about',
-      component: About,
+      component: Index,
       beforeEnter: (to, from, next) => {
         to.params.page = PAGES_NAME.about;
         next();

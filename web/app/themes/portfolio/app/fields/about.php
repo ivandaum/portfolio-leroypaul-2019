@@ -29,6 +29,7 @@ $about
     ->setLocation('options_page', '==', 'a-propos')
     ->addText('about_title', ['label' => 'Titre'])
     ->addEmail('about_email', ['label' => 'Email de contact'])
+    ->addImage('about_picture', ['label' => 'Photo'])
     ->addWysiwyg('about_description', ['label' => 'À propos de moi'])
     ->addRepeater('about_social_networks', [
       'label' => 'Réseaux sociaux',

@@ -10,3 +10,45 @@
   position: relative;
   width: 100%;
 }
+
+.is-centered-container {
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.above-all {
+  z-index: 10;
+}
+
+.is-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.is-relative {
+  position: relative;
+}
+
+.container-titles {
+  height: $title-height;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  font-size: 8.5vw;
+  text-transform: uppercase;
+  overflow: hidden;
+}

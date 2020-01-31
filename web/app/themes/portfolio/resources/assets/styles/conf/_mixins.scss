@@ -1,5 +1,5 @@
 /** Responsive **/
-@mixin text-border($c, $s: 1px) {
+@mixin text-border($c, $s: 2px) {
   // text-shadow: $s 0 0 $c, -$s 0 0 $c, 0 $s 0 $c, 0 -$s 0 $c, $s/2 $s/2 $c, -$s/2 -$s/2 0 $c, $s/2 -$s/2 0 $c, -$s/2 $s/2 0 $c;
   -webkit-text-stroke-width: $s;
   -webkit-text-stroke-color: $c;
@@ -11,7 +11,7 @@
   -webkit-text-stroke-color: $white;
 }
 
-@mixin image-rotated() {
+@mixin image() {
   width: 23.055555556vw;
   height: 54.567901235vh;
   max-height: 440px;
@@ -23,10 +23,12 @@
   position: absolute;
   overflow: hidden;
   z-index: 1;
-  transform-origin: center center;
-  transform: rotate(10deg);
   pointer-events: none;
-  transition: transform .75s $cbezier1;
+
+  transform: rotate(10deg);
+  transform-origin: center center;
+  transition: transform $easing $cbezier1;
+  
   img {
     position: absolute;
     object-fit: cover;
@@ -34,4 +36,5 @@
     height: 100%;
     width: 100%;
   }
+
 }

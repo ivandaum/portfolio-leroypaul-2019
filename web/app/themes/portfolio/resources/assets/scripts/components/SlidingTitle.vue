@@ -1,12 +1,12 @@
 <template>
   <div class="SlidingTitle">
     <router-link 
-    class="js-sliding-text" 
+    class="js-sliding-text"
     v-for="(string, i) in elements" 
-    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :key="title + '-' + string + '-' + i"
+    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
-    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})">{{string}}</span>
+    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})" v-html="string"></span>
     </router-link>
   </div>
 </template>
@@ -14,6 +14,7 @@
 <script>
 import store from '../store/store';
 import { rand } from '../utils/functions';
+import RafManager from '../utils/RafManager';
 
 export default {
   name: 'SlidingTitle',
@@ -40,7 +41,8 @@ export default {
       this.elements = this.splitTitle(this.title);
       this.randomizeStart = this.start || 0;
       this.direction = this.scroll || 1;
-      store.$on('render', this.render.bind(this));
+
+      RafManager.addQueue(this.render.bind(this))
     });
   },
   methods: {
@@ -160,6 +162,8 @@ export default {
     overflow: hidden;
     font-family: $font-title;
     font-weight: bold;
+    z-index: 50;
+    font-size: 1em;
 
     > a {
       text-decoration: none;
@@ -169,6 +173,10 @@ export default {
       top: 0;
       transition: color .3s;
       @include text-border($white, 1px);
+
+      &:hover {
+        color: $white;
+      }
     }
   }
 </style>
