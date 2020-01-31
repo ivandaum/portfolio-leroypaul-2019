@@ -1,15 +1,19 @@
 <template>
   <div class="About">
     <div class="About__title container-titles" v-if="titles.length">
-      <transition :name="'slide' + transitionDirection()">
+      <transition :name="'slide' + (this.isActive ? '-top' : '-bottom')">
         <SlidingTitle :slug="slugs" :title="titles" :isActive="showTitle" v-show="showTitle" />
       </transition>
     </div>
 
-    <div class="About__left">
-
+    <div class="About__content container is-relative">
+      <ul class="About__left">
+        <li v-for="(network, i) in networks" :key="'social-network' + i">
+          <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
+        </li>
+      </ul>
+      <div class="About__center is-relative" v-html="description"></div>
     </div>
-
     <div class="About__background js-background"></div>
   </div>
 </template>
@@ -26,9 +30,12 @@ export default {
       return {
         titles: [],
         slugs: [],
+        networks: [],
+        description: '',
         store: store,
         PAGES_NAME: PAGES_NAME,
         showTitle: false,
+        played: false,
       }
   },
   props: {
@@ -36,57 +43,88 @@ export default {
     isActive: Boolean
   },
   mounted() {
+    this.titles = this.datas.title.split(' ');
+    this.slugs = this.titles.map(() => null);
+    this.networks = this.datas.social_networks;
+    this.description = this.datas.description;
+
     this.$nextTick(() => {
-      this.titles = this.datas.title.split(' ');
-      this.slugs = this.titles.map(() => null);
-      this.createTimeline();
+      this.initAnimation();
 
       if (this.isActive) {
-        this.show();
+        this.toggle();
       }
     });
   },
   watch: {
     isActive(to) {
-      to ? this.show() : this.hide();
+      this.toggle();
     }
   },
   methods: {
-    transitionDirection() {
-      return this.isActive ? '-top' : '-bottom';
-    },
-    createTimeline() {
+    initAnimation() {
+      this.$slideIn = this.$el.querySelectorAll('.js-network-in');
+      this.$textIn = this.$el.querySelectorAll('.js-text-in');
       this.$background = this.$el.querySelector('.js-background');
-      this.animation = anime.timeline({autoplay: false});
-      this.animation
-      .add({
+
+      this.backgroundAnimation = anime({
         targets: this.$background,
         duration: 1000,
-        width: ['0%', '100%'],
+        width: ['0', '100%'],
         easing: 'easeInOutQuart',
-        complete: () => {
-          if (!this.animation.reversed) {
-            this.showTitle = this.isActive;
-          }
-        },
-        begin: () => {
-          if (this.animation.reversed) {
-            this.showTitle = this.isActive;
-          }
-        }
+        autoplay: false
+      });
+
+      this.networkAnimation = anime({
+        targets: this.$slideIn,
+        translateY: ['100%', '0%'],
+        duration: 500,
+        delay: (el, i) => i * 50,
+        easing: 'easeInOutQuart',
+        autoplay: false
+      });
+
+      this.textAnimation = anime({
+        targets: this.$textIn,
+        opacity: [0, 1],
+        duration: 300,
+        delay: (el, i) => i * 10,
+        easing: 'linear',
+        autoplay: false
       })
     },
-    show() {
-      if (this.animation.reversed) {
-        this.animation.reverse();
+
+    toggle() {
+      if (!this.isActive && !this.backgroundAnimation.reversed
+        || this.isActive && this.backgroundAnimation.reversed
+      ) {
+        this.backgroundAnimation.reverse();
+        this.networkAnimation.reverse();
+        this.textAnimation.reverse();
       }
-      setTimeout(() => this.animation.play(), 200);
-    },
-    hide() {
-      if (!this.animation.reversed) {
-        this.animation.reverse();
+
+      // show 
+      if (this.isActive) {
+        this.backgroundAnimation.play();
+
+        setTimeout(() => {
+          this.showTitle = true;
+          this.networkAnimation.play();
+          this.textAnimation.play();
+        }, 500)
+      } 
+      // hide
+      else {
+        this.networkAnimation.play();
+        this.textAnimation.play();
+        this.showTitle = false;
+
+        setTimeout(() => {
+          this.backgroundAnimation.play();
+        }, 200)
       }
-      this.animation.play();
+
+      this.played = !this.played;
     }
   },
   components: {
@@ -108,14 +146,17 @@ export default {
     z-index: 200;
     pointer-events: none;
 
-    &__title a:nth-of-type(1),
-    &__title a:nth-of-type(2) {
-      color: $about-title;
-      @include no-text-border;
-    }
+    &__title {
+      margin-bottom: 160px;
+      a b {
+        color: $about-title;
+        @include no-text-border;
+      }
 
-    &__title a {
-      @include text-border($greige);
+      a {
+        @include text-border($greige);
+        pointer-events: none;
+      }
     }
 
     &__background {
@@ -126,6 +167,81 @@ export default {
       top: 0;
       width: 0;
       height: 100%;
+      z-index: 1;
+    }
+
+    &__content  {
+      z-index: 2;
+      display: flex;
+    }
+
+    &__left,
+    &__center {
+      width: 360px;
+
+      a {
+        text-decoration: none;
+        display: inline-block;
+        font-weight: bold;
+        color: inherit;
+        position: relative;
+      }
+
+      a::after {
+        content:" ";
+        width: 100%;
+        height: 1px;
+        background: $brown;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &__left {
+      list-style: none;
+      padding-right: 200px;
+
+      a {
+        color: $brown;
+        font-size: 12px;
+        display: inline-block;
+        height: 100%;
+      }
+
+      a::after {
+        bottom: 10px;
+      }
+
+      li {
+        height: 25px;
+        overflow: hidden;
+        display: block;
+      }
+    }
+
+    &__center {
+      color: $greige;
+
+      p {
+        margin: 0 0 10px 0;
+        font-size: 20px;
+        line-height: 34px;
+
+        &:first-child {
+          color: $brown;
+          font-size: 24px;
+        }
+      }
+
+      a {
+        line-height: 24px;
+      }
+
+      a::after {
+        height: 2px;
+      }
     }
   }
 </style>

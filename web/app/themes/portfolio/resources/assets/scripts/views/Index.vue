@@ -135,6 +135,10 @@ export default {
       z-index: 60;
     }
 
+    &.home-open .ActiveTitle__number {
+      opacity: 1;
+    }
+
     &.about-open .About {
       pointer-events: auto;
     }

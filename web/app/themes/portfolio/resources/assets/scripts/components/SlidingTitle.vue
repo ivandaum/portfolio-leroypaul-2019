@@ -6,7 +6,7 @@
     :key="title + '-' + string + '-' + i"
     :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
-    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})">{{string}}</span>
+    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})" v-html="string"></span>
     </router-link>
   </div>
 </template>

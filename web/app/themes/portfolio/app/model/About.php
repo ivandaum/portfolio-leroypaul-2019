@@ -30,6 +30,36 @@ class About
         'url' => $c['social_networks-link']
       ];
     }
+
+    $description = preg_replace('/<(p|span).*?>/', '<$1>', $about['description']);
+    $description = preg_replace('/(<span>|<\/span>)/', '', $description);
+    $cleaned = preg_replace('/<.*?>/', '', $description);
+    $allWords = explode(' ', $cleaned);
+    $words = array();
+    foreach($allWords as $word) {
+      if (!in_array($word, $words)) $words[] = trim($word);
+    }
+
+    foreach($words as $word) {
+      $new = ' <span>'.$word.'</span> ';
+      $matchs = array(
+        ' '.$word.' ' => $new,
+        '>'.$word => '>' . trim($new) . ' ',
+        $word . '<' => ' ' . trim($new) . '<',
+      );
+
+      foreach($matchs as $m => $v) {
+        if(preg_match("$$m$", $description)) {
+          $description = str_replace($m, $v, $description);
+          break;
+        }
+      }
+    }
+
+    $description = preg_replace('/<a(.*?)>/', '<a class="js-text-in" $1>', $description);
+    $description = preg_replace('/<span>/', '<span class="js-text-in">', $description);
+
+    $about['description'] = $description;
     return $about;
   }
 }

@@ -6,9 +6,7 @@
       :key="'galery-image-' + i"
       :style="{zIndex: projects.length - i}"
     >
-      <transition :name="'fade-galery'">
-        <img :src="project.preview_image.sizes.large" v-show="store.page !== PAGES_NAME.about" />
-      </transition>
+      <img :src="project.preview_image.sizes.large"/>
     </div>
   </div>
 </template>
