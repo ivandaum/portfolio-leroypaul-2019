@@ -11,6 +11,10 @@
         <li v-for="(network, i) in networks" :key="'social-network' + i">
           <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
         </li>
+
+        <li class="separator"><div class="js-network-in">Do you have any question?</div></li>
+        <li><a :href="'mailto:' + email" class="is-relative js-network-in">{{email}}</a></li>
+        <li class="separator"><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
       </ul>
       <div class="About__center is-relative" v-html="description"></div>
     </div>
@@ -31,11 +35,11 @@ export default {
         titles: [],
         slugs: [],
         networks: [],
+        email: '',
         description: '',
         store: store,
         PAGES_NAME: PAGES_NAME,
         showTitle: false,
-        played: false,
       }
   },
   props: {
@@ -43,10 +47,12 @@ export default {
     isActive: Boolean
   },
   mounted() {
+    console.log(this.datas);
     this.titles = this.datas.title.split(' ');
     this.slugs = this.titles.map(() => null);
     this.networks = this.datas.social_networks;
     this.description = this.datas.description;
+    this.email = this.datas.email;
 
     this.$nextTick(() => {
       this.initAnimation();
@@ -123,8 +129,6 @@ export default {
           this.backgroundAnimation.play();
         }, 200)
       }
-
-      this.played = !this.played;
     }
   },
   components: {
@@ -203,21 +207,18 @@ export default {
       list-style: none;
       padding-right: 200px;
 
-      a {
+      li {
         color: $brown;
         font-size: 12px;
-        display: inline-block;
-        height: 100%;
-      }
-
-      a::after {
-        bottom: 10px;
-      }
-
-      li {
         height: 25px;
+        padding-top: 10px;
         overflow: hidden;
         display: block;
+      }
+
+      li.separator {
+        margin-top: 20px;
+        margin-bottom: -5px;
       }
     }
 
