@@ -11,7 +11,6 @@
         <li v-for="(network, i) in networks" :key="'social-network' + i">
           <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
         </li>
-
         <li class="separator"><div class="js-network-in">Do you have any question?</div></li>
         <li><a :href="'mailto:' + email" class="is-relative js-network-in">{{email}}</a></li>
         <li class="separator"><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
@@ -139,6 +138,7 @@ export default {
 <style lang="scss">
   @import "../../../styles/conf/variables";
   @import "../../../styles/conf/mixins";
+  @import "../../../styles/conf/keyframes";
 
   .About {
     min-height: 100vh;
@@ -199,7 +199,7 @@ export default {
         display: block;
         position: absolute;
         bottom: 0;
-        left: 0;
+        right: 0;
       }
     }
 
@@ -220,6 +220,15 @@ export default {
         margin-top: 20px;
         margin-bottom: -5px;
       }
+
+      a:after {
+        transition: width .2s $cbezier1;
+      }
+
+      a:hover:after {
+        width: 0;
+      }
+
     }
 
     &__center {
@@ -242,6 +251,10 @@ export default {
 
       a::after {
         height: 2px;
+      }
+
+      a:hover:after {
+        animation: link-border 1s;
       }
     }
   }

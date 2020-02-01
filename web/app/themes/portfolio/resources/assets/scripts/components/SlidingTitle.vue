@@ -37,6 +37,8 @@ export default {
     scroll: null
   },
   mounted() {
+
+    window.addEventListener('resize', this.onResize.bind(this));
     this.$nextTick( () => {
       this.elements = this.splitTitle(this.title);
       this.randomizeStart = this.start || 0;
@@ -46,6 +48,9 @@ export default {
     });
   },
   methods: {
+    onResize() {
+      this.inited = false;
+    },
     render() {
       if(!this.isActive) {
         return false;

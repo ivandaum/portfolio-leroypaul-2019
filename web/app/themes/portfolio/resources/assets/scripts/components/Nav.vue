@@ -1,18 +1,35 @@
 <template>
   <nav class="Nav">
     <router-link :to="{name: 'home'}" class="Nav__logo">Paul.</router-link>
-    <div class="Nav__right">
-      <router-link :to="{name: 'projects'}">All projects</router-link>
-      <router-link :to="{name: 'about'}">About</router-link>
-    </div>
+    <ul class="Nav__right">
+      <li class="is-relative">
+        <transition :name="'slide-top'">
+          <router-link :to="{name: 'projects'}" v-show="PAGES_NAME.grid !== store.page">All projects</router-link>
+        </transition>
+      </li>
+      <li class="is-relative Nav__about-link">
+        <transition :name="'slide-top'">
+          <router-link :to="{name: 'about'}" v-show="PAGES_NAME.about !== store.page">About</router-link>
+        </transition>
+        <transition :name="'slide-top'">
+          <router-link :to="{name: 'home'}" v-show="PAGES_NAME.about === store.page">Fermer</router-link>
+        </transition>
+      </li>
+    </ul>
   </Nav>
 </template>
 
 <script>
+import store from '../store/store';
+import { PAGES_NAME } from '../utils/constants';
+
 export default {
   name:'Nav',
   data() {
-      return {}
+      return {
+        store: store,
+        PAGES_NAME: PAGES_NAME
+      }
   },
   mounted() {
     
@@ -35,6 +52,9 @@ export default {
     a {
       color: $white;
       text-decoration: none;
+      display: block;
+      height: 100%;
+      min-width: 70px;
     }
 
     &__logo {
@@ -43,11 +63,29 @@ export default {
       font-weight: bold;
       text-transform: uppercase;
     }
+
     &__right {
+      display: flex;
+      align-items: flex-end;
       font-size: .75rem;
       letter-spacing: .18px;
-      a:last-of-type {
+      margin: 0;
+      padding: 0;
+    }
+
+    &__right li {
+      height: 20px;
+      overflow: hidden;
+
+      &:last-of-type {
         margin-left: 1rem;
+      }
+    }
+
+    &__about-link {
+      width: 65px;
+      a {
+        position: absolute;
       }
     }
   }

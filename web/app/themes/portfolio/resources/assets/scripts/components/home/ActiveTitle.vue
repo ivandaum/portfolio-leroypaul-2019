@@ -83,7 +83,7 @@ export default {
       border-radius: 50%;
       position: absolute;
       z-index: 10;
-      margin-top: -#{$title-height * 0.75};
+      margin-top: -#{$title-height};
       transition: opacity .5s;
       opacity: 0;
 

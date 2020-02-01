@@ -1,0 +1,25 @@
+@keyframes link-border {
+  0% {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  50% {
+    width: 0;
+    left: 100%;
+    right: 0;
+  }
+
+  51% {
+    width: 0;
+    right: 100%;
+    left: 0;
+  }
+
+  100% {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+}
