@@ -30,6 +30,7 @@
             :data="project"
             :index="i"
             v-show="store.isProjectOpen(project.slug)"
+            :isOpen="store.isProjectOpen(project.slug)"
           />
         </transition-group>
       </div>
