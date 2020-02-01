@@ -1,21 +1,27 @@
 <template>
   <div class="About">
-    <div class="About__title container-titles" v-if="titles.length">
+    <div class="About__title container-titles" @mouseenter="showPicture = true" @mouseleave="showPicture = false" v-if="titles.length">
       <transition :name="'slide' + (this.isActive ? '-top' : '-bottom')">
         <SlidingTitle :slug="slugs" :title="titles" :isActive="showTitle" v-show="showTitle" />
       </transition>
     </div>
-
-    <div class="About__content container is-relative">
-      <ul class="About__left">
-        <li v-for="(network, i) in networks" :key="'social-network' + i">
-          <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
-        </li>
-        <li class="separator"><div class="js-network-in">Do you have any question?</div></li>
-        <li><a :href="'mailto:' + email" class="is-relative js-network-in">{{email}}</a></li>
-        <li class="separator"><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
-      </ul>
-      <div class="About__center is-relative" v-html="description"></div>
+    <div class="container">
+      <div class="About__content is-relative">
+        <ul class="About__left">
+          <li v-for="(network, i) in datas.social_networks" :key="'social-network' + i">
+            <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
+          </li>
+          <li class="separator"><div class="js-network-in">Do you have any question?</div></li>
+          <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
+          <li class="separator"><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
+        </ul>
+        <div class="About__center is-relative" v-html="datas.description"></div>
+      </div>
+      <div class="About__picture">
+        <transition :name="'fade-and-slide'">
+          <ImageResponsive v-if="datas.picture" :image="datas.picture" v-show="showPicture" />
+        </transition>
+      </div>
     </div>
     <div class="About__background js-background"></div>
   </div>
@@ -23,6 +29,7 @@
 
 <script>
 import SlidingTitle from '../../components/SlidingTitle.vue';
+import ImageResponsive from '../../components/Image.vue';
 import store from '../../store/store';
 import { PAGES_NAME } from './../../utils/constants';
 import anime from 'animejs';
@@ -39,6 +46,8 @@ export default {
         store: store,
         PAGES_NAME: PAGES_NAME,
         showTitle: false,
+        picture: false,
+        showPicture: false
       }
   },
   props: {
@@ -46,12 +55,8 @@ export default {
     isActive: Boolean
   },
   mounted() {
-    console.log(this.datas);
     this.titles = this.datas.title.split(' ');
     this.slugs = this.titles.map(() => null);
-    this.networks = this.datas.social_networks;
-    this.description = this.datas.description;
-    this.email = this.datas.email;
 
     this.$nextTick(() => {
       this.initAnimation();
@@ -131,7 +136,8 @@ export default {
     }
   },
   components: {
-    SlidingTitle
+    SlidingTitle,
+    ImageResponsive
   }
 }
 </script>
@@ -152,6 +158,8 @@ export default {
 
     &__title {
       margin-bottom: 160px;
+      cursor: pointer;
+
       a b {
         color: $about-title;
         @include no-text-border;
@@ -175,7 +183,7 @@ export default {
     }
 
     &__content  {
-      z-index: 2;
+      z-index: 10;
       display: flex;
     }
 
@@ -256,6 +264,14 @@ export default {
       a:hover:after {
         animation: link-border 1s;
       }
+    }
+
+    &__picture {
+      position: absolute;
+      z-index: 10;
+      top: -19.5rem;
+      right: 10%;
+      pointer-events: none;
     }
   }
 </style>

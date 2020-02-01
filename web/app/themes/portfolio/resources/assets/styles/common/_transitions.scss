@@ -2,7 +2,7 @@
   transition: transform $easing;
 }
 [class*="fade-and-slide-"] {
-  transition: transform $easing, opacity $easing;
+  transition: transform $easing / 2, opacity $easing / 2;
 }
 
 .slide-top-enter-active, .slide-bottom-enter-active {
@@ -12,7 +12,7 @@
 // ----------------------
 
 .fade-and-slide-enter {
-  transform: translateY(-100%);
+  transform: translateY(10%);
   opacity: 0;
 }
 .fade-and-slide-enter-to {
@@ -21,7 +21,7 @@
 }
 .fade-and-slide-leave-to,
 .fade-and-slide-leave {
-  transform: translateY(-100%);
+  transform: translateY(10%);
   opacity: 0;
 }
 
