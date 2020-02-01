@@ -158,7 +158,6 @@ export default {
 
     &__title {
       margin-bottom: 160px;
-      cursor: pointer;
 
       a b {
         color: $about-title;

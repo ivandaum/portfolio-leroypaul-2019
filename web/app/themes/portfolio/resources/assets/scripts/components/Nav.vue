@@ -1,19 +1,15 @@
 <template>
-  <nav class="Nav">
+  <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about])}">
     <router-link :to="{name: 'home'}" class="Nav__logo">Paul.</router-link>
     <ul class="Nav__right">
-      <li class="is-relative">
-        <transition :name="'slide-top'">
-          <router-link :to="{name: 'projects'}" v-show="PAGES_NAME.grid !== store.page">All projects</router-link>
-        </transition>
+      <li class="is-relative" :class="{active: routeIs([PAGES_NAME.home])}">
+        <router-link :to="{name: 'projects'}">All projects</router-link>
       </li>
-      <li class="is-relative Nav__about-link">
-        <transition :name="'slide-top'">
-          <router-link :to="{name: 'about'}" v-show="PAGES_NAME.about !== store.page">About</router-link>
-        </transition>
-        <transition :name="'slide-top'">
-          <router-link :to="{name: 'home'}" v-show="PAGES_NAME.about === store.page">Fermer</router-link>
-        </transition>
+      <li class="is-relative" :class="{active: !routeIs([PAGES_NAME.about, PAGES_NAME.slug])}">
+        <router-link :to="{name: 'about'}">About</router-link>
+      </li>
+      <li class="Nav__close" :class="{active: routeIs([PAGES_NAME.slug, PAGES_NAME.about])}">
+        <router-link :to="{name: 'home'}">Fermer</router-link>
       </li>
     </ul>
   </Nav>
@@ -34,6 +30,11 @@ export default {
   mounted() {
     
   },
+  methods: {
+    routeIs(routes) {
+      return routes.indexOf(this.store.page) !== -1;
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -55,6 +56,8 @@ export default {
       display: block;
       height: 100%;
       min-width: 70px;
+      transform: translateY(-100%);
+      transition: transform $easing, color $easing;
     }
 
     &__logo {
@@ -71,22 +74,36 @@ export default {
       letter-spacing: .18px;
       margin: 0;
       padding: 0;
+      position: relative;
     }
 
     &__right li {
       height: 20px;
       overflow: hidden;
+      pointer-events: none;
 
-      &:last-of-type {
-        margin-left: 1rem;
+      &:first-of-type {
+        margin-right: 1rem;
+      }
+
+      &.active {
+        pointer-events: auto;
+      }
+
+      &.active a {
+        transform: translateY(0);
       }
     }
 
-    &__about-link {
+    &__close {
       width: 65px;
-      a {
-        position: absolute;
-      }
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &.is-brown a {
+      color: $brown;
     }
   }
 </style>
