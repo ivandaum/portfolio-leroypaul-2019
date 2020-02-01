@@ -69,7 +69,10 @@ export default {
           easing: 'easeInOutQuart',
           delay: (el, i) => i * -100,
           autoplay: false,
-          complete: () => this.isFirstLoad = false
+          complete: () => {
+            this.isFirstLoad = false
+            this.$images.map($image => $image.style.transform = '');
+          }
         });
       });
     });
