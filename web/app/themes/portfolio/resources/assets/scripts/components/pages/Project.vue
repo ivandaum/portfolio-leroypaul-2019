@@ -22,7 +22,7 @@
       </div>
       <div class="Project__pictures">
         <div v-for="(img, i) in data.content" :key="i" :class="{container: img.type == 'center', 'container-fluid': img.type == 'full' }">
-          <img :width="img.width" :height="img.height" :src="img.url" :alt="data.title" />
+          <ImageSource v-if="img.image" :image="img.image" />
         </div>
       </div>
     </div>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import ImageSource from '../../components/ImageSource.vue';
 import SlidingTitle from '../../components/SlidingTitle.vue';
 import store from '../../store/store';
 import { PAGES_NAME } from './../../utils/constants';
@@ -46,44 +47,13 @@ export default {
     isOpen: Boolean,
     index: Number,
   },
-  watch:{
-    $route (to, from) {
-      if(from.name === PAGES_NAME.grid && to.name === PAGES_NAME.home) {
-        store.scrollDirection = 0;
-      }
-    }
-  },
   methods: {
-    showHeader() {
-      if(store.page == PAGES_NAME.grid) return false;
-
-      return this.isActive || this.isOpen;
-    },
-    transitionDirection() {
-      if(store.scrollDirection < 0) return '-bottom';
-
-      return '-top';
-    },
-    transitionImageDirection() {
-      if(store.scrollDirection < 0) return '-bottom';
-      else if(store.scrollDirection == 0) return '-none';
-
-      return '-top';
-    },
-    formatedIndex() {
-      let number = '';
-      
-      if(this.index + 1 < 10) {
-        number += '0';
-      }
-      number += this.index + 1;
-      return number;
-    }
   },
   mounted() {
   },
   components: {
     SlidingTitle,
+    ImageSource
   }
 }
 </script>

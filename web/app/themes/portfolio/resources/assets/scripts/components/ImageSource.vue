@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <picture :class="className">
-      <source 
-        v-for="(source, i) in sources" 
-        :srcset="source.url"
-        :media="'(min-width: ' + MEDIA_QUERIES[i].width + 'px)'" 
-        :key="'image-responsive' + i"
-        :type="type"
-      >
-      <img :src="lastEntry.url" :height="lastEntry.height" :width="lastEntry.width" :alt="alt">
-    </picture>
-  </div>
+  <picture :class="className">
+    <source 
+      v-for="(source, i) in sources" 
+      :srcset="source.url"
+      :media="'(' + MEDIA_QUERIES[i].media + ')'" 
+      :key="'image-responsive' + i"
+      :type="type"
+    >
+    <img :src="lastEntry.url" :height="lastEntry.height" :width="lastEntry.width" :alt="alt">
+  </picture>
 </template>
 
 <script>
 export default {
-  name: 'ImageResponsive',
+  name: 'ImageSource',
   data() {
       return {
         lastEntry: {},
@@ -23,8 +21,11 @@ export default {
         type: null,
         alt: null,
         MEDIA_QUERIES: [
-          {name: 'medium', width: 768},
-          {name: 'large', width: 1000},
+          {name: 'phone-s', media: 'max-width: 360px'},
+          {name: 'phone', media: 'max-width: 768px'},
+          {name: 'desktop', media: 'max-width: 1000px'},
+          {name: 'widescreen', media: 'max-width: 1280px'},
+          {name: 'max', media: 'min-width: 1281px'},
         ],
       }
   },

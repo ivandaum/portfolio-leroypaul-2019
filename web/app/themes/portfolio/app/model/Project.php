@@ -53,9 +53,7 @@ class Project
         $type = !isset($c['disposition']) ?: $c['disposition'];
         $entry = [
           'type' => $type,
-          'url' => $c['image']['sizes']['large'],
-          'width' => $c['image']['sizes']['large-width'],
-          'height' => $c['image']['sizes']['large-height']
+          'image' => $c['image'],
         ];
         $f['content'][] = $entry;
       }

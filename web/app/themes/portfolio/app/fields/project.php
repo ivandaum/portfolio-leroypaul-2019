@@ -25,9 +25,6 @@ $post
     ->setDefaultValue('center')
   ->addImage('image', [
     'label' => 'Image',
-    'instructions' => '',
-    'return_format' => 'array',
-    'library' => 'all',
   ])
   ->endRepeater();
 return $post;

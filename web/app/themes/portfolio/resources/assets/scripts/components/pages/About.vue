@@ -19,7 +19,7 @@
       </div>
       <div class="About__picture">
         <transition :name="'fade-and-slide'">
-          <ImageResponsive v-if="datas.picture" :image="datas.picture" v-show="showPicture" />
+          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture" />
         </transition>
       </div>
     </div>
@@ -29,7 +29,7 @@
 
 <script>
 import SlidingTitle from '../../components/SlidingTitle.vue';
-import ImageResponsive from '../../components/Image.vue';
+import ImageSource from '../../components/ImageSource.vue';
 import store from '../../store/store';
 import { PAGES_NAME } from './../../utils/constants';
 import anime from 'animejs';
@@ -137,7 +137,7 @@ export default {
   },
   components: {
     SlidingTitle,
-    ImageResponsive
+    ImageSource
   }
 }
 </script>
