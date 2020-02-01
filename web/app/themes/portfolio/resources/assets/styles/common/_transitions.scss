@@ -1,7 +1,7 @@
 [class*="slide-"] {
   transition: transform $easing;
 }
-[class*="fade-and-slide-"] {
+[class*="anime-picture-"] {
   transition: transform $easing / 2, opacity $easing / 2;
 }
 
@@ -11,17 +11,17 @@
 
 // ----------------------
 
-.fade-and-slide-enter {
-  transform: translateY(10%);
+.anime-picture-enter {
+  transform: translateY(15%) rotate(0deg) !important;
   opacity: 0;
 }
-.fade-and-slide-enter-to {
-  transform: translateY(0);
+.anime-picture-enter-to {
+  transform: translateY(0) rotate(5deg) !important;
   opacity: 1;
 }
-.fade-and-slide-leave-to,
-.fade-and-slide-leave {
-  transform: translateY(10%);
+.anime-picture-leave-to,
+.anime-picture-leave {
+  transform: translateY(-15%) rotate(10deg) !important;
   opacity: 0;
 }
 

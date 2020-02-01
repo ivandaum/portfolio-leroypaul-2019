@@ -9,7 +9,7 @@
         <router-link :to="{name: 'about'}">About</router-link>
       </li>
       <li class="Nav__close" :class="{active: routeIs([PAGES_NAME.slug, PAGES_NAME.about])}">
-        <router-link :to="{name: 'home'}">Fermer</router-link>
+        <router-link :to="{name: 'home'}">Close</router-link>
       </li>
     </ul>
   </Nav>

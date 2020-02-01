@@ -18,7 +18,7 @@
         <div class="About__center is-relative" v-html="datas.description"></div>
       </div>
       <div class="About__picture">
-        <transition :name="'fade-and-slide'">
+        <transition :name="'anime-picture'">
           <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture" />
         </transition>
       </div>
@@ -271,6 +271,11 @@ export default {
       top: -19.5rem;
       right: 10%;
       pointer-events: none;
+  
+      picture {
+        transform: translateY(0) rotate(5deg);
+        display: block;
+      }
     }
   }
 </style>
