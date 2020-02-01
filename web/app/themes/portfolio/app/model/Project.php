@@ -37,7 +37,9 @@ class Project
       $f['title'] = $p->post_title;
 
       $f['preview_image'] = get_field('project_preview-image', $p->ID);
-      $f['date'] = get_field('project_date', $p->ID);
+      $date = explode('/', get_field('project_date', $p->ID));
+
+      $f['date'] = date('F Y', strtotime($date[1] .'/'. $date[0] .'/'. $date[2]));
       $f['subtitle'] = get_field('project_subtitle', $p->ID);
       $f['description'] = get_field('project_description',$p->ID);
       $f['client'] = get_field('project_client',$p->ID);

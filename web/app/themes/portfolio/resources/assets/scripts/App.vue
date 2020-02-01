@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="App" v-on:wheel="onScroll" v-on:scroll.native="onScroll">
+    <Loader />
     <Nav />
     <keep-alive>
       <router-view></router-view>
@@ -12,6 +13,7 @@ import store from './store/store';
 import { PAGES_NAME } from './utils/constants';
 import normalize from 'normalize-wheel';
 import Nav from './components/Nav.vue';
+import Loader from './views/Loader.vue';
 
 export default {
   name: 'App',
@@ -22,21 +24,7 @@ export default {
   mounted () {
     this.canScroll = true;
     this.raf = null;
-
-    store.projects = window.PROJECTS;
-    store.about = window.ABOUT;
-    store.page = this.$route.params.page;
-    store.slug = this.$route.params.slug ? this.$route.params.slug : null;
-    store.windowWidth = window.innerWidth;
-    store.windowHeight =  window.innerHeight;
-
-    this.$nextTick(() => {
-      setTimeout( () => {
-        store.$emit('projectsLoaded');
-        store.$emit('aboutLoaded');
-        store.$emit('switchProject', 0);
-      }, 200);
-    });
+    store.$emit('app-loaded');
   },
   watch:{
     $route (to, from) {
@@ -69,7 +57,7 @@ export default {
       store.project = current;
       store.scrollDirection = direction;
 
-      store.$emit('switchProject', current);
+      store.$emit('switch-project', current);
       
       setTimeout( () => {
         this.canScroll = true;
@@ -77,7 +65,8 @@ export default {
     }
   },
   components: { 
-    Nav, 
+    Nav,
+    Loader,
   },
 }
 </script>

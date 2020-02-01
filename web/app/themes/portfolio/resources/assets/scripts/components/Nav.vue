@@ -39,6 +39,7 @@ export default {
 </script>
 <style lang="scss">
   @import "../../styles/conf/variables";
+  @import "../../styles/conf/mixins";
 
   .Nav {
     position: fixed;
@@ -58,6 +59,9 @@ export default {
       min-width: 70px;
       transform: translateY(-100%);
       transition: transform $easing, color $easing;
+    }
+
+    a:hover {
     }
 
     &__logo {

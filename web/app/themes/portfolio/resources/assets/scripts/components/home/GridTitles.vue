@@ -38,7 +38,7 @@ export default {
     onHover(data) {
       for(let i = 0; i < this.projects.length; i++) {
         if(data.slug === this.projects[i].slug) {
-          store.$emit('switchProject', i);
+          store.$emit('switch-project', i);
           break;
         }
       }

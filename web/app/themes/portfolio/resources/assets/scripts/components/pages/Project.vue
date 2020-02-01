@@ -20,7 +20,7 @@
           <div v-if="data.description">{{data.description}}</div>
         </div>
       </div>
-      <div class="Project__pictures">
+      <div class="Project__pictures" v-if="isOpen">
         <div v-for="(img, i) in data.content" :key="i" :class="{container: img.type == 'center', 'container-fluid': img.type == 'full' }">
           <ImageSource v-if="img.image" :image="img.image" />
         </div>

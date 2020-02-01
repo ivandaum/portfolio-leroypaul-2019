@@ -6,20 +6,18 @@
       'home-open': store.page === PAGES_NAME.home,
       'about-open': store.page === PAGES_NAME.about,
     }" 
-    v-if="projects.length"
   >
-    <About :datas="about" v-if="about" :isActive="store.page === PAGES_NAME.about"/>
+    <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
     <div class="Index__previews is-relative">
-        <Galery
-          :current="current"
-          :projects="projects"
-        />
+      <Galery :current="current"/>
       <ActiveTitle
+        v-if="projects.length"
         :current="current"
         :projects="projects"
       />
 
       <GridTitles
+        v-if="projects.length"
         :current="current"
         :projects="projects"
       />
@@ -54,23 +52,20 @@ export default {
     return {
       projects: [],
       current: -1,
-      PAGES_NAME:PAGES_NAME,
+      PAGES_NAME: PAGES_NAME,
       hasOpenedProject: false,
       store: store,
       about: {}
     }
   },
   mounted() {
-    store.$on('projectsLoaded', () => {
+    store.$on('projects-loaded', () => {
       const projects = store.projects;
       for(let i = 0; i < projects.length; i++) {
         this.$set(this.projects, i, projects[i]);
       }
     });
-    store.$on('aboutLoaded', () => {
-      this.about = store.about;
-    });
-    store.$on('switchProject', (value) => {
+    store.$on('switch-project', (value) => {
       this.current = value;
     });
   },

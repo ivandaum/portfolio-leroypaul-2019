@@ -7,7 +7,7 @@
       :key="'image-responsive' + i"
       :type="type"
     >
-    <img :src="lastEntry.url" :height="lastEntry.height" :width="lastEntry.width" :alt="alt">
+    <img :src="lastEntry.url" :height="lastEntry.height" :width="lastEntry.width" :alt="alt" v-on:load="$emit('loaded')">
   </picture>
 </template>
 
