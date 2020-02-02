@@ -35,3 +35,13 @@ $font-directory: '/app/themes/portfolio/resources/assets/fonts/';
 $font-title: 'monument';
 $font-regular: 'helvetica-regular';
 $font-bold: 'helvetica-bold';
+
+/** Size **/
+$breakpoints: (
+  max-width: 1600px,
+  widescreen: 1280px,
+  desktop: 1000px,
+  phone: 768px,
+  phone-s: 500px,
+  phone-xs: 360px,
+);

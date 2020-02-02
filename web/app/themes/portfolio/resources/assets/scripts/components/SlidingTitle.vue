@@ -156,8 +156,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../styles/conf";
 
   .SlidingTitle {
     position: absolute;

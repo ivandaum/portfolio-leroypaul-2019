@@ -50,8 +50,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../../styles/conf/variables";
-  @import "../../../styles/conf/mixins";
+  @import "../../../styles/conf";
   .GridTitles {
     a:nth-of-type(even):not(:hover) {
       color: rgba($white, .3);

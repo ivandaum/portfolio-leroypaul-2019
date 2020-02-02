@@ -88,13 +88,12 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
-  @import "../../styles/conf/keyframes";
+  @import "../../styles/conf";
 
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
+    opacity: 0;
 
     &__introduction {
       height: 1.5rem;

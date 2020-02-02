@@ -3,6 +3,9 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
+  @include touch {
+    padding: 0 4rem;
+  }
 }
 
 .container-fluid {

@@ -65,7 +65,7 @@ export default {
           duration: 1000,
           translateY: [store.windowHeight, 0],
           translateX: [-store.windowHeight*0.18, 0],
-          rotate: ['10deg'],
+          rotate: ['0deg', '10deg'],
           easing: 'easeInOutQuart',
           delay: (el, i) => i * -100,
           autoplay: false,
@@ -92,19 +92,44 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../../styles/conf/variables";
-  @import "../../../styles/conf/mixins";
+  @import "../../../styles/conf";
+  
+  @mixin image-size($ratio: 1) {
+    width: 23.055555556vw * $ratio;
+    height: 30.663888889vw * $ratio;
+  }
+
   .Galery {
     &__picture {
-      @include image();
       z-index: 1;
       display: block;
+      position: absolute;
+      pointer-events: none;
+      transform-origin: center center;
+      transition: transform $easing $cbezier1;
+      @include image-size();
+
+      @include tablet {
+        @include image-size(2);
+      }
+
+      @include phone {
+        @include image-size(3);
+      }
     }
 
     picture {
       display: block;
       width: 100%;
       height: 100%;
+    }
+
+    img {
+      position: absolute;
+      object-fit: cover;
+      display: block;
+      height: 100%;
+      width: 100%;
     }
 
     &.no-easing .Galery__picture {

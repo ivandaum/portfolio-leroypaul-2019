@@ -1,61 +1,49 @@
-
-@mixin desktop-down {
-  @media all and (max-width: $desktop-size) {
+@mixin above-max-width {
+  @media all and (min-width: map-get($breakpoints, max-width)) {
     @content;
   }
 }
 
-@mixin desktop-m-down {
-  @media all and (max-width: $desktop-m-size) {
+@mixin widescreen {
+  @media all and (min-width: map-get($breakpoints, widescreen)) {
     @content;
   }
 }
 
-@mixin desktop-s-down {
-  @media all and (max-width: $desktop-s-size) {
+@mixin widescreen-down {
+  @media all and (max-width: map-get($breakpoints, widescreen)) {
     @content;
   }
 }
-
-
-@mixin desktop-s-up {
-  @media all and (min-width: $desktop-s-size) {
-    @content;
-  }
-}
-
-@mixin desktop-xs-down {
-  @media all and (max-width: $desktop-xs-size) {
-    @content;
-  }
-}
-
-@mixin desktop-xs-up {
-  @media all and (min-width: $desktop-xs-size) {
-    @content;
-  }
-}
-
 
 @mixin desktop {
-  @media all and (min-width: $desktop-s-size) {
+  @media all and (min-width: map-get($breakpoints, desktop)) {
     @content;
   }
 }
+
 @mixin tablet {
-  @media all and (max-width: $desktop-s-size) and (min-width: $phone-size) {
+  @media all and (max-width: map-get($breakpoints, desktop)) and (min-width: map-get($breakpoints, phone)) {
     @content;
   }
 }
 
 @mixin phone {
-  @media all and (max-width: $phone-size) {
+  @media all and (max-width: map-get($breakpoints, phone)) {
     @content;
   }
 }
 
-@mixin tablet-phone {
-  @media all and (max-width: $desktop-s-size) {
+@mixin phone-s-up {
+  @media all and (min-width: map-get($breakpoints, phone-s)) {
     @content;
   }
 }
+
+// To 1000px
+@mixin touch {
+  @media all and (max-width: map-get($breakpoints, desktop)) {
+    @content;
+  }
+}
+

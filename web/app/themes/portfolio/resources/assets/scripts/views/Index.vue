@@ -1,10 +1,10 @@
 <template>
   <div class="Index container-fluid" 
     :class="{
-      'project-open': store.page === PAGES_NAME.slug,
-      'grid-open': store.page === PAGES_NAME.grid,
-      'home-open': store.page === PAGES_NAME.home,
-      'about-open': store.page === PAGES_NAME.about,
+      'project--open': store.page === PAGES_NAME.slug,
+      'grid--open': store.page === PAGES_NAME.grid,
+      'home--open': store.page === PAGES_NAME.home,
+      'about--open': store.page === PAGES_NAME.about,
     }" 
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
@@ -86,8 +86,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../styles/conf";
 
   .Index {
     min-height: 100vh;
@@ -106,39 +105,42 @@ export default {
     .Galery {
       transition: transform $easing $cbezier1, opacity $easing $cbezier1;
     }
+  }
 
-    &.project-open {
-      max-height: fit-content;
+  .Index.project--open {
+    max-height: fit-content;
 
-      .Index__previews {
-        transform: scaleY(0.5) translateY(-60vh);
-
-        .ActiveTitle {
-          transform: translateY(10vh) scaleY(2);
-        }
-        .Galery {
-          transform: scaleY(2);
-        }
-        .Galery .Galery__picture {
-          transform: rotate(0deg);
-        }
-      }
-      .Index__projects {
-        transform: translateY(-50vh);
-      }
+    .Index__previews {
+      transform: scaleY(0.5) translateY(-60vh);
     }
 
-    &.grid-open .GridTitles,
-    &.home-open .ActiveTitle {
-      z-index: 60;
+    .Index__projects {
+      transform: translateY(-50vh);
     }
 
-    &.home-open .ActiveTitle__number {
-      opacity: 1;
+    .ActiveTitle {
+      transform: translateY(10vh) scaleY(2);
     }
 
-    &.about-open .About {
-      pointer-events: auto;
+    .Galery {
+      transform: scale(1.25, 2.5);
     }
+
+    .Galery .Galery__picture {
+      transform: rotate(0deg);
+    }
+  }
+
+  .Index.grid--open .GridTitles,
+  .Index.home--open .ActiveTitle {
+    z-index: 60;
+  }
+
+  .Index.home--open .ActiveTitle__number {
+    opacity: 1;
+  }
+
+  .Index.about--open .About {
+    pointer-events: auto;
   }
 </style>

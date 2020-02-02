@@ -4,7 +4,7 @@
         <div class="ActiveTitle__number--inner is-centered"
           v-for="(project, i) in projects" 
           :key="'active-title-number' + i" 
-          :class="{isActive: isActive(i)}"
+          :class="{isActive: store.page === PAGES_NAME.home || store.page === PAGES_NAME.slug}"
         >
           <transition :name="'slide' + transitionDirection()">
             <span v-show="isActive(i)">{{ formatedIndex(i) }}</span>
@@ -70,16 +70,15 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../../styles/conf/variables";
-  @import "../../../styles/conf/mixins";
+  @import "../../../styles/conf";
 
   .ActiveTitle {
     &__number {
-      font-size: 1.25rem;
+      font-size: 2rem;
       font-family: $font-title;
-      height: 5.3125rem;
-      width: 5.3125rem;
-      border: 2px solid rgba($white, .5);
+      height: 8.5rem;
+      width: 8.5rem;
+      border: 0.2rem solid rgba($white, .5);
       border-radius: 50%;
       position: absolute;
       z-index: 10;
@@ -87,9 +86,17 @@ export default {
       transition: opacity .5s;
       opacity: 0;
 
+      @include tablet {
+        margin-top: -#{$title-height * 2};
+      }
+
+      @include phone {
+        margin-top: -#{$title-height * 3};
+      }
+
       &--inner {
         height: 1.5rem;
-        width: 3rem;
+        width: 100%;
         overflow:hidden;
         position: absolute;
       }

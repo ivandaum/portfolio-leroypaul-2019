@@ -1,14 +1,16 @@
 <template>
   <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about])}">
-    <router-link :to="{name: 'home'}" class="Nav__logo">Paul.</router-link>
+    <div class="Nav__logo" :class="{active: isSiteLoaded}">
+      <router-link :to="{name: 'home'}">Paul.</router-link>
+    </div>
     <ul class="Nav__right">
-      <li class="is-relative" :class="{active: routeIs([PAGES_NAME.home])}">
+      <li class="is-relative" :class="{active: routeIs([PAGES_NAME.home]) && isSiteLoaded}">
         <router-link :to="{name: 'projects'}">All projects</router-link>
       </li>
-      <li class="is-relative" :class="{active: !routeIs([PAGES_NAME.about, PAGES_NAME.slug])}">
+      <li class="is-relative" :class="{active: !routeIs([PAGES_NAME.about, PAGES_NAME.slug]) && isSiteLoaded}">
         <router-link :to="{name: 'about'}">About</router-link>
       </li>
-      <li class="Nav__close" :class="{active: routeIs([PAGES_NAME.slug, PAGES_NAME.about])}">
+      <li class="Nav__close" :class="{active: routeIs([PAGES_NAME.slug, PAGES_NAME.about]) && isSiteLoaded}">
         <router-link :to="{name: 'home'}">Close</router-link>
       </li>
     </ul>
@@ -24,11 +26,14 @@ export default {
   data() {
       return {
         store: store,
+        isSiteLoaded: false,
         PAGES_NAME: PAGES_NAME
       }
   },
   mounted() {
-    
+    store.$on('projects-loaded', () => {
+      this.isSiteLoaded = true;
+    });
   },
   methods: {
     routeIs(routes) {
@@ -38,56 +43,69 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../styles/conf/variables";
-  @import "../../styles/conf/mixins";
+  @import "../../styles/conf";
 
   .Nav {
     position: fixed;
     width: 100%;
     display: flex;
-    padding: 100px 100px 0 100px;
+    padding: 10rem 10rem 0 10rem;
     justify-content: space-between;
     top: 0;
     z-index: 300;
     font-family: $font-title;
+
+    @include tablet {
+      padding: 4rem 5rem 0 5rem;
+    }
+
+    @include phone {
+      padding: 2.4rem 3rem 0 3rem;
+    }
 
     a {
       color: $white;
       text-decoration: none;
       display: block;
       height: 100%;
-      min-width: 70px;
       transform: translateY(-100%);
       transition: transform $easing, color $easing;
     }
 
-    a:hover {
-    }
-
     &__logo {
-      font-size: .875rem;
-      letter-spacing: 2px;
+      font-size: 1.4rem;
+      letter-spacing: 0.2rem;
       font-weight: bold;
       text-transform: uppercase;
+      height: 2rem;
+      overflow: hidden;
+
+      &.active a {
+        transform: translateY(0);
+      }
     }
 
     &__right {
       display: flex;
       align-items: flex-end;
-      font-size: .75rem;
-      letter-spacing: .18px;
+      font-size: 1.2rem;
+      letter-spacing: 0.18px;
       margin: 0;
       padding: 0;
       position: relative;
+
+      @include phone {
+        margin-top: 0.3rem;
+      }
     }
 
-    &__right li {
-      height: 20px;
+    li {
+      height: 2rem;
       overflow: hidden;
       pointer-events: none;
 
       &:first-of-type {
-        margin-right: 1rem;
+        margin-right: 1.6rem;
       }
 
       &.active {
@@ -100,7 +118,7 @@ export default {
     }
 
     &__close {
-      width: 65px;
+      width: 6.5rem;
       position: absolute;
       right: 0;
       top: 0;

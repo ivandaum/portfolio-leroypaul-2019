@@ -11,15 +11,19 @@
           <li v-for="(network, i) in datas.social_networks" :key="'social-network' + i">
             <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
           </li>
-          <li class="separator"><div class="js-network-in">Do you have any question?</div></li>
-          <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
-          <li class="separator"><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
+          <div class="separator">
+            <li><div class="js-network-in">Do you have any question?</div></li>
+            <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
+          </div>
+          <div class="separator">
+            <li><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
+          </div>
         </ul>
         <div class="About__center is-relative" v-html="datas.description"></div>
       </div>
       <div class="About__picture">
         <transition :name="'anime-picture'">
-          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture" />
+          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture || store.windowWidth <= 768" />
         </transition>
       </div>
     </div>
@@ -142,12 +146,10 @@ export default {
 }
 </script>
 <style lang="scss">
-  @import "../../../styles/conf/variables";
-  @import "../../../styles/conf/mixins";
-  @import "../../../styles/conf/keyframes";
+  @import "../../../styles/conf";
 
   .About {
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     padding-top: 12.5rem;
     top: 0;
@@ -155,6 +157,11 @@ export default {
     position: fixed;
     z-index: 200;
     pointer-events: none;
+
+    @include phone {
+      overflow-y: scroll;
+      padding-bottom: 5rem;
+    }
 
     &__title {
       margin-bottom: 160px;
@@ -172,7 +179,7 @@ export default {
 
     &__background {
       display: block;
-      position: absolute;
+      position: fixed;
       background: $about-background;
       right: 0;
       top: 0;
@@ -184,11 +191,19 @@ export default {
     &__content  {
       z-index: 10;
       display: flex;
+
+      @include phone {
+        flex-wrap: wrap;
+        flex-direction: column-reverse;
+      }
     }
 
     &__left,
     &__center {
-      width: 360px;
+      width: 36rem;
+      @include phone {
+        width: 100%;
+      }
 
       a {
         text-decoration: none;
@@ -201,7 +216,7 @@ export default {
       a::after {
         content:" ";
         width: 100%;
-        height: 1px;
+        height: 0.1rem;
         background: $brown;
         display: block;
         position: absolute;
@@ -212,20 +227,48 @@ export default {
 
     &__left {
       list-style: none;
-      padding-right: 200px;
+      padding-right: 20rem;
+      @include phone {
+        padding-right: 0;
+        display: flex;
+        flex-wrap: wrap;
+      }
 
       li {
         color: $brown;
-        font-size: 12px;
-        height: 25px;
-        padding-top: 10px;
+        font-size: 1.2rem;
+        height: 2.5rem;
+        padding-top: 1rem;
         overflow: hidden;
         display: block;
+
+        @include phone {
+          width: 30%;
+        }
       }
 
-      li.separator {
-        margin-top: 20px;
-        margin-bottom: -5px;
+      .separator {
+        margin-top: 2rem;
+        @include phone {
+          width: 50%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-end;
+
+          li {
+            width: 100%;
+          }
+        }
+
+        &:nth-of-type(2) {
+          @include phone {
+            text-align: right;
+          }
+        }
+
+        li:last-child {
+          margin-top: -0.5rem;
+        }
       }
 
       a:after {
@@ -271,7 +314,21 @@ export default {
       top: -19.5rem;
       right: 10%;
       pointer-events: none;
-  
+      
+      @include phone {
+        position: relative;
+        top: 0;
+        right: auto;
+        left: 0;
+        width: 100%;
+        pointer-events: auto;
+        margin-top: 5rem;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
       picture {
         transform: translateY(0) rotate(5deg);
         display: block;
