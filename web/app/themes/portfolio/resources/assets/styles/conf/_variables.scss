@@ -38,7 +38,16 @@ $font-bold: 'helvetica-bold';
 
 $image: (
   rotation: 10deg,
-  translate: calc(100vh - #{image-height(0.5)})
+);
+
+$imagePath--from: (
+  top: calc(-100vh - image-height(0.5)),
+  left: calc(-100vw - image-height(0.5))
+);
+
+$imagePath--to: (
+  top: calc(100vh - image-height(0.5)),
+  left: calc(100vw - image-height(0.5))
 );
 
 /** Size **/

@@ -1,12 +1,12 @@
 <template>
-    <transition-group :name="'galery-picture' + direction()" class="Galery is-centered-container" :class="{'first-load': isFirstLoad}">
-    <div class="Galery__picture"
-      v-for="(project, i) in projects" 
-      :key="'galery-image-' + i"
-      v-show="current === i"
-    >
-      <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
-    </div>
+    <transition-group :name="'galery-picture-top'" class="Galery is-centered-container">
+      <div class="Galery__picture"
+        v-for="(project, i) in projects" 
+        :key="'galery-image-' + i"
+        v-show="isActive(i)"
+      >
+        <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
+      </div>
     </transition-group>
 </template>
 
@@ -21,12 +21,8 @@ export default {
   data() {
       return {
         store: store,
-        $images: [],
-        $pictures: [],
         PAGES_NAME: PAGES_NAME,
-        imagesLoaded: 0,
         projects: [],
-        isFirstLoad: true,
       }
   },
   props: {
@@ -38,37 +34,14 @@ export default {
     },
     direction() {
       return store.scrollDirection < 0 ? '-bottom' : '-top';
+    },
+    isActive(index) {
+      return this.current === index;
     }
   },
   mounted() {
     store.$on('init-galery', (projects) => {
       this.projects = projects;
-      this.$nextTick(() => {
-        
-        const $picture = this.$el.querySelector('.Galery__picture');
-        const pictureHeight = store.windowWidth * 0.31;
-        const translate = store.windowHeight - pictureHeight * 0.5;
-
-        this.galeryAnimation = anime({
-          targets: $picture,
-          duration: 1750,
-          translateY: [translate, 0],
-          translateX: [-translate * 0.5, 0],
-          rotate: [-10, 10],
-          easing: 'easeInOutQuart',
-          autoplay: false,
-          complete: () => {
-            this.isFirstLoad = false;
-            $picture.style.transform = '';
-          }
-        });
-      });
-    });
-
-    store.$on('switch-project', (value) => {
-      if (this.isFirstLoad) {
-        this.galeryAnimation.play()
-      }
     });
   },
   components: {
@@ -86,13 +59,11 @@ export default {
 
   .Galery {
     &__picture {
+      @include size();
       z-index: 1;
       display: block;
       position: absolute;
-      pointer-events: none;
-      transform: rotate(10deg);
       transform-origin: center center;
-      @include size();
 
       @include tablet {
         @include size(2);
@@ -121,7 +92,4 @@ export default {
       width: 100%;
     }
   }
-  .Galery.first-load .Galery__picture {
-      transition: none !important;
-    }
 </style>

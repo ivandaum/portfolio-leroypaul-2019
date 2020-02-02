@@ -25,6 +25,8 @@ export default {
     this.canScroll = true;
     this.raf = null;
     store.$emit('app-loaded');
+
+    window.addEventListener('resize', this.onResize.bind(this));
   },
   watch:{
     $route (to, from) {
@@ -39,6 +41,10 @@ export default {
       if(store.page == PAGES_NAME.home) {
         this.onHomeScroll(scroll);
       }
+    },
+    onResize() {
+      store.windowWidth = window.innerWidth;
+      store.windowHeight =  window.innerHeight;
     },
     onHomeScroll(scroll) {
       if(!this.canScroll) return false;

@@ -111,7 +111,7 @@ export default {
     max-height: fit-content;
 
     .Index__previews {
-      transform: scaleY(0.5) translateY(-60vh);
+      transform: scaleY(0.5) translateY(-50vh);
     }
 
     .Index__projects {
@@ -124,10 +124,6 @@ export default {
 
     .Galery {
       transform: scale(1, 2);
-    }
-
-    .Galery .Galery__picture {
-      transform: rotate(0deg);
     }
   }
 

@@ -28,7 +28,7 @@ export default {
     this.initAnimation();
     store.$on('app-loaded', () => {
       this.letterAnimation.play()
-      this.$nextTick(() => setTimeout(() => this.loadDatas(), 1000));
+      this.$nextTick(() => setTimeout(() => this.loadDatas(), 0));
     });
   },
   methods: {
@@ -58,7 +58,9 @@ export default {
       this.letterAnimation.play();
       this.backgroundAnimation.play();
 
-      setTimeout(() => store.$emit('switch-project', 0), 200);
+      this.$nextTick(() => {
+        store.$emit('switch-project', 0)
+      })
     },
     initAnimation() {
       this.letterAnimation = anime({
@@ -93,6 +95,7 @@ export default {
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
+    opacity: 0;
 
     &__introduction {
       height: 1.5rem;

@@ -6,6 +6,10 @@
   transition: transform $easing / 2, opacity $easing / 2;
 }
 
+// [class*="galery-picture-"] {
+//   transition: transform $easing $cbezier1;
+// }
+
 .title-top-enter-active, 
 .title-bottom-enter-active {
   transition-delay: .3s;
@@ -30,34 +34,21 @@
 // ----------------------
 
 .galery-picture-top-enter {
-  transform: translateY(calc(100vh - #{image-height(0.5)})) rotate(-#{map-get($image, rotation)});
+  transform: translateY(-100%) rotate(-45deg);
+  transition: transform 1s;
 }
 
 .galery-picture-top-enter-to {
-  transition: transform $easing $cbezier1;
-  transform: translateY(0vh) rotate(#{map-get($image, rotation)});
+  transform: translateY(0) rotate(0deg);
+  transition: transform 1s;
 }
 
 .galery-picture-top-leave-to,
 .galery-picture-top-leave {
-  transition: transform $easing $cbezier1;
-  transform: translateY(calc(-100vh - #{image-height(0.5)})) rotate(-#{map-get($image, rotation)});
+  transition: transform 1s;
+  transform: translateY(100%) rotate(-45deg);
 }
 
-.galery-picture-bottom-enter {
-  transform: translateY(calc(-100vh - #{image-height(0.5)})) rotate(-#{map-get($image, rotation)});
-}
-
-.galery-picture-bottom-enter-to {
-  transition: transform $easing $cbezier1;
-  transform: translateY(0vh) rotate(#{map-get($image, rotation)});
-}
-
-.galery-picture-bottom-leave-to,
-.galery-picture-bottom-leave {
-  transition: transform $easing $cbezier1;
-  transform: translateY(calc(100vh - #{image-height(0.5)})) rotate(-#{map-get($image, rotation)});
-}
 // -----------------------
 
 .fade-project-leave,

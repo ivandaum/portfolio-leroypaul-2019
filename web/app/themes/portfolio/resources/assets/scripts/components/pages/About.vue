@@ -1,5 +1,5 @@
 <template>
-  <div class="About">
+  <div class="About" v-show="isShown">
     <div class="About__title container-titles" @mouseenter="showPicture = true" @mouseleave="showPicture = false" v-if="titles.length">
       <transition :name="'title' + (this.isActive ? '-top' : '-bottom')">
         <SlidingTitle :slug="slugs" :title="titles" :isActive="showTitle" v-show="showTitle" />
@@ -23,7 +23,7 @@
       </div>
       <div class="About__picture">
         <transition :name="'profil-picture'">
-          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture || store.windowWidth <= 768" />
+          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture && isActive || store.windowWidth <= 768 && isActive " />
         </transition>
       </div>
     </div>
@@ -50,8 +50,9 @@ export default {
         store: store,
         PAGES_NAME: PAGES_NAME,
         showTitle: false,
+        showPicture: false,
+        isShown: false,
         picture: false,
-        showPicture: false
       }
   },
   props: {
@@ -119,6 +120,7 @@ export default {
 
       // show 
       if (this.isActive) {
+        this.isShown = true;
         this.backgroundAnimation.play();
 
         setTimeout(() => {
@@ -136,6 +138,9 @@ export default {
         setTimeout(() => {
           this.backgroundAnimation.play();
         }, 200)
+        setTimeout(() => {
+          this.isShown = false;
+        }, 1200);
       }
     }
   },
@@ -156,7 +161,6 @@ export default {
     left: 0;
     position: fixed;
     z-index: 200;
-    pointer-events: none;
 
     @include phone {
       overflow-y: scroll;
