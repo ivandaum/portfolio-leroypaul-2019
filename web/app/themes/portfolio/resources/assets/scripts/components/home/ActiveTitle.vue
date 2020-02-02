@@ -1,13 +1,12 @@
 <template>
   <div class="ActiveTitle is-centered-container is-absolute">
-      <div class="ActiveTitle__number is-centered">
+      <div class="ActiveTitle__number is-centered" :class="{active: showNumber()}">
         <div class="ActiveTitle__number--inner is-centered"
           v-for="(project, i) in projects" 
           :key="'active-title-number' + i" 
-          :class="{isActive: store.page === PAGES_NAME.home || store.page === PAGES_NAME.slug}"
         >
-          <transition :name="'slide' + transitionDirection()">
-            <span v-show="isActive(i)">{{ formatedIndex(i) }}</span>
+          <transition :name="'title' + direction()">
+            <span v-show="isActive(i) && showNumber()">{{ formatedIndex(i) }}</span>
           </transition>
         </div>
       </div>
@@ -17,7 +16,7 @@
           v-for="(project, i) in projects" 
           :key="'active-title' + i" 
         >
-          <transition :name="'slide' + transitionDirection()">
+          <transition :name="'title' + direction()">
             <SlidingTitle :slug="project.slug" :title="project.title" :isActive="isActive(i)" v-show="isActive(i)" />
           </transition>
         </div>
@@ -35,7 +34,8 @@ export default {
   data() {
       return {
         store: store,
-        PAGES_NAME: PAGES_NAME
+        PAGES_NAME: PAGES_NAME,
+        isFirstLoad: true
       }
   },
   props: {
@@ -43,26 +43,30 @@ export default {
     projects: Array
   },
   methods: {
-    isSectionActive() {
-      return store.page === PAGES_NAME.home;
-    },
     isActive(index) {
       if (store.page === PAGES_NAME.about || store.page === PAGES_NAME.grid) return false;
       
       return this.current === index;
     },
-    transitionDirection() {
-      if(store.scrollDirection < 0) return '-bottom';
-
-      return '-top';
+    direction() {
+      return store.scrollDirection < 0 ? '-bottom' : '-top';
     },
     formatedIndex(index) {
       index += 1;
       return index < 10 ? '0' + index : index;
+    },
+    showNumber() {
+      if (store.page === PAGES_NAME.home || store.page === PAGES_NAME.slug) {
+        return !this.isFirstLoad;
+      }
+
+      return false;
     }
   },
   mounted() {
-    
+    store.$on('switch-project', (value) => {
+      if (this.isFirstLoad) setTimeout(() => this.isFirstLoad = false, 1000);
+    });
   },
   components: {
     SlidingTitle
@@ -95,10 +99,14 @@ export default {
       }
 
       &--inner {
-        height: 1.5rem;
+        height: 2rem;
         width: 100%;
         overflow:hidden;
         position: absolute;
+      }
+      
+      &.active {
+        opacity: 1;
       }
     }
 

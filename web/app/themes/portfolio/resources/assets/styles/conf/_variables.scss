@@ -36,6 +36,11 @@ $font-title: 'monument';
 $font-regular: 'helvetica-regular';
 $font-bold: 'helvetica-bold';
 
+$image: (
+  rotation: 10deg,
+  translate: calc(100vh - #{image-height(0.5)})
+);
+
 /** Size **/
 $breakpoints: (
   max-width: 1600px,

@@ -1,7 +1,7 @@
 <template>
   <div class="About">
     <div class="About__title container-titles" @mouseenter="showPicture = true" @mouseleave="showPicture = false" v-if="titles.length">
-      <transition :name="'slide' + (this.isActive ? '-top' : '-bottom')">
+      <transition :name="'title' + (this.isActive ? '-top' : '-bottom')">
         <SlidingTitle :slug="slugs" :title="titles" :isActive="showTitle" v-show="showTitle" />
       </transition>
     </div>
@@ -22,7 +22,7 @@
         <div class="About__center is-relative" v-html="datas.description"></div>
       </div>
       <div class="About__picture">
-        <transition :name="'anime-picture'">
+        <transition :name="'profil-picture'">
           <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture || store.windowWidth <= 768" />
         </transition>
       </div>
@@ -173,7 +173,9 @@ export default {
 
       a {
         @include text-border($greige);
-        pointer-events: none;
+        @include desktop {
+          pointer-events: none;
+        }
       }
     }
 
@@ -211,17 +213,7 @@ export default {
         font-weight: bold;
         color: inherit;
         position: relative;
-      }
-
-      a::after {
-        content:" ";
-        width: 100%;
-        height: 0.1rem;
-        background: $brown;
-        display: block;
-        position: absolute;
-        bottom: 0;
-        right: 0;
+        @include link-border;
       }
     }
 
@@ -236,8 +228,8 @@ export default {
 
       li {
         color: $brown;
-        font-size: 1.2rem;
-        height: 2.5rem;
+        font-size: 1.4rem;
+        height: 2.8rem;
         padding-top: 1rem;
         overflow: hidden;
         display: block;
@@ -277,6 +269,7 @@ export default {
 
       a:hover:after {
         width: 0;
+        animation: none;
       }
 
     }
@@ -301,10 +294,6 @@ export default {
 
       a::after {
         height: 2px;
-      }
-
-      a:hover:after {
-        animation: link-border 1s;
       }
     }
 

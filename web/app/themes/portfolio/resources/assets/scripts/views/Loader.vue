@@ -58,7 +58,7 @@ export default {
       this.letterAnimation.play();
       this.backgroundAnimation.play();
 
-      setTimeout(() => store.$emit('switch-project', 0), 750);
+      setTimeout(() => store.$emit('switch-project', 0), 200);
     },
     initAnimation() {
       this.letterAnimation = anime({
@@ -93,7 +93,6 @@ export default {
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
-    opacity: 0;
 
     &__introduction {
       height: 1.5rem;

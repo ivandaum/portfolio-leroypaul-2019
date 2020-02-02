@@ -1,7 +1,7 @@
 <template>
   <div class="GridTitles is-centered-container is-absolute">
     <div class="GridTitles__titles container-titles" v-for="i in 4" :key="'grid-titles' + i">
-      <transition :name="'slide-top'">
+      <transition :name="'title-top'">
         <SlidingTitle @hover="onHover" :scroll="i % 2 == 0 ? 1 : -1" :start="i * 1000" :slug="slugs" :title="titles" :isActive="isGridActive()" v-show="isGridActive()" />
       </transition>
     </div>

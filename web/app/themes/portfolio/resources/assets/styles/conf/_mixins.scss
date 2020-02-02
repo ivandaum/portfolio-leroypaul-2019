@@ -10,3 +10,28 @@
   -webkit-text-stroke-width: 0;
   -webkit-text-stroke-color: $white;
 }
+
+@function image-width($ratio: 1) {
+  @return 23.055555556vw * $ratio;
+}
+
+@function image-height($ratio: 1) {
+  @return 30.663888889vw * $ratio;
+}
+
+@mixin link-border {
+  &::after {
+    content:" ";
+    width: 100%;
+    height: 0.1rem;
+    background: $brown;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  &:hover:after {
+    animation: link-border 1s;
+  }
+}

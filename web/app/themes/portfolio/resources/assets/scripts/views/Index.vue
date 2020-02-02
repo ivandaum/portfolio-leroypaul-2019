@@ -123,7 +123,7 @@ export default {
     }
 
     .Galery {
-      transform: scale(1.25, 2.5);
+      transform: scale(1, 2);
     }
 
     .Galery .Galery__picture {
@@ -134,10 +134,6 @@ export default {
   .Index.grid--open .GridTitles,
   .Index.home--open .ActiveTitle {
     z-index: 60;
-  }
-
-  .Index.home--open .ActiveTitle__number {
-    opacity: 1;
   }
 
   .Index.about--open .About {

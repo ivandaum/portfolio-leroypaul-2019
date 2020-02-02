@@ -1,13 +1,13 @@
 <template>
-  <div class="Galery is-centered-container" :class="{'no-easing': isFirstLoad}">
+    <transition-group :name="'galery-picture' + direction()" class="Galery is-centered-container" :class="{'first-load': isFirstLoad}">
     <div class="Galery__picture"
       v-for="(project, i) in projects" 
       :key="'galery-image-' + i"
-      :style="{zIndex: projects.length - i}"
+      v-show="current === i"
     >
       <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
     </div>
-  </div>
+    </transition-group>
 </template>
 
 <script>
@@ -23,7 +23,6 @@ export default {
         store: store,
         $images: [],
         $pictures: [],
-        zIndex: 1,
         PAGES_NAME: PAGES_NAME,
         imagesLoaded: 0,
         projects: [],
@@ -37,41 +36,30 @@ export default {
     onImageLoad() {
       store.$emit('image-preview-loaded');
     },
-    switchPicture(index, instant) {
-      if (this.current === index) return false;
-
-      const $image = this.$images[index];
-      const $picture = this.$pictures[index];
-      this.zIndex += 1;
-      $image.style.zIndex = this.zIndex;
-
-      if (instant) {
-        $picture.style.transform = 'translateY(0)';
-      } else {
-        anime({targets: $picture, translateY: ['100%', '0'], duration: 1000, easing: 'easeInOutQuart'});
-      }
+    direction() {
+      return store.scrollDirection < 0 ? '-bottom' : '-top';
     }
   },
   mounted() {
     store.$on('init-galery', (projects) => {
       this.projects = projects;
       this.$nextTick(() => {
-        this.$images = Array.from(this.$el.querySelectorAll('.Galery__picture'));
-        this.$pictures = Array.from(this.$el.querySelectorAll('.Galery__picture picture'));
-        this.zIndex = this.$images.length;
         
+        const $picture = this.$el.querySelector('.Galery__picture');
+        const pictureHeight = store.windowWidth * 0.31;
+        const translate = store.windowHeight - pictureHeight * 0.5;
+
         this.galeryAnimation = anime({
-          targets: this.$images.map($image => $image),
-          duration: 1000,
-          translateY: [store.windowHeight, 0],
-          translateX: [-store.windowHeight*0.18, 0],
-          rotate: ['0deg', '10deg'],
+          targets: $picture,
+          duration: 1750,
+          translateY: [translate, 0],
+          translateX: [-translate * 0.5, 0],
+          rotate: [-10, 10],
           easing: 'easeInOutQuart',
-          delay: (el, i) => i * -100,
           autoplay: false,
           complete: () => {
-            this.isFirstLoad = false
-            this.$images.map($image => $image.style.transform = '');
+            this.isFirstLoad = false;
+            $picture.style.transform = '';
           }
         });
       });
@@ -79,10 +67,7 @@ export default {
 
     store.$on('switch-project', (value) => {
       if (this.isFirstLoad) {
-        this.switchPicture(value, true);
-        setTimeout(() => this.galeryAnimation.play(), 500);
-      } else {
-        this.switchPicture(value);
+        this.galeryAnimation.play()
       }
     });
   },
@@ -93,10 +78,10 @@ export default {
 </script>
 <style lang="scss">
   @import "../../../styles/conf";
-  
-  @mixin image-size($ratio: 1) {
-    width: 23.055555556vw * $ratio;
-    height: 30.663888889vw * $ratio;
+
+  @mixin size($ratio: 1) {
+    width: image-width($ratio);
+    height: image-height($ratio);
   }
 
   .Galery {
@@ -105,17 +90,21 @@ export default {
       display: block;
       position: absolute;
       pointer-events: none;
+      transform: rotate(10deg);
       transform-origin: center center;
-      transition: transform $easing $cbezier1;
-      @include image-size();
+      @include size();
 
       @include tablet {
-        @include image-size(2);
+        @include size(2);
       }
 
       @include phone {
-        @include image-size(3);
+        @include size(3);
       }
+    }
+
+    &__picture:not([class*="galery-picture-"]) {
+      transition: transform $easing;
     }
 
     picture {
@@ -131,9 +120,8 @@ export default {
       height: 100%;
       width: 100%;
     }
-
-    &.no-easing .Galery__picture {
+  }
+  .Galery.first-load .Galery__picture {
       transition: none !important;
     }
-  }
 </style>

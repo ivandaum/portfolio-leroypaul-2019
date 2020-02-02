@@ -3,16 +3,18 @@
     <div class="Project__inner">
       <div class="Project__info container">
         <div class="Project__info--left">
-          <div v-if="data.client">
-            <strong>Client</strong>
-            <p>{{data.client}}</p>
+          <div class="Project__details">
+            <div v-if="data.client">
+              <strong>Client</strong>
+              <p>{{data.client}}</p>
+            </div>
+            <div v-if="data.date">
+              <strong>Date</strong>
+              <p>{{data.date}}</p>
+            </div>
           </div>
-          <div v-if="data.date">
-            <strong>Date</strong>
-            <p>{{data.date}}</p>
-          </div>
-          <div v-if="data.project_url.length">
-            <a :href="url" v-for="(url, name) in data.project_url" :key="name">Voir sur {{name}}</a>
+          <div v-if="links" class="Project__links">
+            <div  v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
         <div class="Project__info--right">
@@ -39,7 +41,8 @@ export default {
   name: 'Project',
   data() {
     return {
-      store: store
+      store: store,
+      links: []
     }
   },
   props: {
@@ -50,6 +53,17 @@ export default {
   methods: {
   },
   mounted() {
+    for(let name in this.data.project_url) {
+      let link = {wording:'', href: this.data.project_url[name]}
+
+      if (name === 'live') {
+        link.wording = 'Voir le site';
+      } else {
+        link.wording = 'Voir sur ' + name;
+      }
+
+      this.links.push(link);
+    }
   },
   components: {
     SlidingTitle,
@@ -75,33 +89,55 @@ export default {
       color: $greige;
       display: flex;
       padding-top: 6.25rem;
-      font-size: 1rem;
+      font-size: 1.6rem;
+
+      @include phone {
+        display: block;
+      }
+
       strong {
         color: $brown;
         display: block;
-        margin-bottom: 1rem;
-        font-style: normal;
+        font-weight: bold;
       }
+
       p {
         margin: 0;
       }
-    }
 
-    &__info--left {
-      min-width: 25%;
-      div {
-        margin-bottom: 1.5rem;
+      a {
+        margin-bottom: 1rem;
+        color: $brown;
+        font-weight: bold;
+        position: relative;
+        @include link-border;
+        text-decoration: none;
+        display: inline-block;
       }
     }
+
+    &__links div {
+      margin-bottom: 1rem;
+    }
+
+    &__details div,
+    &__details {
+      margin-bottom: 2.4rem;
+    }
+    
+    &__info--left {
+      min-width: 25%;
+    }
+
     &__info--right {
-      line-height: 1.5rem;
+      line-height: 2.4rem;
       padding-right: 40%;
     }
 
     &__pictures {
-      padding: 10rem 0;
+      padding: 16rem 0;
       div {
-        margin-bottom: 10rem;
+        margin-bottom: 16rem;
         background: $grey;
       }
 
