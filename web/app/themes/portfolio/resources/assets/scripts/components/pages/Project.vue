@@ -14,7 +14,7 @@
             </div>
           </div>
           <div v-if="links" class="Project__links">
-            <div  v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
+            <div v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
         <div class="Project__info--right">
@@ -89,10 +89,12 @@ export default {
       color: $greige;
       display: flex;
       padding-top: 6.25rem;
-      font-size: 1.6rem;
+        font-size: 1.6rem;
 
       @include phone {
         display: block;
+        font-size: 1.4rem;
+        padding-top: 4rem !important;
       }
 
       strong {
@@ -116,8 +118,19 @@ export default {
       }
     }
 
-    &__links div {
-      margin-bottom: 1rem;
+    &__links {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      @include phone {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      div {
+        margin-bottom: 1rem;
+      }
     }
 
     &__details div,
@@ -127,18 +140,27 @@ export default {
     
     &__info--left {
       min-width: 25%;
+      @include phone {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
     &__info--right {
       line-height: 2.4rem;
-      padding-right: 40%;
+      @include desktop {
+        padding-right: 40%;
+      }
     }
 
     &__pictures {
-      padding: 16rem 0;
+      padding: 0;
       div {
-        margin-bottom: 16rem;
-        background: $grey;
+        margin-top: 15rem;
+
+        @include phone {
+          margin-top: 5rem;
+        }
       }
 
       img {
