@@ -133,7 +133,7 @@ export default {
     }
 
     .ActiveTitle__number {
-      transform: translateY(-140%);
+      transform: translateY(-10vh);
     }
 
     .Index__projects {

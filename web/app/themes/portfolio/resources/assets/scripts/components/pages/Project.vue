@@ -186,6 +186,7 @@ export default {
       picture {
         width: 100%;
         display: block;
+        position: relative;
       }
 
       img {

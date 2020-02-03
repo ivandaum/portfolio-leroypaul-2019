@@ -10,6 +10,12 @@
   }
 }
 
+@mixin desktop-up {
+  @media all and (max-width: map-get($breakpoints, widescreen)) {
+    @content;
+  }
+}
+
 @mixin widescreen-down {
   @media all and (max-width: map-get($breakpoints, widescreen)) {
     @content;

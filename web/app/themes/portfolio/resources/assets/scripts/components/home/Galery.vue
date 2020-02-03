@@ -91,16 +91,19 @@ export default {
       overflow: hidden;
       transition-delay: 0s;
 
-      @include desktop {
-        @include size(1.3);
+      @include widescreen {
+        @include size(1.25);
+      }
+      @include desktop-up {
+        @include size(1.75);
       }
 
       @include tablet {
-        @include size(1.5);
+        @include size(2);
       }
 
       @include phone {
-        @include size(1.8);
+        @include size(3);
       }
     }
 
