@@ -1,13 +1,11 @@
 <template>
-    <transition-group :name="'galery-picture-top'" class="Galery is-centered-container">
-      <div class="Galery__picture"
-        v-for="(project, i) in projects" 
-        :key="'galery-image-' + i"
-        v-show="isActive(i)"
-      >
-        <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
-      </div>
-    </transition-group>
+  <div class="Galery">
+    <div class="Galery__picture-container is-absolute is-centered-container" v-for="(project, index) in projects" :key="'galery-image-' + index">
+      <transition :name="'galery-picture-top'">
+        <ImageSource v-show="current === index" @loaded="onImageLoad" :image="project.preview_image" />
+      </transition>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -23,6 +21,7 @@ export default {
         store: store,
         PAGES_NAME: PAGES_NAME,
         projects: [],
+        activeImage: -1
       }
   },
   props: {
@@ -34,14 +33,17 @@ export default {
     },
     direction() {
       return store.scrollDirection < 0 ? '-bottom' : '-top';
-    },
-    isActive(index) {
-      return this.current === index;
     }
   },
   mounted() {
-    store.$on('init-galery', (projects) => {
+    store.$on('init-galery', projects => {
       this.projects = projects;
+      this.activeImage = this.current;
+    });
+
+    store.$on('switch-project', value => {
+      console.log(this.activeImage);
+      this.activeImage = value;
     });
   },
   components: {
@@ -58,7 +60,12 @@ export default {
   }
 
   .Galery {
-    &__picture {
+    &__picture-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    picture {
       @include size();
       z-index: 1;
       display: block;
@@ -76,12 +83,6 @@ export default {
 
     &__picture:not([class*="galery-picture-"]) {
       transition: transform $easing;
-    }
-
-    picture {
-      display: block;
-      width: 100%;
-      height: 100%;
     }
 
     img {
