@@ -169,6 +169,10 @@ export default {
     z-index: 50;
     font-size: 1em;
 
+    @include touch {
+      height: $title-height*2;
+    }
+
     > a {
       text-decoration: none;
       display: block;
@@ -179,7 +183,9 @@ export default {
       @include text-border($white, 1px);
 
       &:hover {
-        color: $white;
+        @include desktop {
+          color: $white;
+        }
       }
     }
   }

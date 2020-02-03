@@ -116,7 +116,9 @@ export default {
       display: block;
 
       &:hover a {
-        color: $white;
+        @include desktop {
+          color: $white;
+        }
       }
     }
 

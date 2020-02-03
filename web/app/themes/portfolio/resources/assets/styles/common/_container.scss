@@ -54,4 +54,9 @@
   font-size: 8.5vw;
   text-transform: uppercase;
   overflow: hidden;
+
+  @include touch {
+    font-size: 14vw;
+    height: $title-height*2;
+  }
 }

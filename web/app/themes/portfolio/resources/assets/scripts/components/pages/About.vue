@@ -168,7 +168,11 @@ export default {
     }
 
     &__title {
-      margin-bottom: 160px;
+      margin-bottom: 16rem;
+
+      @include touch {
+        margin-bottom: 7rem;
+      }
 
       a b {
         color: $about-title;
@@ -272,8 +276,10 @@ export default {
       }
 
       a:hover:after {
-        width: 0;
-        animation: none;
+        @include desktop {
+          width: 0;
+          animation: none;
+        }
       }
 
     }
