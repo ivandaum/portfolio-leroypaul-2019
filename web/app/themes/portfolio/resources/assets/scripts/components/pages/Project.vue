@@ -24,7 +24,7 @@
       </div>
       <div class="Project__pictures" v-if="isOpen">
         <div v-for="(img, i) in data.content" :key="i" :class="{container: img.type == 'center', 'container-fluid': img.type == 'full' }">
-          <ImageSource v-if="img.image" :image="img.image" />
+          <ImageSource v-if="img.image" :image="img.image" :lazy="true" />
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@ import ImageSource from '../../components/ImageSource.vue';
 import SlidingTitle from '../../components/SlidingTitle.vue';
 import store from '../../store/store';
 import { PAGES_NAME } from './../../utils/constants';
+import Lazyload from '../../vendor/Lazyloading';
 
 export default {
   name: 'Project',
@@ -50,8 +51,6 @@ export default {
     isOpen: Boolean,
     index: Number,
   },
-  methods: {
-  },
   mounted() {
     for(let name in this.data.project_url) {
       let link = {wording:'', href: this.data.project_url[name]}
@@ -63,6 +62,25 @@ export default {
       }
 
       this.links.push(link);
+    }
+
+    
+    if(this.isOpen) {
+      this.loadImages();
+    }
+  },
+  methods: {
+    loadImages() {
+      this.$nextTick(() => {
+        new Lazyload({
+          elements_selector: '.js-lazy',
+        });
+      });
+    }
+  },
+  watch: {
+    isOpen(value) {
+      if (value) this.loadImages();
     }
   },
   components: {
@@ -155,6 +173,8 @@ export default {
 
     &__pictures {
       padding: 0;
+      padding-bottom: 30vh;
+
       div {
         margin-top: 15rem;
 
@@ -163,10 +183,24 @@ export default {
         }
       }
 
+      picture {
+        width: 100%;
+        display: block;
+      }
+
       img {
         height: auto;
         display: block;
         width: 100%;
+        opacity: 0;
+        transition: opacity $easing;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      img.loaded {
+        opacity: 1;
       }
     }
   }

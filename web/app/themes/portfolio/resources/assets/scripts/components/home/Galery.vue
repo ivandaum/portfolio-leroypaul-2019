@@ -114,8 +114,8 @@ export default {
       position: absolute;
       display: block;
       object-fit: cover;
-      height: 100%;
-      width: 100%;
+      height: 100% !important;
+      width: 100% !important;
       transition-duration: $easing * 1.2;
     }
 

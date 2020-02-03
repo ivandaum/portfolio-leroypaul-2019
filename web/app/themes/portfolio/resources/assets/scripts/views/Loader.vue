@@ -59,7 +59,16 @@ export default {
       this.backgroundAnimation.play();
 
       this.$nextTick(() => {
-        store.$emit('switch-project', 0)
+        if (store.hasOpenedProject()) {
+          for(let i = 0; i < store.projects.length; i++) {
+            if(store.slug === store.projects[i].slug) {
+              store.$emit('switch-project', i);
+              break;
+            }
+          }
+        } else {
+          store.$emit('switch-project', 0)
+        }
       })
     },
     initAnimation() {

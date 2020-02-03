@@ -7,6 +7,7 @@ import store from '../store/store';
 import { PAGES_NAME } from '../utils/constants';
 
 Vue.use(Router);
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -46,7 +47,7 @@ const router = new Router({
       beforeEnter: (to, from, next) => {
         to.params.page = PAGES_NAME.slug;
         next();
-      },
+      }
     },
     {
       path: '/about',
@@ -59,6 +60,5 @@ const router = new Router({
     },
   ],
 });
-
 
 export default router;

@@ -1,13 +1,14 @@
 <template>
-  <picture :class="className">
+  <picture :class="{className}" :style="{paddingTop: lazy ? lastEntry.height / lastEntry.width * 100 + '%' : 0}">
     <source 
       v-for="(source, i) in sources" 
-      :srcset="source.url"
+      :srcset="!lazy ? source.url : false"
+      :data-srcset="lazy ? source.url : false"
       :media="'(' + MEDIA_QUERIES[i].media + ')'" 
       :key="'image-responsive' + i"
       :type="type"
     >
-    <img :src="lastEntry.url" :height="lastEntry.height" :width="lastEntry.width" :alt="alt" v-on:load="$emit('loaded')">
+    <img :width="lastEntry.width" :height="lastEntry.height" :src="!lazy ? lastEntry.url : false" :data-src="lazy ? lastEntry.url : false" :class="{'js-lazy': lazy}" :alt="alt" v-on:load="$emit('loaded')">
   </picture>
 </template>
 
@@ -31,7 +32,8 @@ export default {
   },
   props: {
     className: String,
-    image: Object
+    image: Object,
+    lazy: Boolean
   },
   mounted() {
     this.type = this.image.mime_type;
