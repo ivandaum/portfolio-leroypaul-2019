@@ -36,12 +36,12 @@
   transition: transform $easing*2 $cbezier1;
 }
 
-.galery-picture-top-enter {
-  transform: translate(calc(-50vw - #{image-height(0.5)}), calc(-50vh - #{image-height(0.5)})) rotate(-45deg);
-}
+$hw: 100vw * image-width(2) / 2;
+$hh: 100vh * image-height() / 2;
 
-.galery-picture-bottom-enter {
-  transform: translate(calc(50vw + #{image-height(0.5)}), calc(50vh + #{image-height(0.5)})) rotate(-45deg);
+.galery-picture-top-enter,
+.galery-picture-bottom-leave-to {
+  transform: translate(#{-50vw - $hw}, #{-50vh - $hh}) rotate(-45deg);
 }
 
 .galery-picture-top-enter-to,
@@ -51,12 +51,9 @@
   transform: translate(0, 0) rotate(0deg);
 }
 
-.galery-picture-top-leave-to {
-  transform: translate(calc(50vw + #{image-height(0.5)}), calc(50vh + #{image-height(0.5)})) rotate(-45deg);
-}
-
-.galery-picture-bottom-leave-to {
-  transform: translate(calc(-50vw - #{image-height(0.5)}), calc(-50vh - #{image-height(0.5)})) rotate(-45deg);
+.galery-picture-top-leave-to,
+.galery-picture-bottom-enter {
+  transform: translate(#{50vw + $hw}, #{50vh + $hh}) rotate(-45deg);
 }
 
 // -----------------------
@@ -68,24 +65,20 @@
 
 // ----------------------
 
-.title-top-enter {
+.title-top-enter,
+.title-bottom-leave-to {
   transform: translateY(100%);
 }
-.title-top-enter-to {
+
+.title-top-enter-to,
+.title-top-leave,
+.title-bottom-enter-to,
+.title-bottom-leave  {
   transform: translateY(0);
 }
-.title-top-leave-to,
-.title-top-leave {
-  transform: translateY(-100%);
-}
 
+.title-top-leave-to,
 .title-bottom-enter {
   transform: translateY(-100%);
 }
-.title-bottom-enter-to {
-  transform: translateY(0);
-}
-.title-bottom-leave-to,
-.title-bottom-leave {
-  transform: translateY(100%);
-}
+

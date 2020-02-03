@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="ActiveTitle__titles container-titles is-centered">
+      <div class="ActiveTitle__titles container-titles is-centered" @mouseenter="$emit('hover', true)" @mouseleave="$emit('hover', false)">
         <div class="ActiveTitle__title container-titles__title is-absolute"
           v-for="(project, i) in projects" 
           :key="'active-title' + i" 

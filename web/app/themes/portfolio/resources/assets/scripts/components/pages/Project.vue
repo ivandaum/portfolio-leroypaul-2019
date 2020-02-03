@@ -78,7 +78,7 @@ export default {
     height: 100%;
     width: 100%;
     z-index: 100;
-    margin-bottom: -50vh;
+    margin-bottom: -30vh;
 
     &__inner {
       min-height: 100vh;

@@ -1,8 +1,10 @@
 <template>
-  <div class="Galery" :class="{full: isFull}">
-    <div class="Galery__picture-container is-absolute is-centered-container" v-for="(project, index) in projects" :key="'galery-image-' + index">
+  <div class="Galery" :class="{full: isFull, 'on-title-hover': titleIsHovered}">
+    <div class="Galery__picture-container is-absolute" v-for="(project, index) in projects" :key="'galery-image-' + index">
       <transition :name="'galery-picture' + direction()">
-        <ImageSource v-show="current === index" @loaded="onImageLoad" :image="project.preview_image" />
+        <div class="Galery__picture is-centered-container" v-show="current === index">
+        <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
+        </div>
       </transition>
     </div>
   </div>
@@ -25,7 +27,8 @@ export default {
   },
   props: {
     current: Number,
-    isFull: Boolean
+    isFull: Boolean,
+    titleIsHovered: Boolean
   },
   methods: {
     onImageLoad() {
@@ -49,48 +52,84 @@ export default {
 <style lang="scss">
   @import "../../../styles/conf";
 
-  @mixin size($ratio: 1) {
-    width: image-width($ratio);
-    height: image-height($ratio);
+  @mixin size($x: 1, $y: 1) {
+    $width: image-width($x);
+    $height: image-height($y);
+
+    transform: scale($width, $height);
+    img {
+      transform: scaleX(1 / $width * 0.8) scaleY(1 / $height * 0.8);
+    }
   }
 
   .Galery {
     &__picture-container {
       width: 100%;
       height: 100%;
+      transform-origin: center center;
+    }
+
+    &__picture {
+      transform-origin: center center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    img,
+    picture {
+      transition: transform $easing ease;
     }
 
     picture {
-      @include size();
       z-index: 1;
       display: block;
-      position: absolute;
       transform-origin: center center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition-delay: 0s;
+
+      @include desktop {
+        @include size(1.3);
+      }
 
       @include tablet {
-        @include size(2);
+        @include size(1.5);
       }
 
       @include phone {
-        @include size(3);
+        @include size(1.8);
       }
     }
 
-    picture:not([class*="galery-picture-"]) {
-      transition: width $easing $cbezier1, height $easing $cbezier1;
+    &.on-title-hover picture {
+      @include desktop {
+        @include size(1.7, 1.3);
+      }
     }
 
     img {
       position: absolute;
-      object-fit: cover;
       display: block;
+      object-fit: cover;
       height: 100%;
       width: 100%;
+      transition-duration: $easing * 1.2;
+    }
+
+    &.full .Galery__picture {
+      transition: none;
     }
 
     &.full picture {
-      width: 100%;
-      height: 100%;
+      transform: scale(1);
+      transition-delay: $easing / 4;
+
+      img {
+        transform: scale(1) translateY(-15vh);
+      }
     }
   }
 </style>

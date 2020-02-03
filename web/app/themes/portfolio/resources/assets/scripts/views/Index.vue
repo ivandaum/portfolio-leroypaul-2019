@@ -9,11 +9,16 @@
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
     <div class="Index__previews is-relative">
-      <Galery :current="current" :isFull="store.hasOpenedProject()" />
+      <Galery 
+        :current="current" 
+        :isFull="store.hasOpenedProject()" 
+        :titleIsHovered="titleIsHovered"
+      />
       <ActiveTitle
         v-if="projects.length"
         :current="current"
         :projects="projects"
+        @hover="hoveringTitle"
       />
 
       <GridTitles
@@ -56,7 +61,8 @@ export default {
       PAGES_NAME: PAGES_NAME,
       hasOpenedProject: false,
       store: store,
-      about: {}
+      about: {},
+      titleIsHovered: false
     }
   },
   mounted() {
@@ -75,6 +81,9 @@ export default {
       if(store.page === PAGES_NAME.grid) return false;
       return index == this.current
     },
+    hoveringTitle(value) {
+      this.titleIsHovered = value;
+    }
   },
   components: {
     Project,
@@ -110,6 +119,7 @@ export default {
     &__previews,
     &__projects,
     .ActiveTitle,
+    .ActiveTitle__number,
     .Galery {
       transition: transform $easing $cbezier1, opacity $easing $cbezier1;
     }
@@ -119,11 +129,15 @@ export default {
     max-height: fit-content;
 
     .ActiveTitle {
-      transform: translateY(-25%);
+      transform: translateY(-15%);
+    }
+
+    .ActiveTitle__number {
+      transform: translateY(-140%);
     }
 
     .Index__projects {
-      transform: translateY(-50vh);
+      transform: translateY(-30vh);
     }
   }
 
