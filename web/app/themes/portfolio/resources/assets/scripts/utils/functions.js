@@ -1,11 +1,23 @@
-export function colorid(id) {
-  id >>>= 0;
-  return [
-    id & 0xFF,
-    (id & 0xFF00) >>> 8,
-    (id & 0xFF0000) >>> 16
-  ]
+import anime from 'animejs';
+import store from '../store/store';
+
+export function scrollTo(to, callback) {
+  let from = {top: store.$scrollContainer.scrollTop };
+  const timeline = anime.timeline();
+
+  timeline
+    .add({
+      targets: from,
+      top: to,
+      duration: 1000,
+      easing: 'easeInOutExpo',
+      update: () => {
+        store.$scrollContainer.scrollTop = from.top;
+      }
+    })
+    .add({targets:{}, duration: 0, complete: () => callback()}, 800)
 }
+
 export function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }

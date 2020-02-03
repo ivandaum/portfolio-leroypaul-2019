@@ -24,6 +24,7 @@ export default {
   mounted () {
     this.canScroll = true;
     this.raf = null;
+    store.$scrollContainer = document.querySelector('#app');
     store.$emit('app-loaded');
 
     window.addEventListener('resize', this.onResize.bind(this));

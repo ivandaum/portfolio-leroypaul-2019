@@ -28,7 +28,7 @@ export default {
     this.initAnimation();
     store.$on('app-loaded', () => {
       this.letterAnimation.play()
-      this.$nextTick(() => setTimeout(() => this.loadDatas(), 0));
+      this.$nextTick(() => setTimeout(() => this.loadDatas(), 1000));
     });
   },
   methods: {
@@ -95,7 +95,6 @@ export default {
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
-    opacity: 0;
 
     &__introduction {
       height: 1.5rem;

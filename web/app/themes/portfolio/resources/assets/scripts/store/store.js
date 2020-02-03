@@ -6,6 +6,7 @@ export default {
   project: 0,
   scrollDirection: 1,
   page: null,
+  $scrollContainer: {},
   $save(obj){
     for(let name in obj) {
       this.datas[name] = obj[name];
