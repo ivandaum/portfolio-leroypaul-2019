@@ -3,7 +3,7 @@
     <div class="Galery__picture-container is-absolute" v-for="(project, index) in projects" :key="'galery-image-' + index">
       <transition :name="'galery-picture' + direction()">
         <div class="Galery__picture is-centered-container" v-show="current === index">
-        <ImageSource @loaded="onImageLoad" :image="project.preview_image" />
+        <ImageSource @loaded="onImageLoad" :image="project.preview_image" :isPreview="true" />
         </div>
       </transition>
     </div>

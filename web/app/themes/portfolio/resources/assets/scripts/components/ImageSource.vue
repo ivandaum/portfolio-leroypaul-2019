@@ -33,7 +33,8 @@ export default {
   props: {
     className: String,
     image: Object,
-    lazy: Boolean
+    lazy: Boolean,
+    isPreview: Boolean
   },
   mounted() {
     this.type = this.image.mime_type;
@@ -52,6 +53,11 @@ export default {
           height: this.image.sizes[entry.name + '-height'],
         })
       });
+
+      if (this.isPreview) {
+        sizes[0] = sizes[1] = sizes[2]; // fix definition on smartphones
+      }
+
       return sizes;
     }
   }
