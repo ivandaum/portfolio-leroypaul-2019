@@ -40,16 +40,6 @@ $image: (
   rotation: 10deg,
 );
 
-$imagePath--from: (
-  top: calc(-100vh - image-height(0.5)),
-  left: calc(-100vw - image-height(0.5))
-);
-
-$imagePath--to: (
-  top: calc(100vh - image-height(0.5)),
-  left: calc(100vw - image-height(0.5))
-);
-
 /** Size **/
 $breakpoints: (
   max-width: 1600px,

@@ -9,7 +9,7 @@
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
     <div class="Index__previews is-relative">
-      <Galery :current="current"/>
+      <Galery :current="current" :isFull="store.hasOpenedProject()" />
       <ActiveTitle
         v-if="projects.length"
         :current="current"
@@ -97,6 +97,14 @@ export default {
       height: 100vh;
       width: 100%;
       display: block;
+      position: absolute;
+      z-index: 1;
+    }
+
+    &__projects {
+      position: relative;
+      top: 0;
+      z-index: 10;
     }
 
     &__previews,
@@ -110,20 +118,12 @@ export default {
   .Index.project--open {
     max-height: fit-content;
 
-    .Index__previews {
-      transform: scaleY(0.5) translateY(-50vh);
+    .ActiveTitle {
+      transform: translateY(-25%);
     }
 
     .Index__projects {
       transform: translateY(-50vh);
-    }
-
-    .ActiveTitle {
-      transform: translateY(10vh) scaleY(2);
-    }
-
-    .Galery {
-      transform: scale(1, 2);
     }
   }
 

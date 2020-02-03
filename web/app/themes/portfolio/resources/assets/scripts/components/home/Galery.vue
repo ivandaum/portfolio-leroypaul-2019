@@ -1,7 +1,7 @@
 <template>
-  <div class="Galery">
+  <div class="Galery" :class="{full: isFull}">
     <div class="Galery__picture-container is-absolute is-centered-container" v-for="(project, index) in projects" :key="'galery-image-' + index">
-      <transition :name="'galery-picture-top'">
+      <transition :name="'galery-picture' + direction()">
         <ImageSource v-show="current === index" @loaded="onImageLoad" :image="project.preview_image" />
       </transition>
     </div>
@@ -21,11 +21,11 @@ export default {
         store: store,
         PAGES_NAME: PAGES_NAME,
         projects: [],
-        activeImage: -1
       }
   },
   props: {
     current: Number,
+    isFull: Boolean
   },
   methods: {
     onImageLoad() {
@@ -39,11 +39,6 @@ export default {
     store.$on('init-galery', projects => {
       this.projects = projects;
       this.activeImage = this.current;
-    });
-
-    store.$on('switch-project', value => {
-      console.log(this.activeImage);
-      this.activeImage = value;
     });
   },
   components: {
@@ -81,8 +76,8 @@ export default {
       }
     }
 
-    &__picture:not([class*="galery-picture-"]) {
-      transition: transform $easing;
+    picture:not([class*="galery-picture-"]) {
+      transition: width $easing $cbezier1, height $easing $cbezier1;
     }
 
     img {
@@ -91,6 +86,11 @@ export default {
       display: block;
       height: 100%;
       width: 100%;
+    }
+
+    &.full picture {
+      width: 100%;
+      height: 100%;
     }
   }
 </style>

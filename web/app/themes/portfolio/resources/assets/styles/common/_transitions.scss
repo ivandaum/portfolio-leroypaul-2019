@@ -6,10 +6,6 @@
   transition: transform $easing / 2, opacity $easing / 2;
 }
 
-// [class*="galery-picture-"] {
-//   transition: transform $easing $cbezier1;
-// }
-
 .title-top-enter-active, 
 .title-bottom-enter-active {
   transition-delay: .3s;
@@ -33,20 +29,34 @@
 
 // ----------------------
 
+.galery-picture-top-leave-active,
+.galery-picture-top-enter-to,
+.galery-picture-bottom-leave-active,
+.galery-picture-bottom-enter-to {
+  transition: transform $easing*2 $cbezier1;
+}
+
 .galery-picture-top-enter {
-  transform: translateY(-100%) rotate(-45deg);
-  transition: transform 1s;
+  transform: translate(calc(-50vw - #{image-height(0.5)}), calc(-50vh - #{image-height(0.5)})) rotate(-45deg);
 }
 
-.galery-picture-top-enter-to {
-  transform: translateY(0) rotate(0deg);
-  transition: transform 1s;
+.galery-picture-bottom-enter {
+  transform: translate(calc(50vw + #{image-height(0.5)}), calc(50vh + #{image-height(0.5)})) rotate(-45deg);
 }
 
-.galery-picture-top-leave-to,
-.galery-picture-top-leave {
-  transition: transform 1s;
-  transform: translateY(100%) rotate(-45deg);
+.galery-picture-top-enter-to,
+.galery-picture-top-leave,
+.galery-picture-bottom-enter-to,
+.galery-picture-bottom-leave {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+.galery-picture-top-leave-to {
+  transform: translate(calc(50vw + #{image-height(0.5)}), calc(50vh + #{image-height(0.5)})) rotate(-45deg);
+}
+
+.galery-picture-bottom-leave-to {
+  transform: translate(calc(-50vw - #{image-height(0.5)}), calc(-50vh - #{image-height(0.5)})) rotate(-45deg);
 }
 
 // -----------------------
