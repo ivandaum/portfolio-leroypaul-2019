@@ -58,5 +58,11 @@ export default {
       color: rgba($white, .3);
       @include no-text-border;
     }
+
+    a.isHover {
+      @include desktop {
+        color: $white !important;
+      }
+    }
   }
 </style>

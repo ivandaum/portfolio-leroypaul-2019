@@ -2,11 +2,12 @@
   <div class="SlidingTitle">
     <router-link 
     class="js-sliding-text"
-    v-for="(string, i) in elements" 
+    :class="{isHover: slugs[i] === hoveredProjectSlug}"
+    v-for="(string, i) in elements"
     :key="title + '-' + string + '-' + i"
-    :to="isLinkValid(slugs[i])" 
+    :to="isLinkValid(slugs[i])"
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
-    ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})" v-html="string"></span>
+    ><span @mouseleave="hoveredProject = ''" @mouseenter="$emit('hover', {slug: slugs[i] || null})" v-html="string"></span>
     </router-link>
   </div>
 </template>
@@ -27,6 +28,7 @@ export default {
       slugs: [],
       widths: [],
       totalWidth: 0,
+      hoveredProjectSlug: ''
     }
   },
   props: {
@@ -45,6 +47,10 @@ export default {
       this.direction = this.scroll || 1;
 
       RafManager.addQueue(this.render.bind(this))
+    });
+
+    store.$on('switch-project', (index) => {
+      this.hoveredProjectSlug = store.projects[index].slug;
     });
   },
   methods: {

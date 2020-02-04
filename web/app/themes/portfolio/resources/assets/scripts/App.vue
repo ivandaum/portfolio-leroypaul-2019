@@ -119,9 +119,9 @@ export default {
     overflow-x: hidden;
     overflow-y: scroll;
 
-    &.on-touch .Galery {
-      transition-duration: $easing / 2;
-      transform: scale(0.9);
-    }
+    // &.on-touch .Galery {
+    //   transition-duration: $easing / 2;
+    //   transform: scale(0.9);
+    // }
   }
 </style>
