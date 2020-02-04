@@ -163,7 +163,6 @@ export default {
     z-index: 200;
 
     @include phone {
-      overflow-y: scroll;
       padding-top: 10rem;
     }
 

@@ -66,6 +66,8 @@ export default {
     height: 100vh;
     width: 100%;
     transform-origin: center center;
+    position: relative;
+    pointer-events: none;
 
     &__picture-container {
       width: 100%;

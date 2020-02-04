@@ -52,6 +52,8 @@ export default {
 <style lang="scss">
   @import "../../../styles/conf";
   .GridTitles {
+    z-index: 1;
+
     a:nth-of-type(even):not(:hover) {
       color: rgba($white, .3);
       @include no-text-border;
