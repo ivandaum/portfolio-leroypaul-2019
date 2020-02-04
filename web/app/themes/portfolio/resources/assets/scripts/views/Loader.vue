@@ -104,7 +104,6 @@ export default {
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
-    opacity: 0;
 
     &__introduction {
       height: 1.5rem;

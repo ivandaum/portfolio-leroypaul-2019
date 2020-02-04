@@ -53,7 +53,6 @@ export default {
     justify-content: space-between;
     top: 0;
     z-index: 300;
-    font-family: $font-title;
 
     @include tablet {
       padding: 4rem 5rem 0 5rem;
@@ -79,6 +78,7 @@ export default {
       text-transform: uppercase;
       height: 2rem;
       overflow: hidden;
+      font-family: $font-title;
 
       &.active a {
         transform: translateY(0);
@@ -88,14 +88,14 @@ export default {
     &__right {
       display: flex;
       align-items: flex-end;
-      font-size: 1.2rem;
-      letter-spacing: 0.18px;
+      font-size: 1.4rem;
+      font-weight: bold;
       margin: 0;
       padding: 0;
       position: relative;
 
       @include phone {
-        margin-top: 0.3rem;
+        margin-top: 0.2rem;
       }
     }
 
@@ -122,6 +122,7 @@ export default {
       position: absolute;
       right: 0;
       top: 0;
+      text-align: right;
     }
 
     &.is-brown a {
