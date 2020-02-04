@@ -170,7 +170,7 @@ export default {
     font-size: 1em;
 
     @include touch {
-      height: $title-height*2;
+      height: $title-height*2.1;
     }
 
     > a {
