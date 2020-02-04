@@ -141,7 +141,7 @@ export default {
       transform: translateY(-30vh);
     }
 
-    .SlidingTitle a {
+    .ActiveTitle .SlidingTitle a {
       color: $white;
     }
   }

@@ -2,7 +2,6 @@
   <div class="SlidingTitle">
     <router-link 
     class="js-sliding-text"
-    :class="{isHover: slugs[i] === hoveredProjectSlug}"
     v-for="(string, i) in elements"
     :key="title + '-' + string + '-' + i"
     :to="isLinkValid(slugs[i])"
@@ -47,10 +46,6 @@ export default {
       this.direction = this.scroll || 1;
 
       RafManager.addQueue(this.render.bind(this))
-    });
-
-    store.$on('switch-project', (index) => {
-      this.hoveredProjectSlug = store.projects[index].slug;
     });
   },
   methods: {
