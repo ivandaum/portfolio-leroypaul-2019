@@ -18,9 +18,9 @@ const router = new Router({
       component: Index,
       beforeEnter: (to, from, next) => {
         let $container = store.$scrollContainer;
-        // if(from.params.page ===  PAGES_NAME.about) {
-        //   $container = document.querySelector('.About');
-        // }
+        if(from.params.page ===  PAGES_NAME.about) {
+          $container = document.querySelector('.About');
+        }
         
         if ([PAGES_NAME.slug, PAGES_NAME.about].indexOf(from.params.page) !== -1 && $container.scrollTop > 0) {
           scrollTo(0, $container, () => {

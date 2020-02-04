@@ -97,7 +97,6 @@ export default {
     width: 100%;
     z-index: 100;
     margin-bottom: -30vh;
-    margin-top: 100vh;
 
     &__inner {
       min-height: 100vh;
