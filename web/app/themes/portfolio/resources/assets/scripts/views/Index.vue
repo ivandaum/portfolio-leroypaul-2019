@@ -106,7 +106,6 @@ export default {
       height: 100vh;
       width: 100%;
       display: block;
-      position: absolute;
       z-index: 1;
     }
 
