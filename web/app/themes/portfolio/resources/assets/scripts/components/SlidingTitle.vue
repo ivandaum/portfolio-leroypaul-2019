@@ -94,7 +94,7 @@ export default {
       this.totalWidth = 0;
       this.widths = [];
       this.positions = [];
-      const marginRight = store.windowWidth < 768 ? 25 : 50;
+      const marginRight = store.windowWidth < 768 ? 35 : 50;
       const $elements = this.$el.querySelectorAll('.js-sliding-text');
 
       $elements.forEach( ($el, i) => {
