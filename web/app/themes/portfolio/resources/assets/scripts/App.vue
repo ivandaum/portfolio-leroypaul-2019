@@ -6,7 +6,12 @@
     v-on:touchmove="onTouchMove" 
     v-on:touchend="onTouchEnd"
     v-on:touchcancel="onTouchEnd"
+    v-on:mousemove="onMouseMove"
   >
+    <CustomCursor 
+      :position="cursorPosition" 
+      :isActive="store.page == PAGES_NAME.home"
+    />
     <Loader />
     <Nav />
     <keep-alive>
@@ -20,13 +25,17 @@ import store from './store/store';
 import { PAGES_NAME } from './utils/constants';
 import normalize from 'normalize-wheel';
 import Nav from './components/Nav.vue';
+import CustomCursor from './components/CustomCursor.vue';
 import Loader from './views/Loader.vue';
 
 export default {
   name: 'App',
   data() {
     return {
-      touchValue: []
+      touchValue: [],
+      cursorPosition: [],
+      store: store,
+      PAGES_NAME: PAGES_NAME
     }
   },
   mounted () {
@@ -44,6 +53,9 @@ export default {
     }
   },
   methods: {
+    onMouseMove(e) {
+      this.cursorPosition = [e.pageX, e.pageY];
+    },
     onTouchEnd(e) {
       this.touchValue = []
     },
@@ -96,6 +108,7 @@ export default {
   components: { 
     Nav,
     Loader,
+    CustomCursor,
   },
 }
 </script>

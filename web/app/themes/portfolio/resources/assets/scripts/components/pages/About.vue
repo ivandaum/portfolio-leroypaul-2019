@@ -321,7 +321,7 @@ export default {
         left: 0;
         width: 100%;
         pointer-events: auto;
-        margin: 10rem 0 5rem 0;
+        margin: 5rem 0;
         img {
           max-width: 100%;
           height: auto;

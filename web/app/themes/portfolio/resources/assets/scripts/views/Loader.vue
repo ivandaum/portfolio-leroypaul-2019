@@ -104,6 +104,7 @@ export default {
   .Loader {
     position: fixed !important;
     z-index: 400 !important;
+    opacity: 0;
 
     &__introduction {
       height: 1.5rem;
@@ -111,7 +112,7 @@ export default {
     }
 
     &__introduction span {
-      color: $brown;
+      color: $brown-darker;
       font-family: $font-title;
       position: relative;
       z-index: 400;

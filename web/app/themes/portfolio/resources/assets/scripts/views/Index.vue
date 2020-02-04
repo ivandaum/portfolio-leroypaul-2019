@@ -12,7 +12,7 @@
       <Galery 
         :current="current" 
         :isFull="store.hasOpenedProject()" 
-        :titleIsHovered="titleIsHovered"
+        :titleIsHovered="store.titleIsHovered"
       />
       <ActiveTitle
         v-if="projects.length"
@@ -62,7 +62,6 @@ export default {
       hasOpenedProject: false,
       store: store,
       about: {},
-      titleIsHovered: false
     }
   },
   mounted() {
@@ -82,7 +81,7 @@ export default {
       return index == this.current
     },
     hoveringTitle(value) {
-      this.titleIsHovered = value;
+      store.titleIsHovered = value;
     }
   },
   components: {

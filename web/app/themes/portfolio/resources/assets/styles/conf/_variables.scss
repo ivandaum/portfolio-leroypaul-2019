@@ -18,11 +18,12 @@ $phone-size: 720px;
 $phone-s-size: 320px;
 $desktop-padding: 70px;
 
-
 $brown: #c5b8ab;
+$brown-darker: #c5b8ac;
 $greige: #dad3cb;
 $grey-light: #f4f3f2;
 $grey: #e2e2e2;
+$cursor-brown: #aea69e;
 
 $about-background: #e8e5e3;
 $about-title: $brown;
@@ -33,6 +34,7 @@ $title-hover: #f4eee9;
 $title-height: 8.3vw;
 
 $font-directory: '/app/themes/portfolio/resources/assets/fonts/';
+$image-directory: '/app/themes/portfolio/resources/assets/images/';
 $font-title: 'monument';
 $font-regular: 'helvetica-regular';
 $font-bold: 'helvetica-bold';
