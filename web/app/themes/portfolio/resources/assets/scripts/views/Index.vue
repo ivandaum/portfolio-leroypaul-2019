@@ -151,13 +151,7 @@ export default {
   }
 
 
-  .Index.about--open {
-    @include phone {
-      max-height: fit-content;
-    }
-
-    .About {
-      pointer-events: auto;
-    }
+  .Index.about--open .About {
+    pointer-events: auto;
   }
 </style>
