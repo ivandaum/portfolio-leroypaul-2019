@@ -156,7 +156,7 @@ export default {
   .About {
     height: 100vh;
     width: 100%;
-    padding-top: 12.5rem;
+    padding-top: 20rem;
     top: 0;
     left: 0;
     position: fixed;
@@ -168,7 +168,7 @@ export default {
     }
 
     &__title {
-      margin-bottom: 16rem;
+      margin-bottom: 10rem;
 
       @include touch {
         margin-bottom: 7rem;

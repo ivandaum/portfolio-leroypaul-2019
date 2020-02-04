@@ -1,5 +1,12 @@
 <template>
-  <div id="app" class="App" v-on:wheel="onScroll" v-on:scroll.native="onScroll">
+  <div id="app" class="App" 
+    :class="{'on-touch': touchValue.length}" 
+    v-on:wheel="onScroll"
+    v-on:touchstart="onTouchStart" 
+    v-on:touchmove="onTouchMove" 
+    v-on:touchend="onTouchEnd"
+    v-on:touchcancel="onTouchEnd"
+  >
     <Loader />
     <Nav />
     <keep-alive>
@@ -19,6 +26,7 @@ export default {
   name: 'App',
   data() {
     return {
+      touchValue: []
     }
   },
   mounted () {
@@ -36,9 +44,23 @@ export default {
     }
   },
   methods: {
+    onTouchEnd(e) {
+      this.touchValue = []
+    },
+    onTouchStart(e) {
+      const touch = e.touches[0];
+      this.touchValue = [touch.pageX, touch.pageY];
+    },
+    onTouchMove(e) {
+      if(store.page == PAGES_NAME.home) {
+        const touch = e.touches[0];
+        const diff = this.touchValue[1] - touch.pageY;
+        this.onHomeScroll({spinY: diff});
+        this.touchValue = [touch.pageX, touch.pageY];
+      }
+    },
     onScroll(e) {
       const scroll = normalize(e);
-
       if(store.page == PAGES_NAME.home) {
         this.onHomeScroll(scroll);
       }
@@ -78,9 +100,15 @@ export default {
 }
 </script>
 <style lang='scss'>
+  @import "../styles/conf";
   .App {
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    &.on-touch .Galery {
+      transition-duration: $easing / 2;
+      transform: scale(0.9);
+    }
   }
 </style>

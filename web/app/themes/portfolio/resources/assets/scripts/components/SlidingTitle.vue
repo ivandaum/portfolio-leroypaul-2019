@@ -4,7 +4,7 @@
     class="js-sliding-text"
     v-for="(string, i) in elements" 
     :key="title + '-' + string + '-' + i"
-    :to="{name: 'project', params:{slug: slugs[i] || ' ' }}" 
+    :to="isLinkValid(slugs[i])" 
     :style="{transform: 'translateX(' + positions[i] + 'px)'}"
     ><span @mouseenter="$emit('hover', {slug: slugs[i] || null})" v-html="string"></span>
     </router-link>
@@ -48,6 +48,13 @@ export default {
     });
   },
   methods: {
+    isLinkValid(slug) {
+      if (slug) {
+        return {name: 'project', params:{slug: slug }};
+      }
+
+      return {};
+    },
     onResize() {
       this.inited = false;
     },

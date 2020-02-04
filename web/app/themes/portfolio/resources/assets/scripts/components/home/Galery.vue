@@ -63,6 +63,10 @@ export default {
   }
 
   .Galery {
+    height: 100vh;
+    width: 100%;
+    transform-origin: center center;
+
     &__picture-container {
       width: 100%;
       height: 100%;
