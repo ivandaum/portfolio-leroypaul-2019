@@ -17,13 +17,19 @@ const router = new Router({
       name: 'home',
       component: Index,
       beforeEnter: (to, from, next) => {
-        if (from.params.page ===  PAGES_NAME.slug && store.$scrollContainer.scrollTop > 0) {
-          scrollTo(0, () => {
+        let $container = store.$scrollContainer;
+        if(from.params.page ===  PAGES_NAME.about) {
+          $container = document.querySelector('.About');
+        }
+        
+        if ([PAGES_NAME.slug, PAGES_NAME.about].indexOf(from.params.page) !== -1 && $container.scrollTop > 0) {
+          scrollTo(0, $container, () => {
             to.params.grid = false;
             to.params.page = PAGES_NAME.home;
             next();
           });
-        } else {
+        } 
+        else {
           to.params.grid = false;
           to.params.page = PAGES_NAME.home;
           next();

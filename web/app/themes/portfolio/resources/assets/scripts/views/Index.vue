@@ -137,6 +137,10 @@ export default {
     .Index__projects {
       transform: translateY(-30vh);
     }
+
+    .SlidingTitle a {
+      color: $white;
+    }
   }
 
   .Index.grid--open .GridTitles,

@@ -159,10 +159,11 @@ export default {
     padding-top: 20rem;
     top: 0;
     left: 0;
-    position: fixed;
+    position: absolute;
     z-index: 200;
 
     @include phone {
+      overflow-y: scroll;
       padding-top: 10rem;
     }
 

@@ -1,8 +1,10 @@
 import anime from 'animejs';
 import store from '../store/store';
 
-export function scrollTo(to, callback) {
-  let from = {top: store.$scrollContainer.scrollTop };
+export function scrollTo(to, $container, callback) {
+  $container = $container || store.$scrollContainer;
+
+  let from = {top: $container.scrollTop };
   const timeline = anime.timeline();
 
   timeline
@@ -12,7 +14,7 @@ export function scrollTo(to, callback) {
       duration: 1000,
       easing: 'easeInOutExpo',
       update: () => {
-        store.$scrollContainer.scrollTop = from.top;
+        $container.scrollTop = from.top;
       }
     })
     .add({targets:{}, duration: 0, complete: () => callback()}, 800)
