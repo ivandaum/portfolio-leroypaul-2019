@@ -16,12 +16,7 @@ body {
   margin:0;
   width:100vw;
 }
-@include phone {
-  body {
-    overflow: auto;
-    height:auto;
-  }
-}
+
 * {
   box-sizing: border-box;
 }

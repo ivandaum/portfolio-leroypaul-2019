@@ -164,7 +164,6 @@ export default {
 
     @include phone {
       overflow-y: scroll;
-      padding-bottom: 5rem;
     }
 
     &__title {
@@ -321,7 +320,7 @@ export default {
         left: 0;
         width: 100%;
         pointer-events: auto;
-        margin-top: 5rem;
+        margin: 10rem 0 5rem 0;
         img {
           max-width: 100%;
           height: auto;
