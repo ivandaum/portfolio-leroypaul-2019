@@ -97,6 +97,7 @@ export default {
     width: 100%;
     z-index: 100;
     margin-bottom: -30vh;
+    margin-top: 100vh;
 
     &__inner {
       min-height: 100vh;
@@ -173,7 +174,10 @@ export default {
 
     &__pictures {
       padding: 0;
-      padding-bottom: 30vh;
+      padding-bottom: 15rem;
+      @include phone {
+        padding-bottom: 5rem;
+      }
 
       div {
         margin-top: 15rem;

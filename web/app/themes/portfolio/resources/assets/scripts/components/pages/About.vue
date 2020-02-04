@@ -106,7 +106,7 @@ export default {
         delay: (el, i) => i * 10,
         easing: 'linear',
         autoplay: false
-      })
+      });
     },
 
     toggle() {
@@ -159,11 +159,11 @@ export default {
     padding-top: 20rem;
     top: 0;
     left: 0;
-    position: absolute;
+    position: relative;
     z-index: 200;
 
     @include phone {
-      overflow-y: scroll;
+      height: auto;
       padding-top: 10rem;
     }
 

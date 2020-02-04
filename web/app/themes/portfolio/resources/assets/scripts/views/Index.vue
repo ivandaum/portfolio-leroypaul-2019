@@ -5,10 +5,10 @@
       'grid--open': store.page === PAGES_NAME.grid,
       'home--open': store.page === PAGES_NAME.home,
       'about--open': store.page === PAGES_NAME.about,
-    }" 
+    }"
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
-    <div class="Index__previews is-relative">
+    <div class="Index__previews">
       <Galery 
         :current="current" 
         :isFull="store.hasOpenedProject()" 
@@ -104,7 +104,10 @@ export default {
     &__previews {
       height: 100vh;
       width: 100%;
+      top: 0;
+      left: 0;
       display: block;
+      position: absolute;
       z-index: 1;
     }
 
