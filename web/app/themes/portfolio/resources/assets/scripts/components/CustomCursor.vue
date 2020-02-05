@@ -101,7 +101,7 @@ export default {
     }
 
     &--hover {
-      background: url($image-directory + '/cursor-scroll.svg') no-repeat center center;
+      background: url($image-directory + '/cursor-discover.svg') no-repeat center center;
       background-size: contain;
       animation: rotate 10s infinite linear;
 
