@@ -108,8 +108,8 @@ export default {
       &:before {
         content: " ";
         display: block;
-        height: 4.7rem;
-        width: 4.7rem;
+        height: 4.3rem;
+        width: 4.3rem;
         background: $cursor-brown;
         border-radius: 50%;
       }

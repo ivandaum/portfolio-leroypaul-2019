@@ -9,7 +9,7 @@
     v-on:touchcancel="onTouchEnd"
     v-on:mousemove="onMouseMove"
   >
-    <CustomCursor 
+    <CustomCursor
       :position="cursorPosition" 
       :isActive="store.page == PAGES_NAME.home"
     />
@@ -120,10 +120,5 @@ export default {
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-
-    // &.on-touch .Galery {
-    //   transition-duration: $easing / 2;
-    //   transform: scale(0.9);
-    // }
   }
 </style>

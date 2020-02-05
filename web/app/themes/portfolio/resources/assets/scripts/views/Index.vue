@@ -5,6 +5,7 @@
       'grid--open': store.page === PAGES_NAME.grid,
       'home--open': store.page === PAGES_NAME.home,
       'about--open': store.page === PAGES_NAME.about,
+      'project--scrolled': store.scroll > store.windowHeight && store.page === PAGES_NAME.slug,
       'preload--next-project': store.projectScrolled
     }"
   >
@@ -79,6 +80,10 @@ export default {
     });
 
   },
+  beforeRouteUpdate: (to, from, next) => {
+    console.log('template update');
+    next();
+  },
   methods: {
     isActive(index) {
       if(store.page === PAGES_NAME.grid) return false;
@@ -141,13 +146,13 @@ export default {
     .ActiveTitle {
       z-index: 15;
     }
-
-    .Galery:not(.full) .Galery__picture.galery-picture-top-leave-to {
-      opacity: 0;
-    }
   }
 
-  .Index.Index.project--open:not(.preload--next-project) {
+  .Index.project--scrolled .Galery__picture.isActiveProjectCover {
+    opacity: 0;
+  }
+
+  .Index.project--open:not(.preload--next-project) {
     .ActiveTitle {
       transform: translateY(-15%);
     }

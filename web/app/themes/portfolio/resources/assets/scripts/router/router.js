@@ -56,12 +56,6 @@ const router = new Router({
         to.params.page = PAGES_NAME.slug;
         next();
       },
-      beforeLeave: (to, from, next) => {
-        console.log(to, from);
-        if(from.params.page ===  PAGES_NAME.slug) {
-        }
-        next();
-      }
     },
     {
       path: '/about',
