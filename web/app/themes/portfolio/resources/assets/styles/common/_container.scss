@@ -54,6 +54,7 @@
   font-size: 8.5vw;
   text-transform: uppercase;
   overflow: hidden;
+  transform: translateZ(1px);
 
   @include touch {
     font-size: 14vw;
