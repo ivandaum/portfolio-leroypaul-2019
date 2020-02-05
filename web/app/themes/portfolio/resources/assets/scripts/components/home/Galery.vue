@@ -1,5 +1,5 @@
 <template>
-  <div class="Galery" :class="{full: isFull, 'on-title-hover': titleIsHovered}">
+  <div class="Galery" :class="{full: isFull && !store.projectHalfScrolled}">
     <div class="Galery__picture-container is-absolute" v-for="(project, index) in projects" :key="'galery-image-' + index">
       <transition :name="'galery-picture' + direction()">
         <div class="Galery__picture is-centered-container" v-show="current === index">
@@ -28,7 +28,6 @@ export default {
   props: {
     current: Number,
     isFull: Boolean,
-    titleIsHovered: Boolean
   },
   methods: {
     onImageLoad() {
@@ -82,52 +81,6 @@ export default {
       position: relative;
     }
 
-    img,
-    picture {
-      transition: transform $easing ease;
-    }
-
-    picture {
-      z-index: 1;
-      display: block;
-      transform-origin: center center;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      transition-delay: 0s;
-
-      @include widescreen {
-        @include size(1.25);
-      }
-      @include desktop-up {
-        @include size(1.75);
-      }
-
-      @include tablet {
-        @include size(2);
-      }
-
-      @include phone {
-        @include size(3);
-      }
-    }
-
-    &.on-title-hover picture {
-      @include desktop {
-        @include size(1.7, 1.3);
-      }
-    }
-
-    img {
-      position: absolute;
-      display: block;
-      object-fit: cover;
-      height: 100% !important;
-      width: 100% !important;
-      transition-duration: $easing * 1.2;
-    }
-
     &.full .Galery__picture {
       transition: none;
     }
@@ -140,5 +93,7 @@ export default {
         transform: scale(1) translateY(-15vh);
       }
     }
+
+    @include image();
   }
 </style>

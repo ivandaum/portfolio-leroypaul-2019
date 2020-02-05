@@ -42,6 +42,8 @@ export default {
     this.canScroll = true;
     this.raf = null;
     store.$scrollContainer = document.querySelector('#app');
+    store.$scroller = this.$el.querySelector('.js-scroller');
+
     store.$emit('app-loaded');
 
     window.addEventListener('resize', this.onResize.bind(this));
@@ -53,6 +55,29 @@ export default {
     }
   },
   methods: {
+    onProjectScroll() {
+      store.projectHalfScrolled = store.scroll >= store.$scroller.offsetHeight * 0.5;
+    },
+    onHomeScroll(scroll) {
+      if(!this.canScroll) return false;
+
+      this.canScroll = false;
+      const direction = scroll.spinY > 0 ? 1 : -1;
+      const current = store.getNextProject(direction);
+
+      store.project = current;
+      store.scrollDirection = direction;
+
+      store.$emit('switch-project', current);
+      
+      setTimeout( () => {
+        this.canScroll = true;
+      }, 2000);
+    },
+    onResize() {
+      store.windowWidth = window.innerWidth;
+      store.windowHeight =  window.innerHeight;
+    },
     onMouseMove(e) {
       this.cursorPosition = [e.pageX, e.pageY];
     },
@@ -73,37 +98,16 @@ export default {
     },
     onScroll(e) {
       const scroll = normalize(e);
-      if(store.page == PAGES_NAME.home) {
+      store.scroll = store.$scrollContainer.scrollTop;
+
+      if(store.page === PAGES_NAME.home) {
         this.onHomeScroll(scroll);
       }
-    },
-    onResize() {
-      store.windowWidth = window.innerWidth;
-      store.windowHeight =  window.innerHeight;
-    },
-    onHomeScroll(scroll) {
-      if(!this.canScroll) return false;
 
-      this.canScroll = false;
-      const direction = scroll.spinY > 0 ? 1 : -1;
-      const projectsCount = store.projects.length;
-      let current = store.project + direction; 
-
-      if(current > projectsCount - 1) {
-        current = 0;
-      } else if (current < 0) {
-        current = projectsCount - 1;
+      if (store.page === PAGES_NAME.slug) {
+        this.onProjectScroll();
       }
-
-      store.project = current;
-      store.scrollDirection = direction;
-
-      store.$emit('switch-project', current);
-      
-      setTimeout( () => {
-        this.canScroll = true;
-      }, 2000);
-    }
+    },
   },
   components: { 
     Nav,

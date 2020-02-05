@@ -48,6 +48,9 @@ class Project
         'live' => get_field('project_url-live',$p->ID),
       ];
 
+      $f['prev_project'] = get_previous_post();
+      $f['next_project'] = get_next_post();
+
       $content = get_field('project_content', $p->ID) ?: [];
       $f['content'] = [];
       foreach($content as $c) {

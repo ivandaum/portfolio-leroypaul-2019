@@ -27,7 +27,15 @@
           <ImageSource v-if="img.image" :image="img.image" :lazy="true" />
         </div>
       </div>
+      <div class="Project__info container">
+        <div class="Project__info--left">
+          <div v-if="links" class="Project__links">
+            <div v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="Project__next js-next-project-trigger"></div>
   </div>
 </template>
 
@@ -43,7 +51,8 @@ export default {
   data() {
     return {
       store: store,
-      links: []
+      links: [],
+      nextIsVisible: false
     }
   },
   props: {
@@ -64,10 +73,17 @@ export default {
       this.links.push(link);
     }
 
-    
     if(this.isOpen) {
+      store.project = this.index;
       this.loadImages();
     }
+
+    this.$nextTrigger = this.$el.querySelector('.js-next-project-trigger');
+    let observer = new IntersectionObserver(changes => {
+      const [{ isIntersecting }] = changes;
+      this.showNextProject(isIntersecting);
+    }, {rootMargin: '0px 0px -50% 0px', threshold: 0.5});
+    observer.observe(this.$nextTrigger);
   },
   methods: {
     loadImages() {
@@ -76,6 +92,15 @@ export default {
           elements_selector: '.js-lazy',
         });
       });
+    },
+    showNextProject(show) {
+      if (!this.isOpen || !store.projectHalfScrolled) return;
+
+      if(show) {
+        store.$emit('switch-project', store.getNextProject(1));
+      } else {
+        store.$emit('switch-project', this.index);
+      }
     }
   },
   watch: {
@@ -96,11 +121,14 @@ export default {
     height: 100%;
     width: 100%;
     z-index: 100;
-    margin-bottom: -30vh;
-
+    
     &__inner {
       min-height: 100vh;
       background: $grey-light;
+      padding-bottom: 15rem;
+      @include phone {
+        padding-bottom: 5rem;
+      }
     }
 
     &__info {
@@ -173,10 +201,6 @@ export default {
 
     &__pictures {
       padding: 0;
-      padding-bottom: 15rem;
-      @include phone {
-        padding-bottom: 5rem;
-      }
 
       div {
         margin-top: 15rem;
@@ -206,6 +230,15 @@ export default {
       img.loaded {
         opacity: 1;
       }
+    }
+
+    &__next {
+      bottom: -1vh;
+      position: absolute;
+      left: 0;
+      height: 1vh;
+      width: 100%;
+      background: red;
     }
   }
 </style>

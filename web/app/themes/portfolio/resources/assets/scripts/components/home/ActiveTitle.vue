@@ -77,7 +77,6 @@ export default {
   @import "../../../styles/conf";
 
   .ActiveTitle {
-    z-index: 1;
 
     &__number {
       font-size: 2rem;

@@ -3,6 +3,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router.js';
 import '../styles/main.scss';
+import './vendor/IntersectionObserver';
 
 // Vue.config.productionTip = false;
 document.addEventListener('DOMContentLoaded', () => {

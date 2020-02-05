@@ -4,6 +4,8 @@ export default {
   datas: [],
   events: [],
   project: 0,
+  scroll: 0,
+  projectHalfScrolled: false,
   scrollDirection: 1,
   page: null,
   $scrollContainer: {},
@@ -33,5 +35,17 @@ export default {
   },
   hasOpenedProject() {
     return this.page === PAGES_NAME.slug && this.slug !== null;
+  },
+  getNextProject(direction) {
+    const length = this.projects.length;
+    let next = this.project + direction; 
+
+    if(next > length - 1) {
+      next = 0;
+    } else if (next < 0) {
+      next = length - 1;
+    }
+
+    return next;
   }
 }

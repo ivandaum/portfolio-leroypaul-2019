@@ -1,10 +1,11 @@
 <template>
-  <div class="Index container-fluid" 
+  <div class="Index container-fluid js-scroller" 
     :class="{
       'project--open': store.page === PAGES_NAME.slug,
       'grid--open': store.page === PAGES_NAME.grid,
       'home--open': store.page === PAGES_NAME.home,
       'about--open': store.page === PAGES_NAME.about,
+      'preload--next-project': store.projectHalfScrolled
     }"
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
@@ -12,13 +13,12 @@
       <Galery 
         :current="current" 
         :isFull="store.hasOpenedProject()" 
-        :titleIsHovered="store.titleIsHovered"
       />
       <ActiveTitle
         v-if="projects.length"
         :current="current"
         :projects="projects"
-        @hover="hoveringTitle"
+        @hover="titleIsHovered"
       />
 
       <GridTitles
@@ -51,6 +51,7 @@ import ActiveTitle from '../components/home/ActiveTitle.vue';
 import GridTitles from '../components/home/GridTitles.vue';
 import Project from '../components/pages/Project.vue';
 import About from '../components/pages/About.vue';
+import RafManager from '../utils/RafManager';
 
 export default {
   name: 'Index',
@@ -59,7 +60,6 @@ export default {
       projects: [],
       current: -1,
       PAGES_NAME: PAGES_NAME,
-      hasOpenedProject: false,
       store: store,
       about: {},
     }
@@ -70,17 +70,21 @@ export default {
       for(let i = 0; i < projects.length; i++) {
         this.$set(this.projects, i, projects[i]);
       }
+      this.$preview = this.$el.querySelector('.js-stuck-on-scroll');
     });
+
     store.$on('switch-project', (value) => {
       this.current = value;
+      store.project = value;
     });
+
   },
   methods: {
     isActive(index) {
       if(store.page === PAGES_NAME.grid) return false;
       return index == this.current
     },
-    hoveringTitle(value) {
+    titleIsHovered(value) {
       store.titleIsHovered = value;
     }
   },
@@ -99,26 +103,28 @@ export default {
   .Index {
     min-height: 100vh;
     max-height: 100vh;
-    overflow: hidden;
+    &:not(.project--open) {
+      overflow: hidden;
+    }
 
     &__previews {
       height: 100vh;
       width: 100%;
-      top: 0;
-      left: 0;
       display: block;
       z-index: 1;
-      position: relative;
+      position: sticky;
+      top: 0;
     }
 
     &__projects {
       position: relative;
       top: 0;
       z-index: 10;
+      transform: translateY(-100vh);
+      margin-top: 100vh;
+      transition: margin $easing $cbezier1;
     }
 
-    &__previews,
-    &__projects,
     .ActiveTitle,
     .ActiveTitle__number,
     .Galery {
@@ -129,16 +135,21 @@ export default {
   .Index.project--open {
     max-height: fit-content;
 
+    .Index__projects {
+      margin-top: 70vh;
+    }
+    .ActiveTitle {
+      z-index: 15;
+    }
+  }
+
+  .Index.Index.project--open:not(.preload--next-project) {
     .ActiveTitle {
       transform: translateY(-15%);
     }
 
     .ActiveTitle__number {
       transform: translateY(-10vh);
-    }
-
-    .Index__projects {
-      transform: translateY(-30vh);
     }
 
     .ActiveTitle .SlidingTitle a {
