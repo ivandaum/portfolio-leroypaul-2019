@@ -38,12 +38,13 @@ export default {
     scroll: null
   },
   mounted() {
+    const SPEED = 1.5;
 
     window.addEventListener('resize', this.onResize.bind(this));
     this.$nextTick( () => {
       this.elements = this.splitTitle(this.title);
       this.randomizeStart = this.start || 0;
-      this.direction = this.scroll || 1;
+      this.direction = this.scroll * SPEED || SPEED;
 
       RafManager.addQueue(this.render.bind(this))
     });
