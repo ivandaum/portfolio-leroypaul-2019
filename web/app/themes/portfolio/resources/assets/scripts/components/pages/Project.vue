@@ -107,7 +107,10 @@ export default {
   },
   watch: {
     isOpen(value) {
-      if (value) this.loadImages();
+      if (value) {
+        store.$scrollContainer.scrollTo(0, 0);
+        this.loadImages();
+      }
     }
   },
   components: {

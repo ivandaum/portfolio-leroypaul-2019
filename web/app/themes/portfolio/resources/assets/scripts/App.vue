@@ -51,8 +51,9 @@ export default {
   },
   watch:{
     $route (to, from) {
-      store.page = this.$route.params.page;
+      store.page = this.$route.params.page || store.page;
       store.slug = this.$route.params.slug ? this.$route.params.slug : null;
+      store.projectScrolled = false;
     }
   },
   methods: {
@@ -103,7 +104,6 @@ export default {
       }
     },
     onScroll(e) {
-      const scroll = normalize(e);
       store.scroll = store.$scrollContainer.scrollTop;
     },
   },

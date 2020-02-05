@@ -46,6 +46,7 @@
 <script>
 import { PAGES_NAME } from './../utils/constants';
 import store from './../store/store';
+import { scrollTo } from './../utils/functions';
 
 import Galery from '../components/home/Galery.vue';
 import ActiveTitle from '../components/home/ActiveTitle.vue';
@@ -81,8 +82,22 @@ export default {
 
   },
   beforeRouteUpdate: (to, from, next) => {
-    console.log('template update');
+    const goTo = store.$scroller.offsetHeight - store.windowHeight;
+    store.$scrollContainer.scrollTo(0, goTo);
+    store.scroll = 0;
     next();
+    
+    // if (goTo !== store.scroll) {
+    //   scrollTo(goTo, store.$scrollContainer, () => {
+    //     next();
+    //     store.$scrollContainer.scrollTo(0, goTo);
+    //     store.scroll = 0;
+    //   });
+    // } else {
+    //   store.$scrollContainer.scrollTo(0, goTo);
+    //   store.scroll = 0;
+    //   next();
+    // }
   },
   methods: {
     isActive(index) {
