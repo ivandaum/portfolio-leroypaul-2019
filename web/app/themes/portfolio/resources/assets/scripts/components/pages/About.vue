@@ -180,10 +180,8 @@ export default {
       }
 
       a {
+        backface-visibility: hidden;
         @include text-border($greige);
-        @include desktop {
-          pointer-events: none;
-        }
       }
     }
 

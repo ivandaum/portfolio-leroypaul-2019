@@ -108,6 +108,7 @@ export default {
       left: 0;
       display: block;
       z-index: 1;
+      position: relative;
     }
 
     &__projects {
