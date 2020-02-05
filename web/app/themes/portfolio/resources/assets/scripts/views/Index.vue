@@ -5,7 +5,7 @@
       'grid--open': store.page === PAGES_NAME.grid,
       'home--open': store.page === PAGES_NAME.home,
       'about--open': store.page === PAGES_NAME.about,
-      'preload--next-project': store.projectHalfScrolled
+      'preload--next-project': store.projectScrolled
     }"
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
@@ -141,6 +141,10 @@ export default {
     .ActiveTitle {
       z-index: 15;
     }
+
+    .Galery:not(.full) .Galery__picture.galery-picture-top-leave-to {
+      opacity: 0;
+    }
   }
 
   .Index.Index.project--open:not(.preload--next-project) {
@@ -161,7 +165,6 @@ export default {
   .Index.home--open .ActiveTitle {
     z-index: 60;
   }
-
 
   .Index.about--open .About {
     pointer-events: auto;

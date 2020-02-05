@@ -23,9 +23,11 @@ const router = new Router({
         }
         
         if ([PAGES_NAME.slug, PAGES_NAME.about].indexOf(from.params.page) !== -1 && $container.scrollTop > 0) {
+          store.forceClose = true;
           scrollTo(0, $container, () => {
             to.params.grid = false;
             to.params.page = PAGES_NAME.home;
+            store.forceClose = false;
             next();
           });
         } 
@@ -52,6 +54,12 @@ const router = new Router({
       component: Index,
       beforeEnter: (to, from, next) => {
         to.params.page = PAGES_NAME.slug;
+        next();
+      },
+      beforeLeave: (to, from, next) => {
+        console.log(to, from);
+        if(from.params.page ===  PAGES_NAME.slug) {
+        }
         next();
       }
     },

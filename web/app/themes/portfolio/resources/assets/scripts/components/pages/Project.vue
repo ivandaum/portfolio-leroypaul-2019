@@ -82,7 +82,7 @@ export default {
     let observer = new IntersectionObserver(changes => {
       const [{ isIntersecting }] = changes;
       this.showNextProject(isIntersecting);
-    }, {rootMargin: '0px 0px -50% 0px', threshold: 0.5});
+    }, {rootMargin: '0px 0px 0px 0px', threshold: 0});
     observer.observe(this.$nextTrigger);
   },
   methods: {
@@ -94,7 +94,9 @@ export default {
       });
     },
     showNextProject(show) {
-      if (!this.isOpen || !store.projectHalfScrolled) return;
+      if (!this.isOpen) return;
+
+      store.projectScrolled = show;
 
       if(show) {
         store.$emit('switch-project', store.getNextProject(1));
@@ -238,7 +240,6 @@ export default {
       left: 0;
       height: 1vh;
       width: 100%;
-      background: red;
     }
   }
 </style>

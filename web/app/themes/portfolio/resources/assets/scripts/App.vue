@@ -1,7 +1,8 @@
 <template>
   <div id="app" class="App" 
     :class="{'on-touch': touchValue.length}" 
-    v-on:wheel="onScroll"
+    v-on:wheel="onWheel"
+    v-on:scroll="onScroll"
     v-on:touchstart="onTouchStart" 
     v-on:touchmove="onTouchMove" 
     v-on:touchend="onTouchEnd"
@@ -41,7 +42,7 @@ export default {
   mounted () {
     this.canScroll = true;
     this.raf = null;
-    store.$scrollContainer = document.querySelector('#app');
+    store.$scrollContainer = this.$el;
     store.$scroller = this.$el.querySelector('.js-scroller');
 
     store.$emit('app-loaded');
@@ -55,9 +56,6 @@ export default {
     }
   },
   methods: {
-    onProjectScroll() {
-      store.projectHalfScrolled = store.scroll >= store.$scroller.offsetHeight * 0.5;
-    },
     onHomeScroll(scroll) {
       if(!this.canScroll) return false;
 
@@ -96,17 +94,17 @@ export default {
         this.touchValue = [touch.pageX, touch.pageY];
       }
     },
-    onScroll(e) {
+    onWheel(e) {
       const scroll = normalize(e);
       store.scroll = store.$scrollContainer.scrollTop;
 
       if(store.page === PAGES_NAME.home) {
         this.onHomeScroll(scroll);
       }
-
-      if (store.page === PAGES_NAME.slug) {
-        this.onProjectScroll();
-      }
+    },
+    onScroll(e) {
+      const scroll = normalize(e);
+      store.scroll = store.$scrollContainer.scrollTop;
     },
   },
   components: { 

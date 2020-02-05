@@ -1,5 +1,5 @@
 <template>
-  <div class="Galery" :class="{full: isFull && !store.projectHalfScrolled}">
+  <div class="Galery" :class="{full: isFull && !store.projectScrolled}">
     <div class="Galery__picture-container is-absolute" v-for="(project, index) in projects" :key="'galery-image-' + index">
       <transition :name="'galery-picture' + direction()">
         <div class="Galery__picture is-centered-container" v-show="current === index">
@@ -90,7 +90,7 @@ export default {
       transition-delay: $easing / 4;
 
       img {
-        transform: scale(1) translateY(-15vh);
+        transform: scale(1);
       }
     }
 

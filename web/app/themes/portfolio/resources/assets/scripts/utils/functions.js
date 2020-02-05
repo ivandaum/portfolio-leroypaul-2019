@@ -14,7 +14,8 @@ export function scrollTo(to, $container, callback) {
       duration: 1000,
       easing: 'easeInOutExpo',
       update: () => {
-        $container.scrollTop = from.top;
+        // $container.scrollTop = from.top;
+        $container.scrollTo(0, from.top)
       }
     })
     .add({targets:{}, duration: 0, complete: () => callback()}, 800)

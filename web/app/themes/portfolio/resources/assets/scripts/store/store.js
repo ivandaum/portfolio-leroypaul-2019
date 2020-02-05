@@ -5,7 +5,7 @@ export default {
   events: [],
   project: 0,
   scroll: 0,
-  projectHalfScrolled: false,
+  projectScrolled: false,
   scrollDirection: 1,
   page: null,
   $scrollContainer: {},
