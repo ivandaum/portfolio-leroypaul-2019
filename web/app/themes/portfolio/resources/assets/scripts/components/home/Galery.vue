@@ -120,7 +120,7 @@ export default {
       transition-delay: $easing / 4;
 
       img {
-        transform: scale(1) !important;
+        transform: scale(1) translateY(-15vh) !important;
       }
     }
 
