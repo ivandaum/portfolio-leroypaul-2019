@@ -1,5 +1,5 @@
 <template>
-  <div class="Project">
+  <div class="Project" :class="{isOpen: isOpen}">
     <div class="Project__inner">
       <div class="Project__info container">
         <div class="Project__info--left">
@@ -126,7 +126,7 @@ export default {
     height: 100%;
     width: 100%;
     z-index: 100;
-    
+
     &__inner {
       min-height: 100vh;
       background: $grey-light;
@@ -140,7 +140,7 @@ export default {
       color: $greige;
       display: flex;
       padding-top: 6.25rem;
-        font-size: 1.6rem;
+      font-size: 1.6rem;
 
       @include phone {
         display: block;

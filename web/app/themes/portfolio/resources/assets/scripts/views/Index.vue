@@ -2,11 +2,11 @@
   <div class="Index container-fluid js-scroller" 
     :class="{
       'project--open': store.page === PAGES_NAME.slug,
+      'project--scrolled': store.scroll > store.windowHeight && store.page === PAGES_NAME.slug,
+      'project--preload-next': store.projectScrolled,
       'grid--open': store.page === PAGES_NAME.grid,
       'home--open': store.page === PAGES_NAME.home,
       'about--open': store.page === PAGES_NAME.about,
-      'project--scrolled': store.scroll > store.windowHeight && store.page === PAGES_NAME.slug,
-      'preload--next-project': store.projectScrolled
     }"
   >
     <About :datas="store.about" v-if="store.about" :isActive="store.page === PAGES_NAME.about"/>
@@ -83,21 +83,25 @@ export default {
   },
   beforeRouteUpdate: (to, from, next) => {
     const goTo = store.$scroller.offsetHeight - store.windowHeight;
-    store.$scrollContainer.scrollTo(0, goTo);
-    store.scroll = 0;
-    next();
-    
-    // if (goTo !== store.scroll) {
-    //   scrollTo(goTo, store.$scrollContainer, () => {
-    //     next();
-    //     store.$scrollContainer.scrollTo(0, goTo);
-    //     store.scroll = 0;
-    //   });
-    // } else {
-    //   store.$scrollContainer.scrollTo(0, goTo);
-    //   store.scroll = 0;
-    //   next();
-    // }
+
+    function projectToProject(goTo, next) {
+      // close active project
+      const index = store.project + 1;
+      const $project = document.querySelector('.Project.isOpen');
+      if ($project) $project.style.display = 'none';
+
+      store.$scrollContainer.scrollTo(0, goTo);
+      store.scroll = 0;
+      next();
+    }
+
+    if (goTo !== store.scroll) {
+      scrollTo(goTo, store.$scrollContainer, () => {
+        setTimeout(() => projectToProject(goTo, next), 200);
+      });
+    } else {
+      projectToProject(goTo, next);
+    }
   },
   methods: {
     isActive(index) {
@@ -123,6 +127,7 @@ export default {
   .Index {
     min-height: 100vh;
     max-height: 100vh;
+
     &:not(.project--open) {
       overflow: hidden;
     }
@@ -141,8 +146,6 @@ export default {
       top: 0;
       z-index: 10;
       transform: translateY(-100vh);
-      margin-top: 100vh;
-      transition: margin $easing $cbezier1;
     }
 
     .ActiveTitle,
@@ -150,35 +153,43 @@ export default {
     .Galery {
       transition: transform $easing $cbezier1, opacity $easing $cbezier1;
     }
+
+    .Project {
+      margin-top: 100vh;
+      transition: margin $easing $cbezier1;
+    }
   }
 
+  // ON PROJECT OPEN
   .Index.project--open {
     max-height: fit-content;
 
-    .Index__projects {
+    .Project.isOpen {
       margin-top: 70vh;
     }
+
     .ActiveTitle {
       z-index: 15;
     }
+
+    &:not(.project--preload-next) {
+      .ActiveTitle {
+        transform: translateY(-15%);
+      }
+
+      .ActiveTitle__number {
+        transform: translateY(-10vh);
+      }
+
+      .ActiveTitle .SlidingTitle a {
+        color: $white;
+      }
+    }
   }
 
+  // Hide current picture instantly when scrolled further than cover
   .Index.project--scrolled .Galery__picture.isActiveProjectCover {
     opacity: 0;
-  }
-
-  .Index.project--open:not(.preload--next-project) {
-    .ActiveTitle {
-      transform: translateY(-15%);
-    }
-
-    .ActiveTitle__number {
-      transform: translateY(-10vh);
-    }
-
-    .ActiveTitle .SlidingTitle a {
-      color: $white;
-    }
   }
 
   .Index.grid--open .GridTitles,
