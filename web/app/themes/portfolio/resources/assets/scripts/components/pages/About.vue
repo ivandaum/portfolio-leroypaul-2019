@@ -164,7 +164,7 @@ export default {
 
     @include phone {
       overflow-y: scroll;
-      padding-top: 10rem;
+      padding: 10rem 0;
     }
 
     &__title {

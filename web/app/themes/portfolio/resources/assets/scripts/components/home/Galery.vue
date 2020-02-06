@@ -74,6 +74,10 @@ export default {
     position: relative;
     pointer-events: none;
 
+    @include phone {
+      height: 90vh; // fix native menu overlaps
+    }
+
     &__picture-container {
       width: 100%;
       height: 100%;

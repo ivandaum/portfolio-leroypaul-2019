@@ -241,7 +241,8 @@ export default {
       bottom: -1vh;
       position: absolute;
       left: 0;
-      height: 1vh;
+      height: 25vh;
+      pointer-events: none;
       width: 100%;
     }
   }
