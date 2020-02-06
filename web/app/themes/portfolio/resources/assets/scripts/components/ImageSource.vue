@@ -1,5 +1,5 @@
 <template>
-  <picture :class="{className}" :style="{paddingTop: lazy ? lastEntry.height / lastEntry.width * 100 + '%' : 0}">
+  <picture :class="{className}" :style="{transform: 'scale(' + getImgScale() +')', paddingTop: lazy ? lastEntry.height / lastEntry.width * 100 + '%' : 0}">
     <source 
       v-for="(source, i) in sources" 
       :srcset="!lazy ? source.url : false"
@@ -8,7 +8,16 @@
       :key="'image-responsive' + i"
       :type="type"
     >
-    <img :width="lastEntry.width" :height="lastEntry.height" :src="!lazy ? lastEntry.url : false" :data-src="lazy ? lastEntry.url : false" :class="{'js-lazy': lazy}" :alt="alt" v-on:load="$emit('loaded')">
+    <img 
+      :style="{transform: 'scale(' + getImgScale(true) +')'}"
+      :width="lastEntry.width" 
+      :height="lastEntry.height" 
+      :src="!lazy ? lastEntry.url : false" 
+      :data-src="lazy ? lastEntry.url : false" 
+      :class="{'js-lazy': lazy}" 
+      :alt="alt" 
+      v-on:load="$emit('loaded')"
+    />
   </picture>
 </template>
 
@@ -21,6 +30,7 @@ export default {
         sources: [],
         type: null,
         alt: null,
+        localRatio: [],
         MEDIA_QUERIES: [
           {name: 'phone-s', media: 'max-width: 360px'},
           {name: 'phone', media: 'max-width: 768px'},
@@ -34,13 +44,15 @@ export default {
     className: String,
     image: Object,
     lazy: Boolean,
-    isPreview: Boolean
+    isPreview: Boolean,
+    ratio: Array
   },
   mounted() {
     this.type = this.image.mime_type;
     this.alt = this.image.caption || this.image.description || this.image.title;
     this.sources = this.getSources();
     this.lastEntry = this.sources[this.sources.length - 1];
+    this.localRatio = this.ratio;
   },
   methods: {
     getSources() {
@@ -55,10 +67,18 @@ export default {
       });
 
       if (this.isPreview) {
-        sizes[0] = sizes[1] = sizes[2]; // fix definition on smartphones
+        sizes[0] = sizes[1] = sizes[2]; // fix preview definition on smartphones - prevent being too low
       }
 
       return sizes;
+    },
+    getImgScale(inverted) {
+      const ratio = this.ratio ? this.ratio : [1, 1];
+      if (inverted) {
+        return 1 / ratio[0] + ', ' + 1 / ratio[1];
+      } else {
+        return ratio[0] + ', ' + ratio[1];
+      }
     }
   }
 }
