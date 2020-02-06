@@ -82,7 +82,7 @@ export default {
     let observer = new IntersectionObserver(changes => {
       const [{ isIntersecting }] = changes;
       this.showNextProject(isIntersecting);
-    }, {rootMargin: '0px 0px 0px 0px', threshold: 0});
+    }, {rootMargin: '0px 0px 100% 0px', threshold: 0});
     observer.observe(this.$nextTrigger);
   },
   methods: {
