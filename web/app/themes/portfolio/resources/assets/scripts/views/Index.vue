@@ -40,6 +40,15 @@
           />
         </transition-group>
       </div>
+
+      <div class="Index__footer">
+        <!-- <transition :name="'fade'">
+          <p v-show="store.page === PAGES_NAME.home">Digital Designer</p>
+        </transition> -->
+        <transition :name="'fade'">
+          <p v-show="store.page === PAGES_NAME.home">Folio 18 - 20</p>
+        </transition>
+      </div>
   </div>
 </template>
 
@@ -148,6 +157,31 @@ export default {
       transform: translateY(-100vh);
     }
 
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      padding: 0 10rem 5rem 10rem;
+      justify-content: flex-end;
+      z-index: 30;
+      font-weight: bold;
+      width: 100%;
+      left: 0;
+      pointer-events: none;
+
+      p {
+        font-size: 1.4rem;
+        margin: 0;
+      }
+      @include tablet {
+        padding: 0 5rem 4rem 5rem;
+      }
+
+      @include phone {
+        padding: 0 2.4rem 3rem 2.4rem;
+      }
+    }
+
     .ActiveTitle,
     .ActiveTitle__number,
     .Galery {
@@ -174,11 +208,11 @@ export default {
 
     &:not(.project--preload-next) {
       .ActiveTitle {
-        transform: translateY(-15%);
+        transform: translateY(-10%);
       }
 
       .ActiveTitle__number {
-        transform: translateY(-10vh);
+        transform: translateY(-5vh);
       }
 
       .ActiveTitle .SlidingTitle a {

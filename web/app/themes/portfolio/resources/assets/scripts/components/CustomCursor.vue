@@ -36,7 +36,7 @@ export default {
   },
   mounted() {
     store.$on('projects-loaded', () => {
-      const OFFSET = 40;
+      const OFFSET = 24;
       this.x = OFFSET;
       this.y = store.windowHeight - SIZE - OFFSET;
 

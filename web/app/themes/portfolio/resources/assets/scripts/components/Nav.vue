@@ -1,11 +1,14 @@
 <template>
   <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about])}">
     <div class="Nav__logo" :class="{active: isSiteLoaded}">
-      <router-link :to="{name: 'home'}">Paul.</router-link>
+      <router-link :to="{name: 'home'}">Paul Leroy</router-link>
     </div>
     <ul class="Nav__right">
+      <transition :name="'cursor'">
+        <sup v-if="store.projects" v-show="routeIs([PAGES_NAME.home])">{{projectCount()}}</sup>
+      </transition>
       <li class="is-relative" :class="{active: routeIs([PAGES_NAME.home]) && isSiteLoaded}">
-        <router-link :to="{name: 'projects'}">All projects</router-link>
+        <router-link :to="{name: 'projects'}">All works</router-link>
       </li>
       <li class="is-relative" :class="{active: !routeIs([PAGES_NAME.about, PAGES_NAME.slug]) && isSiteLoaded}">
         <router-link :to="{name: 'about'}">About</router-link>
@@ -36,6 +39,9 @@ export default {
     });
   },
   methods: {
+    projectCount() {
+      return store.projects.length < 10 ? '0' + store.projects.length : store.projects.length;
+    },
     routeIs(routes) {
       return routes.indexOf(this.store.page) !== -1;
     }
@@ -59,7 +65,7 @@ export default {
     }
 
     @include phone {
-      padding: 2.4rem 3rem 0 3rem;
+      padding: 3rem 2.4rem 0 2.4rem;
     }
 
     a {
@@ -83,6 +89,14 @@ export default {
       &.active a {
         transform: translateY(0);
       }
+
+      // span {
+      //   display: block;
+      //   font-family: $font-regular;
+      //   font-size: 1.4rem;
+      //   text-transform: none;
+      //   letter-spacing: 0;
+      // }
     }
 
     &__right {
@@ -105,7 +119,7 @@ export default {
       pointer-events: none;
 
       &:first-of-type {
-        margin-right: 1.6rem;
+        margin-right: 2.6rem;
       }
 
       &.active {
@@ -115,6 +129,15 @@ export default {
       &.active a {
         transform: translateY(0);
       }
+    }
+
+    sup {
+      font-size: 1.4rem;
+      left: 6rem;
+      top: -1rem;
+      position: absolute;
+      display: block;
+      pointer-events: none;
     }
 
     &__close {
