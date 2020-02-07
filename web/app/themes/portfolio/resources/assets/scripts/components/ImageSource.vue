@@ -45,6 +45,7 @@ export default {
     image: Object,
     lazy: Boolean,
     isPreview: Boolean,
+    noratio: Boolean,
     ratio: Array
   },
   mounted() {
@@ -67,12 +68,14 @@ export default {
       });
 
       if (this.isPreview) {
-        sizes[0] = sizes[1] = sizes[2]; // fix preview definition on smartphones - prevent being too low
+        sizes[0] = sizes[1]; // fix preview definition on smartphones - prevent being too low
       }
 
       return sizes;
     },
     getImgScale(inverted) {
+      if (this.noratio) return false;
+
       const ratio = this.ratio ? this.ratio : [1, 1];
       if (inverted) {
         return 1 / ratio[0] + ', ' + 1 / ratio[1];

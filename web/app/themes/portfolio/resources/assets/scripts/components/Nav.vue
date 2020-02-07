@@ -1,5 +1,5 @@
 <template>
-  <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about])}">
+  <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about]) || isProjectScrolled()}">
     <div class="Nav__logo" :class="{active: isSiteLoaded}">
       <router-link :to="{name: 'home'}">Paul Leroy</router-link>
     </div>
@@ -41,6 +41,9 @@ export default {
   methods: {
     projectCount() {
       return store.projects.length < 10 ? '0' + store.projects.length : store.projects.length;
+    },
+    isProjectScrolled() {
+      return store.scroll > store.windowHeight && store.page === PAGES_NAME.slug;
     },
     routeIs(routes) {
       return routes.indexOf(this.store.page) !== -1;

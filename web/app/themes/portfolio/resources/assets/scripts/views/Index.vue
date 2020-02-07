@@ -42,9 +42,6 @@
       </div>
 
       <div class="Index__footer">
-        <!-- <transition :name="'fade'">
-          <p v-show="store.page === PAGES_NAME.home">Digital Designer</p>
-        </transition> -->
         <transition :name="'fade'">
           <p v-show="store.page === PAGES_NAME.home">Folio 18 - 20</p>
         </transition>

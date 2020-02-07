@@ -23,7 +23,7 @@
       </div>
       <div class="About__picture">
         <transition :name="'profil-picture'">
-          <ImageSource v-if="datas.picture" :image="datas.picture" v-show="showPicture && isActive || store.windowWidth <= 768 && isActive " />
+          <ImageSource v-if="datas.picture" :image="datas.picture" :noratio="true" v-show="showPicture && isActive || store.windowWidth <= 768 && isActive " />
         </transition>
       </div>
     </div>
@@ -182,6 +182,10 @@ export default {
       a {
         @include text-border($greige);
       }
+
+      .SlidingTitle {
+        pointer-events: none;
+      }
     }
 
     &__background {
@@ -311,6 +315,11 @@ export default {
       right: 10%;
       pointer-events: none;
       
+      picture {
+        display: block;
+        transform: rotate(5deg);
+      }
+
       @include phone {
         position: relative;
         top: 0;
@@ -323,11 +332,6 @@ export default {
           max-width: 100%;
           height: auto;
         }
-      }
-
-      picture {
-        transform: translateY(0) rotate(5deg);
-        display: block;
       }
     }
   }
