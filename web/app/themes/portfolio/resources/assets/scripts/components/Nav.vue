@@ -1,7 +1,7 @@
 <template>
   <nav class="Nav" :class="{'is-brown': routeIs([PAGES_NAME.about]) || isProjectScrolled()}">
     <div class="Nav__logo" :class="{active: isSiteLoaded}">
-      <router-link :to="{name: 'home'}">Paul Leroy</router-link>
+      <router-link :to="{name: 'home'}">Paul</router-link>
     </div>
     <ul class="Nav__right">
       <transition :name="'cursor'">
@@ -43,7 +43,7 @@ export default {
       return store.projects.length < 10 ? '0' + store.projects.length : store.projects.length;
     },
     isProjectScrolled() {
-      return store.scroll > store.windowHeight && store.page === PAGES_NAME.slug;
+      return store.scroll > store.windowHeight && store.page === PAGES_NAME.slug || store.projectScrolled;
     },
     routeIs(routes) {
       return routes.indexOf(this.store.page) !== -1;

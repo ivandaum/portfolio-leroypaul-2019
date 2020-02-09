@@ -301,6 +301,7 @@ export default {
 
       a {
         line-height: 24px;
+        color: $brown;
       }
 
       a::after {
