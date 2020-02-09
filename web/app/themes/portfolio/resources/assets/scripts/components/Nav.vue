@@ -43,7 +43,7 @@ export default {
       return store.projects.length < 10 ? '0' + store.projects.length : store.projects.length;
     },
     isProjectScrolled() {
-      return store.scroll > store.windowHeight && store.page === PAGES_NAME.slug || store.projectScrolled;
+      return store.scroll > store.windowHeight && store.page === PAGES_NAME.slug && !store.projectScrolled;
     },
     routeIs(routes) {
       return routes.indexOf(this.store.page) !== -1;
