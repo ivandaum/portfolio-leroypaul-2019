@@ -12,7 +12,7 @@
             <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
           </li>
           <div class="separator">
-            <li><div class="js-network-in">Do you have any question?</div></li>
+            <li class="question"><div class="js-network-in">Do you have any questions?</div></li>
             <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
           </div>
           <div class="separator">
@@ -211,7 +211,7 @@ export default {
 
     &__left,
     &__center {
-      width: 36rem;
+      width: 38rem;
       @include phone {
         width: 100%;
       }
@@ -272,6 +272,13 @@ export default {
         }
       }
 
+      .question {
+        overflow: none;
+        @include touch {
+          height: 5rem;
+        }
+      }
+
       a:after {
         transition: width .2s $cbezier1;
       }
@@ -287,12 +294,18 @@ export default {
 
     &__center {
       color: $greige;
+      @include desktop {
+        width: 64rem;
+      }
 
       p {
         margin: 0 0 10px 0;
-        font-size: 20px;
-        line-height: 34px;
-
+        font-size: 26px;
+        line-height: 40px;
+        @include touch {
+          font-size: 20px;
+          line-height: 34px;
+        }
         &:first-child {
           color: $brown;
           font-size: 24px;

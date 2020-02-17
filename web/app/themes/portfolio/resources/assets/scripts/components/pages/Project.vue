@@ -14,7 +14,7 @@
             </div>
           </div>
           <div v-if="links" class="Project__links">
-            <div v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
+            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
         <div class="Project__info--right">
