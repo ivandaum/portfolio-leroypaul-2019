@@ -198,7 +198,8 @@ export default {
     }
 
     &__info--right {
-      line-height: 2.4rem;
+      font-size: 2rem;
+      line-height: 3.4rem;
       @include desktop {
         padding-right: 40%;
       }

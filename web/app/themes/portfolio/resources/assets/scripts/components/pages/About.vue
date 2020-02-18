@@ -300,7 +300,7 @@ export default {
 
       p {
         margin: 0 0 10px 0;
-        font-size: 26px;
+        font-size: 24px;
         line-height: 40px;
         @include touch {
           font-size: 20px;
