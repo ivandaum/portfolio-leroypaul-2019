@@ -30,7 +30,7 @@
       <div class="Project__info container">
         <div class="Project__info--left">
           <div v-if="links" class="Project__links">
-            <div v-for="(link, name) in links" :key="name"><a :href="link.href">{{link.wording}}</a></div>
+            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
       </div>
@@ -201,7 +201,7 @@ export default {
       font-size: 2rem;
       line-height: 3.4rem;
       @include desktop {
-        padding-right: 40%;
+        width: 58rem;
       }
     }
 
