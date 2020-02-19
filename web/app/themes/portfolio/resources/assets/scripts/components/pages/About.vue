@@ -16,7 +16,7 @@
             <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
           </div>
           <div class="separator">
-            <li><a :href="'http://twitter.com/ivndn'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
+            <li><a :href="'http://ivandaum.fr'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
           </div>
         </ul>
         <div class="About__center is-relative" v-html="datas.description"></div>
