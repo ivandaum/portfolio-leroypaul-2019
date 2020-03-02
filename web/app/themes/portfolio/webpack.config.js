@@ -9,8 +9,8 @@ module.exports = (env, args) => {
   return {
     entry: ['./resources/assets/scripts/main.js'],
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'main.min.js'
+      path: path.resolve(__dirname, 'dist/scripts'),
+      filename: 'main.js'
     },
     module: {
       rules: [
@@ -56,7 +56,7 @@ module.exports = (env, args) => {
       ]
     },
     plugins: [
-      new ExtractTextPlugin({ filename: 'main.css' }),
+      new ExtractTextPlugin({ filename: '../styles/main.css' }),
       new VueLoaderPlugin()
     ],
     resolve: {

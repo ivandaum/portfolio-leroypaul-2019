@@ -32,8 +32,8 @@ export default {
         alt: null,
         localRatio: [],
         MEDIA_QUERIES: [
-          {name: 'phone-s', media: 'max-width: 360px'},
-          {name: 'phone', media: 'max-width: 768px'},
+          {name: 'phone', media: 'max-width: 360px'},
+          {name: 'desktop', media: 'max-width: 768px'},
           {name: 'desktop', media: 'max-width: 1000px'},
           {name: 'widescreen', media: 'max-width: 1280px'},
           {name: 'max', media: 'min-width: 1281px'},

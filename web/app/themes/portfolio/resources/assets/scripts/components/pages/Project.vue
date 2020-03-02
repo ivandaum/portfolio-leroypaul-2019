@@ -14,7 +14,7 @@
             </div>
           </div>
           <div v-if="links" class="Project__links">
-            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" :href="link.href">{{link.wording}}</a></div>
+            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" rel="noreferrer" :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
         <div class="Project__info--right">
@@ -30,7 +30,7 @@
       <div class="Project__info container">
         <div class="Project__info--left">
           <div v-if="links" class="Project__links">
-            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" :href="link.href">{{link.wording}}</a></div>
+            <div v-for="(link, name) in links" :key="name"><a v-if="link.href" rel="noreferrer" :href="link.href">{{link.wording}}</a></div>
           </div>
         </div>
       </div>

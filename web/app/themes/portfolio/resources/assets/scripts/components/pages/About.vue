@@ -9,14 +9,14 @@
       <div class="About__content is-relative">
         <ul class="About__left">
           <li v-for="(network, i) in datas.social_networks" :key="'social-network' + i">
-            <a :href="network.url" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
+            <a :href="network.url" rel="noreferrer" target="_blank" class="is-relative js-network-in">{{network.name}}</a>
           </li>
           <div class="separator">
             <li class="question"><div class="js-network-in">Do you have any questions?</div></li>
-            <li><a :href="'mailto:' + datas.email" class="is-relative js-network-in">{{datas.email}}</a></li>
+            <li><a :href="'mailto:' + datas.email" rel="noreferrer" class="is-relative js-network-in">{{datas.email}}</a></li>
           </div>
           <div class="separator">
-            <li><a :href="'http://ivandaum.fr'" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
+            <li><a :href="'http://ivandaum.fr'" rel="noreferrer" target="_blank" class="is-relative js-network-in">Code by Ivan Daum</a></li>
           </div>
         </ul>
         <div class="About__center is-relative" v-html="datas.description"></div>
