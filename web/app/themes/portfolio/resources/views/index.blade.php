@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="/app/themes/portfolio/favico.png">
     {{-- <link rel="stylesheet" id="sage/main.css-css" href="/app/themes/portfolio/dist/main.css" type="text/css" media="all"> --}}
     @php wp_head() @endphp
   </head>
